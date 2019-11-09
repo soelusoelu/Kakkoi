@@ -1,6 +1,7 @@
 #pragma once
 
 #include "SceneBase.h"
+#include "../Utility/Math.h"
 
 class Sprite;
 
@@ -13,4 +14,5 @@ public:
 
 private:
     Sprite* mSprite;
+    Vector2 mPos;
 };

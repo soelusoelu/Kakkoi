@@ -3,8 +3,6 @@
 #include "Actor.h"
 
 class PlayerMoveComponent;
-class MeshComponent;
-class SphereCollisionComponent;
 
 class PlayerActor : public Actor {
 public:
@@ -15,7 +13,5 @@ public:
 
 private:
     PlayerMoveComponent* mPlayerMove;
-    MeshComponent* mMesh;
-    SphereCollisionComponent* mSphere;
 };
 

@@ -42,10 +42,11 @@ void Sprite::update() {
     updateWorld();
 }
 
-void Sprite::draw() const {
+Sprite* Sprite::draw() const {
     auto s = new Sprite(*this);
     SpriteManager::add(s);
     s->setState(SpriteState::Once);
+    return s;
 }
 
 void Sprite::setPosition(const Vector2 & pos) {

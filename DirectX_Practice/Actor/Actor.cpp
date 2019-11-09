@@ -7,6 +7,7 @@ Actor::Actor(const char* tag) :
     mTransform(std::make_shared<TransformComponent>()),
     mComponentManager(std::make_shared<ComponentManagementOfActor>()),
     mState(ActorState::Active),
+    mWorldTransform(Matrix4::identity),
     mTag(tag) {
     ActorManager::add(this);
 }

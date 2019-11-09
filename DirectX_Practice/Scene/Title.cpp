@@ -6,12 +6,13 @@
 
 Title::Title() :
     SceneBase(),
-    mSprite(new Sprite("kiparupa_anm.png", Vector2(256.f, 256.f), 0.f)) {
+    mSprite(new Sprite("kiparupa_anm.png", Vector2(256.f, 256.f), 0.f)),
+    mPos(mSprite->getPosition()) {
     //new Sprite("press_space.png", Vector2(768.f, 128.f), 0.f);
     //mSprite->setUV(0.f, 0.f, 0.25f, 0.25f);
     mSprite->setUV(0.25f, 0.f, 0.5f, 0.25f);
     //mSprite->setUV(0.5f, 0.5f, 0.75f, 0.75f);
-    //mSprite->setScale(0.5f);
+    //mSprite->setScale(1.5f);
 }
 
 Title::~Title() = default;
@@ -21,7 +22,12 @@ void Title::updateScene() {
         next(Scene::GamePlay);
     }
 
-    //mSprite->rotate(1.f);
+    mSprite->rotate(20.f);
+    mSprite->translate(Vector2(1.5f, 1.f));
+
+    mPos.y++;
+    auto s = mSprite->draw();
+    s->setPosition(mPos);
 }
 
 void Title::drawScene() const {

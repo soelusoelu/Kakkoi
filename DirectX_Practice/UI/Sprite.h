@@ -19,7 +19,7 @@ public:
     Sprite(const Sprite& sprite);
     //SpriteManagerにて毎フレーム実行
     void update();
-    void draw() const;
+    Sprite* draw() const;
     //ピクセル単位で位置指定
     void setPosition(const Vector2& pos);
     //描画優先順位(0～1、0が手前)
