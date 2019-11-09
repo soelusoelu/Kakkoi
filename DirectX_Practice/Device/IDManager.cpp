@@ -7,22 +7,22 @@ IDManager::IDManager() {
     mTextureIDs.emplace_back(0);
 }
 
-void IDManager::push(unsigned id, IDManager::Type type) {
-    if (type == IDManager::Type::Mesh) {
+void IDManager::push(unsigned id, IDType type) {
+    if (type == IDType::Mesh) {
         mMeshIDs.emplace_front(id);
-    } else if (type == IDManager::Type::Skeleton) {
+    } else if (type == IDType::Skeleton) {
         mSkeletonIDs.emplace_front(id);
-    } else if (type == IDManager::Type::Animation) {
+    } else if (type == IDType::Animation) {
         mAnimationIDs.emplace_front(id);
-    } else if (type == IDManager::Type::Texture) {
+    } else if (type == IDType::Texture) {
         mTextureIDs.emplace_front(id);
     }
 }
 
-unsigned int IDManager::pop(IDManager::Type type) {
+unsigned int IDManager::pop(IDType type) {
     unsigned id = 0;
 
-    if (type == IDManager::Type::Mesh) {
+    if (type == IDType::Mesh) {
         if (mMeshIDs.front() != 0) {
             id = mMeshIDs.front();
             mMeshIDs.erase(mMeshIDs.begin());
@@ -30,7 +30,7 @@ unsigned int IDManager::pop(IDManager::Type type) {
             id = mMeshIDs.back();
             mMeshIDs.emplace_back(id + 1);
         }
-    } else if (type == IDManager::Type::Skeleton) {
+    } else if (type == IDType::Skeleton) {
         if (mSkeletonIDs.front() != 0) {
             id = mSkeletonIDs.front();
             mSkeletonIDs.erase(mSkeletonIDs.begin());
@@ -38,7 +38,7 @@ unsigned int IDManager::pop(IDManager::Type type) {
             id = mSkeletonIDs.back();
             mSkeletonIDs.emplace_back(id + 1);
         }
-    } else if (type == IDManager::Type::Animation) {
+    } else if (type == IDType::Animation) {
         if (mAnimationIDs.front() != 0) {
             id = mAnimationIDs.front();
             mAnimationIDs.erase(mAnimationIDs.begin());
@@ -46,7 +46,7 @@ unsigned int IDManager::pop(IDManager::Type type) {
             id = mAnimationIDs.back();
             mAnimationIDs.emplace_back(id + 1);
         }
-    } else if (type == IDManager::Type::Texture) {
+    } else if (type == IDType::Texture) {
         if (mTextureIDs.front() != 0) {
             id = mTextureIDs.front();
             mTextureIDs.erase(mTextureIDs.begin());

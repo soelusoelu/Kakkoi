@@ -50,12 +50,15 @@ public:
     //テクスチャサイズの取得(getterのみ)
     const Vector2& getSize() const;
     //状態管理
-    void setState(SpriteState state);
+    static void destroy(Sprite* sprite);
+    static void destroy(std::shared_ptr<Sprite> sprite);
     const SpriteState getState() const;
     //World行列の取得
     const Matrix4& getWorld() const;
     //テクスチャの取得
     const std::shared_ptr<Texture> getTexture() const;
+    //ワールド行列の変更フラグ
+    bool getWorldUpdateFlag() const;
     void onceToDead();
 
 private:
@@ -65,7 +68,7 @@ public:
     static bool mZSortFlag;
 
 private:
-    const Vector2 mDefaultSize;
+    const Vector2 DEFAULT_SIZE;
     Vector2 mSize;
     Vector3 mPosition;
     Quaternion mRotation;

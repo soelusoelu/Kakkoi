@@ -7,7 +7,7 @@ UI::UI() :
 
 UI::~UI() {
     for (auto&& sprite : mSprites) {
-        sprite->setState(SpriteState::Dead);
+        Sprite::destroy(sprite);
     }
 }
 

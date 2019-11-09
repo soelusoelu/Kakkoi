@@ -21,6 +21,7 @@ void SceneManager::draw() const {
 }
 
 void SceneManager::change(Scene next) {
+    mCurrentScene.reset();
     if (next == Scene::Title) {
         mCurrentScene = std::make_shared<Title>();
     } else if (next == Scene::GamePlay) {

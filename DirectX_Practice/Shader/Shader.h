@@ -26,7 +26,6 @@ public:
     ID3D11Buffer* mConstantBuffer1;
 
 private:
-    HRESULT initMeshShader();
     HRESULT initTextureShader();
 
     ID3D11VertexShader* mVertexShader;

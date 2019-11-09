@@ -12,7 +12,7 @@ Title::Title() :
     //mSprite->setUV(0.f, 0.f, 0.25f, 0.25f);
     mSprite->setUV(0.25f, 0.f, 0.5f, 0.25f);
     //mSprite->setUV(0.5f, 0.5f, 0.75f, 0.75f);
-    //mSprite->setScale(1.5f);
+    //mSprite->setScale(Vector2(2.f, 1.f));
 }
 
 Title::~Title() = default;

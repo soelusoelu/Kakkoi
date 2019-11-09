@@ -8,7 +8,6 @@ class PlayerActor;
 class Camera {
     friend class Singleton<Camera>;
 public:
-    void update(std::shared_ptr<PlayerActor> player);
     void update();
     Vector3 getPosition();
     Matrix4 getView();

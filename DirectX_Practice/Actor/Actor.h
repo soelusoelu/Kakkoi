@@ -9,7 +9,6 @@ enum class ActorState {
 };
 
 class ComponentManagementOfActor;
-class TransformComponent;
 
 class Actor {
 public:
@@ -31,19 +30,13 @@ public:
     static void destroy(std::shared_ptr<Actor> actor);
 
     //ゲッター、セッター
-    std::shared_ptr<TransformComponent> getTransform() const;
     std::shared_ptr<ComponentManagementOfActor> getComponentManager() const;
-    const Matrix4& getWorldTransform() const;
     ActorState getState() const;
     const char* getTag() const;
 
-protected:
-    std::shared_ptr<TransformComponent> mTransform;
-    std::shared_ptr<ComponentManagementOfActor> mComponentManager;
-
 private:
+    std::shared_ptr<ComponentManagementOfActor> mComponentManager;
     ActorState mState;
-    Matrix4 mWorldTransform;
     const char* mTag;
 };
 

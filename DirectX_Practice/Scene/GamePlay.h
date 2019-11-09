@@ -25,4 +25,3 @@ private:
     std::shared_ptr<ActorManager> mActorManager;
     GameState mState;
 };
-

@@ -2,7 +2,6 @@
 #include "Direct3D11.h"
 #include "Window.h"
 #include "../Main.h"
-#include "../Component/Mesh.h"
 #include "../Device/Random.h"
 #include "../Scene/GamePlay.h"
 #include "../UI/Texture.h"

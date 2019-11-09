@@ -31,16 +31,7 @@
     <ClCompile Include="Component\Component.cpp">
       <Filter>Component</Filter>
     </ClCompile>
-    <ClCompile Include="Component\MeshComponent.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
     <ClCompile Include="Component\PlayerMoveComponent.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Component\TransformComponent.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Component\Mesh.cpp">
       <Filter>Component</Filter>
     </ClCompile>
     <ClCompile Include="UI\Pause.cpp">
@@ -59,9 +50,6 @@
     <ClCompile Include="Utility\Collision.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
-    <ClCompile Include="Component\SphereCollisionComponent.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
     <ClCompile Include="Shader\Shader.cpp">
       <Filter>Shader</Filter>
     </ClCompile>
@@ -72,9 +60,6 @@
       <Filter>UI</Filter>
     </ClCompile>
     <ClCompile Include="Device\IDManager.cpp">
-      <Filter>Device</Filter>
-    </ClCompile>
-    <ClCompile Include="Device\Physics.cpp">
       <Filter>Device</Filter>
     </ClCompile>
     <ClCompile Include="Device\Random.cpp">
@@ -103,6 +88,9 @@
     </ClCompile>
     <ClCompile Include="Scene\SceneManager.cpp">
       <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\SpriteComponent.cpp">
+      <Filter>Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -136,16 +124,7 @@
     <ClInclude Include="Component\Component.h">
       <Filter>Component</Filter>
     </ClInclude>
-    <ClInclude Include="Component\MeshComponent.h">
-      <Filter>Component</Filter>
-    </ClInclude>
     <ClInclude Include="Component\PlayerMoveComponent.h">
-      <Filter>Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Component\TransformComponent.h">
-      <Filter>Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Component\Mesh.h">
       <Filter>Component</Filter>
     </ClInclude>
     <ClInclude Include="UI\Pause.h">
@@ -164,9 +143,6 @@
     <ClInclude Include="Utility\Collision.h">
       <Filter>Utility</Filter>
     </ClInclude>
-    <ClInclude Include="Component\SphereCollisionComponent.h">
-      <Filter>Component</Filter>
-    </ClInclude>
     <ClInclude Include="Shader\Shader.h">
       <Filter>Shader</Filter>
     </ClInclude>
@@ -177,9 +153,6 @@
       <Filter>UI</Filter>
     </ClInclude>
     <ClInclude Include="Device\IDManager.h">
-      <Filter>Device</Filter>
-    </ClInclude>
-    <ClInclude Include="Device\Physics.h">
       <Filter>Device</Filter>
     </ClInclude>
     <ClInclude Include="Device\Random.h">
@@ -211,6 +184,9 @@
     </ClInclude>
     <ClInclude Include="Scene\SceneManager.h">
       <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\SpriteComponent.h">
+      <Filter>Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,4 @@
 ﻿#include "UIManager.h"
-#include "SpriteManager.h"
 #include "UI.h"
 
 UIManager::UIManager() = default;

@@ -1,21 +1,24 @@
 ﻿#include "PlayerMoveComponent.h"
-#include "TransformComponent.h"
 #include "../Actor/Actor.h"
+#include "../Actor/ComponentManagementOfActor.h"
+#include "../UI/Sprite.h"
+#include "../Component/SpriteComponent.h"
 #include "../Utility/Input.h"
 
 PlayerMoveComponent::PlayerMoveComponent(Actor* owner, int updateOrder) :
     Component(owner, updateOrder),
-    mSpeed(0.3f) {
+    mSprite(nullptr),
+    mSpeed(2.f) {
+}
+
+void PlayerMoveComponent::start() {
+    mSprite = mOwner->getComponentManager()->getComponent<SpriteComponent>()->getSprite();
+    mSprite->setScale(0.25f);
 }
 
 void PlayerMoveComponent::update() {
-    int speed = Input::vertical();
-    if (!Math::nearZero(speed)) {
-        mOwner->getTransform()->translete(mOwner->getTransform()->forward() * mSpeed);
-    }
-
-    int rot = Input::horizontal();
-    if (!Math::nearZero(rot)) {
-        mOwner->getTransform()->rotate(Vector3::up, rot);
+    int vertical = Input::vertical();
+    if (!Math::nearZero(vertical)) {
+        mSprite->translate(Vector2(0.f, -vertical * mSpeed));
     }
 }

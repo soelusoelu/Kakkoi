@@ -5,7 +5,7 @@
 #include <cassert>
 
 Sprite::Sprite(const std::string& fileName, const Vector2& size, float z) :
-    mDefaultSize(size),
+    DEFAULT_SIZE(size),
     mSize(size),
     mPosition(Vector2::zero, z),
     mRotation(Quaternion::identity),
@@ -24,7 +24,7 @@ Sprite::Sprite(const std::string& fileName, const Vector2& size, float z) :
 Sprite::~Sprite() = default;
 
 Sprite::Sprite(const Sprite & sprite) :
-    mDefaultSize(mDefaultSize),
+    DEFAULT_SIZE(DEFAULT_SIZE),
     mSize(sprite.getSize()),
     mPosition(Vector3(sprite.getPosition(), sprite.getDepth())),
     mRotation(sprite.getRotation()),
@@ -45,7 +45,7 @@ void Sprite::update() {
 Sprite* Sprite::draw() const {
     auto s = new Sprite(*this);
     SpriteManager::add(s);
-    s->setState(SpriteState::Once);
+    s->mState = SpriteState::Once;
     return s;
 }
 
@@ -164,8 +164,8 @@ void Sprite::setUV(float l, float t, float r, float b) {
     mUV.w = b;
 
     //サイズ修正
-    mSize.x = mDefaultSize.x * (r - l);
-    mSize.y = mDefaultSize.y * (b - t);
+    mSize.x = DEFAULT_SIZE.x * (r - l);
+    mSize.y = DEFAULT_SIZE.y * (b - t);
 
     //ピボット修正
     mPivot = mSize / 2.f;
@@ -192,8 +192,12 @@ const Vector2& Sprite::getSize() const {
     return mSize;
 }
 
-void Sprite::setState(SpriteState state) {
-    mState = state;
+void Sprite::destroy(Sprite* sprite) {
+    sprite->mState = SpriteState::Dead;
+}
+
+void Sprite::destroy(std::shared_ptr<Sprite> sprite) {
+    sprite->mState = SpriteState::Dead;
 }
 
 const SpriteState Sprite::getState() const {
@@ -206,6 +210,10 @@ const Matrix4& Sprite::getWorld() const {
 
 const std::shared_ptr<Texture> Sprite::getTexture() const {
     return mTexture;
+}
+
+bool Sprite::getWorldUpdateFlag() const {
+    return mWorldUpdateFlag;
 }
 
 void Sprite::onceToDead() {

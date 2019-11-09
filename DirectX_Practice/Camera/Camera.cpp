@@ -1,6 +1,5 @@
 ﻿#include "Camera.h"
 #include "../Actor/PlayerActor.h"
-#include "../Component/TransformComponent.h"
 #include "../System/Game.h"
 
 Camera::Camera() :
@@ -21,22 +20,6 @@ Camera::Camera() :
 }
 
 Camera::~Camera() = default;
-
-void Camera::update(std::shared_ptr<PlayerActor> player) {
-    if (player) {
-        Vector3 eyeVec = player->getTransform()->forward();
-
-        mCameraPosition = Vector3(
-            player->getTransform()->getPosition().x + eyeVec.x * 7.f,
-            player->getTransform()->getPosition().y + 2.f,
-            player->getTransform()->getPosition().z - eyeVec.z * 5.f
-        );
-        mPlayerPosition = player->getTransform()->getPosition();
-        mLookAt = Vector3(mPlayerPosition.x, mPlayerPosition.y + 1.5f, mPlayerPosition.z + 3.f); //注視点
-    }
-
-    mView = Matrix4::createLookAt(mCameraPosition, mLookAt, mUp);
-}
 
 void Camera::update() {
     mView = Matrix4::createLookAt(mCameraPosition, mLookAt, mUp);

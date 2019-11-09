@@ -1,19 +1,5 @@
 ﻿#include "Renderer.h"
-#include "../Component/Mesh.h"
 #include "../UI/Texture.h"
-
-std::shared_ptr<Mesh> Renderer::getMesh(const std::string& fileName) {
-    std::shared_ptr<Mesh> mesh;
-    auto itr = mMeshes.find(fileName);
-    if (itr != mMeshes.end()) { //既に読み込まれている
-        mesh = itr->second;
-    } else { //初読み込み
-        mesh = std::make_shared<Mesh>();
-        mesh->init(fileName);
-        mMeshes.emplace(fileName, mesh);
-    }
-    return mesh;
-}
 
 std::shared_ptr<Shader> Renderer::getShader(ShaderType type) {
     std::shared_ptr<Shader> shader;
@@ -42,11 +28,9 @@ std::shared_ptr<Texture> Renderer::getTexture(const std::string& fileName) {
 }
 
 void Renderer::clear() {
-    mMeshes.clear();
     mShaders.clear();
     mTextures.clear();
 }
 
-std::unordered_map<std::string, std::shared_ptr<Mesh>> Renderer::mMeshes;
 std::unordered_map<ShaderType, std::shared_ptr<Shader>> Renderer::mShaders;
 std::unordered_map<std::string, std::shared_ptr<Texture>> Renderer::mTextures;

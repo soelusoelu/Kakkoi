@@ -2,19 +2,19 @@
 
 #include <list>
 
+enum class IDType {
+    Mesh,
+    Skeleton,
+    Animation,
+    Texture
+};
+
 class IDManager {
 public:
-    enum Type {
-        Mesh,
-        Skeleton,
-        Animation,
-        Texture
-    };
-
     IDManager();
     ~IDManager() {};
-    void push(unsigned id, Type type);
-    unsigned pop(Type type);
+    void push(unsigned id, IDType type);
+    unsigned pop(IDType type);
     void clear();
 
 private:

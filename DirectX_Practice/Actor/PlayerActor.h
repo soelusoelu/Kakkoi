@@ -3,6 +3,7 @@
 #include "Actor.h"
 
 class PlayerMoveComponent;
+class SpriteComponent;
 
 class PlayerActor : public Actor {
 public:
@@ -13,5 +14,6 @@ public:
 
 private:
     PlayerMoveComponent* mPlayerMove;
+    SpriteComponent* mSprite;
 };
 
