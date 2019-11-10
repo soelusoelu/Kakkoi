@@ -92,6 +92,9 @@
     <ClCompile Include="Component\SpriteComponent.cpp">
       <Filter>Component</Filter>
     </ClCompile>
+    <ClCompile Include="Device\Sound.cpp">
+      <Filter>Device</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utility\Input.h">
@@ -187,6 +190,9 @@
     </ClInclude>
     <ClInclude Include="Component\SpriteComponent.h">
       <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Device\Sound.h">
+      <Filter>Device</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

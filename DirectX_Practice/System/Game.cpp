@@ -3,6 +3,7 @@
 #include "Window.h"
 #include "../Main.h"
 #include "../Device/Random.h"
+#include "../Device/Sound.h"
 #include "../Scene/GamePlay.h"
 #include "../UI/Texture.h"
 #include "../Utility/Input.h"
@@ -20,6 +21,7 @@ Game::~Game() {
     SAFE_DELETE(mWindow);
     Texture::end();
     Input::end();
+    Sound::end();
     SingletonFinalizer::finalize();
 }
 
@@ -64,6 +66,8 @@ HRESULT Game::init() {
     MFAIL(mD3D11->init(mhWnd), L"Direct3D初期化失敗");
 
     MFAIL(Input::init(mhWnd), L"DirectInput初期化失敗");
+
+    MFAIL(Sound::init(), L"XAudio2初期化失敗");
 
     Random::init();
 
@@ -141,5 +145,12 @@ void setTextureDirectory() {
     WCHAR tmp[1024] = { 0 };
     wcsncpy_s(tmp, szRootPath, wcslen(szRootPath));
     wcscat_s(tmp, L"\\Assets/Texture");
+    SetCurrentDirectory(tmp);
+}
+
+void setSoundDirectory() {
+    WCHAR tmp[1024] = { 0 };
+    wcsncpy_s(tmp, szRootPath, wcslen(szRootPath));
+    wcscat_s(tmp, L"\\Assets/Sound");
     SetCurrentDirectory(tmp);
 }

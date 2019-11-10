@@ -89,6 +89,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -138,6 +139,7 @@
     <ClCompile Include="Device\IDManager.cpp" />
     <ClCompile Include="Device\Random.cpp" />
     <ClCompile Include="Device\Renderer.cpp" />
+    <ClCompile Include="Device\Sound.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Scene\GamePlay.cpp" />
     <ClCompile Include="Scene\SceneBase.cpp" />
@@ -171,6 +173,7 @@
     <ClInclude Include="Device\IDManager.h" />
     <ClInclude Include="Device\Random.h" />
     <ClInclude Include="Device\Renderer.h" />
+    <ClInclude Include="Device\Sound.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Scene\GamePlay.h" />
     <ClInclude Include="Scene\SceneBase.h" />

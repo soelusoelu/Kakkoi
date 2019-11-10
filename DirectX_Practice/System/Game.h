@@ -36,3 +36,4 @@ void setRootDirectory();
 void setAssetsDirectory();
 void setShaderDirectory();
 void setTextureDirectory();
+void setSoundDirectory();
