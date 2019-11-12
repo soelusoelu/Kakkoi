@@ -14,13 +14,10 @@ PlayerMoveComponent::PlayerMoveComponent(Actor* owner, int updateOrder) :
     FALL_SPEED(1.f),
     mCurrentJumpPower(0.f),
     mX(0.f),
-    mState(PlayerState::OnGround),
-    mEffect(new Sprite("effect.jpg", Vector2(400.f, 400.f), 0.4f)) {
-    mEffect->setPosition(Vector2(Game::WINDOW_WIDTH / 2, Game::WINDOW_HEIGHT / 2));
+    mState(PlayerState::OnGround) {
 }
 
 PlayerMoveComponent::~PlayerMoveComponent() {
-    Sprite::destroy(mEffect);
 }
 
 void PlayerMoveComponent::start() {
@@ -36,19 +33,19 @@ void PlayerMoveComponent::update() {
     fall();
     posClamp();
 
-    mEffect->rotate(10.f);
-    static bool is = true;
-    if (is) {
-        mEffect->setScale(mEffect->getScale().x - 0.05f, true);
-        if (mEffect->getScale().x <= 0.2f) {
-            is = false;
-        }
-    } else {
-        mEffect->setScale(mEffect->getScale().x + 0.05f, true);
-        if (mEffect->getScale().x >= 1.f) {
-            is = true;
-        }
-    }
+    //mEffect->rotate(8.f);
+    //static bool is = true;
+    //if (is) {
+    //    mEffect->setScale(mEffect->getScale().x - 0.01f, true);
+    //    if (mEffect->getScale().x <= 0.2f) {
+    //        is = false;
+    //    }
+    //} else {
+    //    mEffect->setScale(mEffect->getScale().x + 0.03f, true);
+    //    if (mEffect->getScale().x >= 0.5f) {
+    //        is = true;
+    //    }
+    //}
 }
 
 void PlayerMoveComponent::move() {
@@ -85,6 +82,7 @@ void PlayerMoveComponent::jumpUpdate() {
 }
 
 void PlayerMoveComponent::fall() {
+    //重力は常にかける
     mSprite->translate(Vector2(0.f, FALL_SPEED));
 
     auto sizeY = mSprite->getSize().y * mSprite->getScale().y;

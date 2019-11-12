@@ -3,19 +3,20 @@
 #include "Actor.h"
 
 class CircleCollisionComponent;
-class PlayerMoveComponent;
+class EnemyMoveComponent;
 class SpriteComponent;
+class PlayerActor;
 
-class PlayerActor : public Actor {
+class EnemyActor : public Actor {
 public:
-    PlayerActor(const char* tag = "Player");
-    ~PlayerActor();
+    EnemyActor(PlayerActor* player, const char* tag = "Enemy");
+    ~EnemyActor();
     virtual void updateActor() override;
     virtual void drawActor() const override;
 
 private:
     CircleCollisionComponent* mCircle;
-    PlayerMoveComponent* mPlayerMove;
+    EnemyMoveComponent* mEnemyMove;
     SpriteComponent* mSprite;
 };
 

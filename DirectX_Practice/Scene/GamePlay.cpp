@@ -1,8 +1,8 @@
 ﻿#include "GamePlay.h"
 #include "../Actor/ActorManager.h"
+#include "../Actor/EnemyActor.h"
 #include "../Actor/PlayerActor.h"
 #include "../Camera/Camera.h"
-#include "../Device/CSVReader.h"
 #include "../Device/Renderer.h"
 #include "../Device/Sound.h"
 #include "../UI/Pause.h"
@@ -14,9 +14,8 @@ GamePlay::GamePlay() :
     SceneBase(),
     mActorManager(std::make_shared<ActorManager>()),
     mState(GameState::Play) {
-    new PlayerActor();
-
-    auto csv = CSVReader::read("Stage01.csv");
+    auto p = new PlayerActor();
+    new EnemyActor(p);
 }
 
 GamePlay::~GamePlay() {

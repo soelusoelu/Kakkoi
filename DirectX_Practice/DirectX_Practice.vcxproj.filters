@@ -101,6 +101,18 @@
     <ClCompile Include="Component\CircleCollisionComponent.cpp">
       <Filter>Component</Filter>
     </ClCompile>
+    <ClCompile Include="Actor\EnemyActor.cpp">
+      <Filter>Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\EnemyMoveComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor\EnemyBullet1.cpp">
+      <Filter>Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\EnemyBullet1Component.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utility\Input.h">
@@ -204,6 +216,18 @@
       <Filter>Device</Filter>
     </ClInclude>
     <ClInclude Include="Component\CircleCollisionComponent.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor\EnemyActor.h">
+      <Filter>Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\EnemyMoveComponent.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor\EnemyBullet1.h">
+      <Filter>Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\EnemyBullet1Component.h">
       <Filter>Component</Filter>
     </ClInclude>
   </ItemGroup>

@@ -31,6 +31,4 @@ private:
     float mCurrentJumpPower;
     float mX; //ジャンプ二次関数用
     PlayerState mState;
-
-    Sprite* mEffect;
 };

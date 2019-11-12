@@ -250,9 +250,6 @@ void Sprite::centerShift(const Vector2& nextScale) {
     Vector2 PreviosSize = mSize * mScale;
     auto nextSize = mSize * nextScale;
     shift = (PreviosSize - nextSize) / 2.f;
-    //if (isbigger) {
-    //    shift *= -1;
-    //}
 
     translate(shift);
 }
