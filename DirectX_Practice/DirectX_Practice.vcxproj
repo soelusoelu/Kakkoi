@@ -133,9 +133,11 @@
     <ClCompile Include="Actor\ComponentManagementOfActor.cpp" />
     <ClCompile Include="Actor\PlayerActor.cpp" />
     <ClCompile Include="Camera\Camera.cpp" />
+    <ClCompile Include="Component\CircleCollisionComponent.cpp" />
     <ClCompile Include="Component\Component.cpp" />
     <ClCompile Include="Component\PlayerMoveComponent.cpp" />
     <ClCompile Include="Component\SpriteComponent.cpp" />
+    <ClCompile Include="Device\CSVReader.cpp" />
     <ClCompile Include="Device\IDManager.cpp" />
     <ClCompile Include="Device\Random.cpp" />
     <ClCompile Include="Device\Renderer.cpp" />
@@ -167,9 +169,11 @@
     <ClInclude Include="Actor\ComponentManagementOfActor.h" />
     <ClInclude Include="Actor\PlayerActor.h" />
     <ClInclude Include="Camera\Camera.h" />
+    <ClInclude Include="Component\CircleCollisionComponent.h" />
     <ClInclude Include="Component\Component.h" />
     <ClInclude Include="Component\PlayerMoveComponent.h" />
     <ClInclude Include="Component\SpriteComponent.h" />
+    <ClInclude Include="Device\CSVReader.h" />
     <ClInclude Include="Device\IDManager.h" />
     <ClInclude Include="Device\Random.h" />
     <ClInclude Include="Device\Renderer.h" />

@@ -32,8 +32,8 @@ public:
     const Quaternion& getRotation() const;
     void rotate(float angle);
     //倍率で拡縮
-    void setScale(const Vector2& scale);
-    void setScale(float scale);
+    void setScale(const Vector2& scale, bool isCenterShift = false);
+    void setScale(float scale, bool isCenterShift = false);
     const Vector2& getScale() const;
     //色味、たぶん0～1
     void setColor(const Vector3& color);
@@ -63,6 +63,7 @@ public:
 
 private:
     void updateWorld();
+    void centerShift(const Vector2& nextScale);
 
 public:
     static bool mZSortFlag;

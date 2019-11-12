@@ -95,6 +95,12 @@
     <ClCompile Include="Device\Sound.cpp">
       <Filter>Device</Filter>
     </ClCompile>
+    <ClCompile Include="Device\CSVReader.cpp">
+      <Filter>Device</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\CircleCollisionComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utility\Input.h">
@@ -193,6 +199,12 @@
     </ClInclude>
     <ClInclude Include="Device\Sound.h">
       <Filter>Device</Filter>
+    </ClInclude>
+    <ClInclude Include="Device\CSVReader.h">
+      <Filter>Device</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\CircleCollisionComponent.h">
+      <Filter>Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

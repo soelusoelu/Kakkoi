@@ -15,6 +15,15 @@ struct Ray {
     Vector3 mEnd;
 };
 
+struct Circle {
+    Circle();
+    Circle(const Vector2& center, float radius);
+    void set(const Vector2& center, float radius);
+
+    Vector2 mCenter;
+    float mRadius;
+};
+
 struct Sphere {
     Sphere();
     Sphere(const Vector3& center, float radius);
@@ -34,6 +43,8 @@ struct OBB {
 };
 
 //交差判定
+bool intersect(const Circle& a, const Circle& b);
+
 bool intersect(const Sphere& a, const Sphere& b);
 
 bool intersect(const Ray& r, const Sphere& s, float* outT);

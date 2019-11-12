@@ -102,7 +102,13 @@ void Sprite::rotate(float angle) {
     mWorldUpdateFlag = true;
 }
 
-void Sprite::setScale(const Vector2 & scale) {
+void Sprite::setScale(const Vector2 & scale, bool isCenterShift) {
+    bool isBigger = mScale.x < scale.x;
+
+    if (isCenterShift) {
+        centerShift(scale);
+    }
+
     mScale = scale;
 
     //ピボット修正
@@ -113,7 +119,11 @@ void Sprite::setScale(const Vector2 & scale) {
     mWorldUpdateFlag = true;
 }
 
-void Sprite::setScale(float scale) {
+void Sprite::setScale(float scale, bool isCenterShift) {
+    if (isCenterShift) {
+        centerShift(Vector2(scale, scale));
+    }
+
     mScale.x = scale;
     mScale.y = scale;
 
@@ -192,7 +202,7 @@ const Vector2& Sprite::getSize() const {
     return mSize;
 }
 
-void Sprite::destroy(Sprite* sprite) {
+void Sprite::destroy(Sprite * sprite) {
     sprite->mState = SpriteState::Dead;
 }
 
@@ -233,6 +243,18 @@ void Sprite::updateWorld() {
     mWorld *= Matrix4::createTranslation(Vector3(-mPivot, 0.f));
     mWorld *= Matrix4::createFromQuaternion(mRotation);
     mWorld *= Matrix4::createTranslation(mPosition + Vector3(mPivot, 0.f));
+}
+
+void Sprite::centerShift(const Vector2& nextScale) {
+    Vector2 shift;
+    Vector2 PreviosSize = mSize * mScale;
+    auto nextSize = mSize * nextScale;
+    shift = (PreviosSize - nextSize) / 2.f;
+    //if (isbigger) {
+    //    shift *= -1;
+    //}
+
+    translate(shift);
 }
 
 bool Sprite::mZSortFlag = false;

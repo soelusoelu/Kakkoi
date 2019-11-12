@@ -52,6 +52,14 @@ namespace Math {
         return Min(upper, Max(lower, value));
     }
 
+    template <typename T>
+    T pow(T value, int pow) {
+        for (int i = 0; i < pow; i++) {
+            value *= value;
+        }
+        return value;
+    }
+
     inline float abs(float value) {
         return fabs(value);
     }

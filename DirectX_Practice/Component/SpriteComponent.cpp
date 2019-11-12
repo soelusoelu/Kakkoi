@@ -7,7 +7,9 @@ SpriteComponent::SpriteComponent(Actor* owner, const std::string& fileName, cons
     mSprite(new Sprite(fileName, size, z)) {
 }
 
-SpriteComponent::~SpriteComponent() = default;
+SpriteComponent::~SpriteComponent() {
+    Sprite::destroy(mSprite);
+}
 
 void SpriteComponent::update() {
 }

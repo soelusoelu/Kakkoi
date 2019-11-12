@@ -2,6 +2,7 @@
 #include "../Actor/ActorManager.h"
 #include "../Actor/PlayerActor.h"
 #include "../Camera/Camera.h"
+#include "../Device/CSVReader.h"
 #include "../Device/Renderer.h"
 #include "../Device/Sound.h"
 #include "../UI/Pause.h"
@@ -14,6 +15,8 @@ GamePlay::GamePlay() :
     mActorManager(std::make_shared<ActorManager>()),
     mState(GameState::Play) {
     new PlayerActor();
+
+    auto csv = CSVReader::read("Stage01.csv");
 }
 
 GamePlay::~GamePlay() {
@@ -27,12 +30,6 @@ void GamePlay::updateScene() {
 
         if (Input::getKeyDown(KeyCode::Escape)) {
             mUIManager->add(new Pause(shared_from_this()));
-        }
-        if (Input::getKeyDown(KeyCode::Space)) {
-            Sound::play("menu.wav");
-        }
-        if (Input::getKeyDown(KeyCode::Alpha1)) {
-            Sound::play("Chorus.wav", true);
         }
     }
 }

@@ -1,6 +1,7 @@
 #include "PlayerActor.h"
 #include "../Component/PlayerMoveComponent.h"
 #include "../Component/SpriteComponent.h"
+#include "../UI/Sprite.h"
 
 PlayerActor::PlayerActor(const char* tag) :
     Actor(tag),

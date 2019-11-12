@@ -105,6 +105,23 @@ float Ray::minDistanceSquare(const Ray& s1, const Ray& s2) {
 
 
 
+Circle::Circle() :
+    mCenter(Vector2::zero),
+    mRadius(0.f) {
+}
+
+Circle::Circle(const Vector2& center, float radius) :
+    mCenter(center),
+    mRadius(radius) {
+}
+
+void Circle::set(const Vector2& center, float radius) {
+    mCenter = center;
+    mRadius = radius;
+}
+
+
+
 Sphere::Sphere() :
     mCenter(Vector3::zero),
     mRadius(0.f) {
@@ -127,6 +144,13 @@ bool Sphere::contains(const Vector3& point) const {
 }
 
 
+
+bool intersect(const Circle& a, const Circle& b) {
+    Vector2 dist = a.mCenter - b.mCenter;
+    float distSq = dist.LengthSq();
+    float sumRadius = a.mRadius + b.mRadius;
+    return distSq <= (sumRadius * sumRadius);
+}
 
 bool intersect(const Sphere& a, const Sphere& b) {
     Vector3 dist = a.mCenter - b.mCenter;

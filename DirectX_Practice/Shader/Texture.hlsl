@@ -32,6 +32,6 @@ float4 PS(VS_OUTPUT input) : SV_Target
 {
     float4 color = g_texDecal.Sample(g_samLinear, input.Tex);
     color *= gColor;
-    color.rgb = 1 - color.rgb;
+    //color.rgb = 1 - color.rgb;
     return color;
 }

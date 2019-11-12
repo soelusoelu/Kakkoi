@@ -154,3 +154,10 @@ void setSoundDirectory() {
     wcscat_s(tmp, L"\\Assets/Sound");
     SetCurrentDirectory(tmp);
 }
+
+void setDataDirectory() {
+    WCHAR tmp[1024] = { 0 };
+    wcsncpy_s(tmp, szRootPath, wcslen(szRootPath));
+    wcscat_s(tmp, L"\\Assets/Data");
+    SetCurrentDirectory(tmp);
+}
