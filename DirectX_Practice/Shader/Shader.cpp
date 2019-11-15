@@ -25,7 +25,7 @@ void Shader::init(ShaderType type) {
 }
 
 HRESULT Shader::initTextureShader() {
-    //hlslファイル読み込み ブロブ作成　ブロブとはシェーダーの塊みたいなもの。XXシェーダーとして特徴を持たない。後で各種シェーダーに成り得る。
+    //hlslファイル読み込み ブロブ作成 ブロブとはシェーダーの塊みたいなもの。XXシェーダーとして特徴を持たない。後で各種シェーダーに成り得る。
     ID3D10Blob* pCompiledShader = NULL;
     ID3D10Blob* pErrors = NULL;
     //ブロブからバーテックスシェーダー作成

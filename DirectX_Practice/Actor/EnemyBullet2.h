@@ -3,19 +3,19 @@
 #include "Actor.h"
 
 class CircleCollisionComponent;
-class EnemyBullet1Component;
+class EnemyBullet2Component;
 class Sprite;
 class SpriteComponent;
 
-class EnemyBullet1 : public Actor {
+class EnemyBullet2 : public Actor {
 public:
-    EnemyBullet1(Sprite* playerSprite, const char* tag = "EnemyBullet");
-    ~EnemyBullet1();
+    EnemyBullet2(Sprite* playerSprite, float rotation, const char* tag = "EnemyBullet");
+    ~EnemyBullet2();
     virtual void updateActor() override;
     virtual void drawActor() const override;
 
 private:
     CircleCollisionComponent* mCircle;
-    EnemyBullet1Component* mEnemyBullet;
+    EnemyBullet2Component* mEnemyBullet;
     SpriteComponent* mSprite;
 };

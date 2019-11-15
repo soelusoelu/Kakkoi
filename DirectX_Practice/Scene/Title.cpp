@@ -9,10 +9,7 @@ Title::Title() :
     mSprite(new Sprite("kiparupa_anm.png", Vector2(256.f, 256.f), 0.f)),
     mPos(mSprite->getPosition()) {
     //new Sprite("press_space.png", Vector2(768.f, 128.f), 0.f);
-    //mSprite->setUV(0.f, 0.f, 0.25f, 0.25f);
-    mSprite->setUV(0.25f, 0.f, 0.5f, 0.25f);
-    //mSprite->setUV(0.5f, 0.5f, 0.75f, 0.75f);
-    //mSprite->setScale(Vector2(2.f, 1.f));
+    mSprite->setUV(0.f, 0.f, 0.25f, 0.25f);
 }
 
 Title::~Title() = default;

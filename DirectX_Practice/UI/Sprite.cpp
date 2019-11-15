@@ -16,6 +16,7 @@ Sprite::Sprite(const std::string& fileName, const Vector2& size, float z) :
     mWorld(Matrix4::identity),
     mState(SpriteState::Active),
     mTexture(Renderer::getTexture(fileName)),
+    mFileName(fileName),
     mWorldUpdateFlag(true) {
 
     SpriteManager::add(this);
@@ -34,7 +35,8 @@ Sprite::Sprite(const Sprite & sprite) :
     mPivot(sprite.getPivot()),
     mWorld(sprite.getWorld()),
     mState(SpriteState::Active),
-    mTexture(sprite.getTexture()),
+    mTexture(sprite.texture()),
+    mFileName(sprite.fileName()),
     mWorldUpdateFlag(true) {
 }
 
@@ -61,7 +63,7 @@ void Sprite::setPrimary(float z) {
     mZSortFlag = true;
 }
 
-const Vector2& Sprite::getPosition() const {
+const Vector2 Sprite::getPosition() const {
     return Vector2(mPosition.x, mPosition.y);
 }
 
@@ -85,7 +87,7 @@ void Sprite::setRotation(float angle) {
     mWorldUpdateFlag = true;
 }
 
-const Quaternion& Sprite::getRotation() const {
+const Quaternion Sprite::getRotation() const {
     return mRotation;
 }
 
@@ -135,7 +137,7 @@ void Sprite::setScale(float scale, bool isCenterShift) {
     mWorldUpdateFlag = true;
 }
 
-const Vector2& Sprite::getScale() const {
+const Vector2 Sprite::getScale() const {
     return mScale;
 }
 
@@ -158,7 +160,7 @@ void Sprite::setAlpha(float alpha) {
     mWorldUpdateFlag = true;
 }
 
-const Vector4& Sprite::getColor() const {
+const Vector4 Sprite::getColor() const {
     return mColor;
 }
 
@@ -185,7 +187,7 @@ void Sprite::setUV(float l, float t, float r, float b) {
     mWorldUpdateFlag = true;
 }
 
-const Vector4& Sprite::getUV() const {
+const Vector4 Sprite::getUV() const {
     return mUV;
 }
 
@@ -194,11 +196,11 @@ void Sprite::setPivot(const Vector2 & pivot) {
     mWorldUpdateFlag = true;
 }
 
-const Vector2& Sprite::getPivot() const {
+const Vector2 Sprite::getPivot() const {
     return mPivot;
 }
 
-const Vector2& Sprite::getSize() const {
+const Vector2 Sprite::getSize() const {
     return mSize;
 }
 
@@ -214,12 +216,16 @@ const SpriteState Sprite::getState() const {
     return mState;
 }
 
-const Matrix4& Sprite::getWorld() const {
+const Matrix4 Sprite::getWorld() const {
     return mWorld;
 }
 
-const std::shared_ptr<Texture> Sprite::getTexture() const {
+const std::shared_ptr<Texture> Sprite::texture() const {
     return mTexture;
+}
+
+const std::string& Sprite::fileName() const {
+    return mFileName;
 }
 
 bool Sprite::getWorldUpdateFlag() const {

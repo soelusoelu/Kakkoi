@@ -14,10 +14,10 @@ public:
     ~CircleCollisionComponent();
     virtual void start() override;
     virtual void update() override;
+    std::shared_ptr<Circle> getCircle() const;
 
 private:
     std::shared_ptr<Circle> mCircle;
-    //Circle mCircle;
     Sprite* mSprite;
 };
 

@@ -3,6 +3,7 @@
 #include "../Actor/EnemyActor.h"
 #include "../Actor/PlayerActor.h"
 #include "../Camera/Camera.h"
+#include "../Device/Physics.h"
 #include "../Device/Renderer.h"
 #include "../Device/Sound.h"
 #include "../UI/Pause.h"
@@ -21,11 +22,14 @@ GamePlay::GamePlay() :
 GamePlay::~GamePlay() {
     mActorManager->clear();
     Renderer::clear();
+    Physics::clear();
 }
 
 void GamePlay::updateScene() {
     if (mState == GameState::Play) {
         mActorManager->update();
+
+        Physics::sweepAndPrune();
 
         if (Input::getKeyDown(KeyCode::Escape)) {
             mUIManager->add(new Pause(shared_from_this()));

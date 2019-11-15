@@ -80,7 +80,7 @@ void Texture::drawAll(std::list<std::shared_ptr<Sprite>>* sprites) {
             Direct3D11::mDeviceContext->Unmap(mShader->mConstantBuffer0, 0);
         }
         //テクスチャーをシェーダーに渡す
-        auto t = sprite->getTexture()->getTexture();
+        auto t = sprite->texture()->getTexture();
         Direct3D11::mDeviceContext->PSSetShaderResources(0, 1, &t);
         //プリミティブをレンダリング
         Direct3D11::mDeviceContext->Draw(4, 0);

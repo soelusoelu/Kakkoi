@@ -20,7 +20,7 @@ struct VS_OUTPUT {
 VS_OUTPUT VS(float4 Pos : POSITION, float2 Tex : TEXCOORD) {
     VS_OUTPUT output = (VS_OUTPUT)0;
     output.Pos = mul(Pos, gWP);
-    output.Tex = Tex * float2(gUV.z, gUV.w) + float2(gUV.x, gUV.y);
+    output.Tex = Tex * float2(gUV.z - gUV.x, gUV.w - gUV.y) + float2(gUV.x, gUV.y);
 
     return output;
 }

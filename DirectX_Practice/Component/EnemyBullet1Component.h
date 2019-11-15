@@ -14,10 +14,18 @@ public:
     virtual void update() override;
 
 private:
+    void move();
+    void destroy();
+
+private:
     Sprite* mSprite;
     Sprite* mPlayerSprite;
-    bool mFirst;
     Vector2 mE2P;
     const float BULLET_SPEED;
+    const float COMPLEMENT_VALUE; //ãOìπèCê≥íl
+    const float MAX_SCALE;
+    const float MIN_SCALE;
+    const float ROTATE_SPEED;
+    const float SCALING_SPEED;
 };
 

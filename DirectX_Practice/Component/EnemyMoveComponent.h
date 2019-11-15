@@ -7,6 +7,12 @@ class Actor;
 class PlayerActor;
 class Sprite;
 class EnemyBullet1;
+class EnemyBullet2;
+
+enum class BossHpState {
+    Max_HP,
+    Harf_HP
+};
 
 class EnemyMoveComponent : public Component {
 public:
@@ -15,11 +21,16 @@ public:
     virtual void start() override;
     virtual void update() override;
     void attackToPlayer();
+    void circleShot();
 
 private:
     Sprite* mMySprite;
     Sprite* mPlayerSprite;
 
     EnemyBullet1* mEnemyBullet1;
+    EnemyBullet2* mEnemyBullet2;
+    bool first;
+
+    int mHp;
 };
 

@@ -24,39 +24,41 @@ public:
     void setPosition(const Vector2& pos);
     //描画優先順位(0～1、0が手前)
     void setPrimary(float z);
-    const Vector2& getPosition() const;
+    const Vector2 getPosition() const;
     const float getDepth() const;
     void translate(const Vector2& translation);
     //回転
     void setRotation(float angle);
-    const Quaternion& getRotation() const;
+    const Quaternion getRotation() const;
     void rotate(float angle);
     //倍率で拡縮
     void setScale(const Vector2& scale, bool isCenterShift = false);
     void setScale(float scale, bool isCenterShift = false);
-    const Vector2& getScale() const;
+    const Vector2 getScale() const;
     //色味、たぶん0～1
     void setColor(const Vector3& color);
     void setColor(float r, float g, float b);
     //不透明度(0～1、1が不透明, 0が透明)
     void setAlpha(float alpha);
-    const Vector4& getColor() const;
+    const Vector4 getColor() const;
     //切り取り範囲(left, top, right, bottom, 0～1)
     void setUV(float l, float t, float r, float b);
-    const Vector4& getUV() const;
+    const Vector4 getUV() const;
     //回転ピボット位置
     void setPivot(const Vector2& pivot);
-    const Vector2& getPivot() const;
+    const Vector2 getPivot() const;
     //テクスチャサイズの取得(getterのみ)
-    const Vector2& getSize() const;
+    const Vector2 getSize() const;
     //状態管理
     static void destroy(Sprite* sprite);
     static void destroy(std::shared_ptr<Sprite> sprite);
     const SpriteState getState() const;
     //World行列の取得
-    const Matrix4& getWorld() const;
+    const Matrix4 getWorld() const;
     //テクスチャの取得
-    const std::shared_ptr<Texture> getTexture() const;
+    const std::shared_ptr<Texture> texture() const;
+    //ファイル名の取得
+    const std::string& fileName() const;
     //ワールド行列の変更フラグ
     bool getWorldUpdateFlag() const;
     void onceToDead();
@@ -80,6 +82,7 @@ private:
     Matrix4 mWorld;
     SpriteState mState;
     std::shared_ptr<Texture> mTexture;
+    std::string mFileName;
     bool mWorldUpdateFlag;
 };
 

@@ -113,6 +113,15 @@
     <ClCompile Include="Component\EnemyBullet1Component.cpp">
       <Filter>Component</Filter>
     </ClCompile>
+    <ClCompile Include="Device\Physics.cpp">
+      <Filter>Device</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor\EnemyBullet2.cpp">
+      <Filter>Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\EnemyBullet2Component.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utility\Input.h">
@@ -228,6 +237,15 @@
       <Filter>Actor</Filter>
     </ClInclude>
     <ClInclude Include="Component\EnemyBullet1Component.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Device\Physics.h">
+      <Filter>Device</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor\EnemyBullet2.h">
+      <Filter>Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\EnemyBullet2Component.h">
       <Filter>Component</Filter>
     </ClInclude>
   </ItemGroup>
