@@ -26,11 +26,5 @@ public:
 private:
     Sprite* mMySprite;
     Sprite* mPlayerSprite;
-
-    EnemyBullet1* mEnemyBullet1;
-    EnemyBullet2* mEnemyBullet2;
-    bool first;
-
-    int mHp;
 };
 

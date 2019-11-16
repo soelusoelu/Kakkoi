@@ -10,11 +10,7 @@
 EnemyMoveComponent::EnemyMoveComponent(Actor* onwer, PlayerActor* player) :
     Component(onwer),
     mMySprite(nullptr),
-    mPlayerSprite(player->getComponentManager()->getComponent<SpriteComponent>()->getSprite()),
-    mEnemyBullet1(nullptr),
-    mEnemyBullet2(nullptr),
-    first(true),
-    mHp(100) {
+    mPlayerSprite(player->getComponentManager()->getComponent<SpriteComponent>()->getSprite()) {
 }
 
 EnemyMoveComponent::~EnemyMoveComponent() = default;
@@ -30,29 +26,29 @@ void EnemyMoveComponent::update() {
 }
 
 void EnemyMoveComponent::attackToPlayer() {
-    if (mEnemyBullet1) {
+    static int time = 0;
+    time++;
+    if (time > 240) {
+        time = 0;
+    } else {
         return;
     }
-    mEnemyBullet1 = new EnemyBullet1(mPlayerSprite);
+
+    new EnemyBullet1(mPlayerSprite);
 }
 
 void EnemyMoveComponent::circleShot() {
     static int time = 0;
     time++;
     if (time > 180) {
-        first = true;
         time = 0;
-    }
-
-    if (!first) {
+    } else {
         return;
     }
-    first = false;
 
     constexpr int shotCount = 8;
     constexpr int rot = 360 / shotCount;
     for (int i = 0; i < shotCount; i++) {
-        //mEnemyBullet2 = new EnemyBullet2(mPlayerSprite, i * rot);
         new EnemyBullet2(mPlayerSprite, i * rot);
     }
 }

@@ -9,7 +9,8 @@
 CircleCollisionComponent::CircleCollisionComponent(Actor* onwer) :
     Component(onwer),
     mCircle(nullptr),
-    mSprite(nullptr) {
+    mSprite(nullptr),
+    mEnable(true) {
 }
 
 CircleCollisionComponent::~CircleCollisionComponent() {
@@ -36,4 +37,16 @@ void CircleCollisionComponent::update() {
 
 std::shared_ptr<Circle> CircleCollisionComponent::getCircle() const {
     return mCircle;
+}
+
+void CircleCollisionComponent::enabled() {
+    mEnable = true;
+}
+
+void CircleCollisionComponent::disabled() {
+    mEnable = false;
+}
+
+bool CircleCollisionComponent::getEnable() const {
+    return mEnable;
 }

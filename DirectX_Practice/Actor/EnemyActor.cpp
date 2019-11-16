@@ -9,7 +9,8 @@ EnemyActor::EnemyActor(PlayerActor* player, const char* tag) :
     Actor(tag),
     mCircle(new CircleCollisionComponent(this)),
     mEnemyMove(new EnemyMoveComponent(this, player)),
-    mSprite(new SpriteComponent(this, "cute_cat_illust_3737.png", Vector2(830.f, 800.f), 0.6f)) {
+    mSprite(new SpriteComponent(this, "cute_cat_illust_3737.png", Vector2(830.f, 800.f), 0.6f)),
+    mHp(500) {
 }
 
 EnemyActor::~EnemyActor() = default;
@@ -18,4 +19,15 @@ void EnemyActor::updateActor() {
 }
 
 void EnemyActor::drawActor() const {
+}
+
+void EnemyActor::takeDamage(Actor * other) {
+    if (other->getTag() != "PlayerAttack") {
+        return;
+    }
+
+    other->attack(&mHp);
+}
+
+void EnemyActor::attack(int* hp) {
 }

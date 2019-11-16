@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "../Utility/Math.h"
+#include <functional>
 #include <memory>
 
 enum class ActorState {
@@ -28,6 +29,10 @@ public:
     //アクター削除
     static void destroy(Actor* actor);
     static void destroy(std::shared_ptr<Actor> actor);
+
+    //HP操作
+    virtual void takeDamage(Actor* other) = 0;
+    virtual void attack(int* hp) = 0;
 
     //ゲッター、セッター
     std::shared_ptr<ComponentManagementOfActor> getComponentManager() const;

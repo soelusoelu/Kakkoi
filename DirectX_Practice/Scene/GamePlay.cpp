@@ -7,6 +7,7 @@
 #include "../Device/Renderer.h"
 #include "../Device/Sound.h"
 #include "../UI/Pause.h"
+#include "../UI/PlayerHP.h"
 #include "../UI/SpriteManager.h"
 #include "../UI/UIManager.h"
 #include "../Utility/Input.h"
@@ -17,6 +18,7 @@ GamePlay::GamePlay() :
     mState(GameState::Play) {
     auto p = new PlayerActor();
     new EnemyActor(p);
+    mUIManager->add(new PlayerHP(p));
 }
 
 GamePlay::~GamePlay() {

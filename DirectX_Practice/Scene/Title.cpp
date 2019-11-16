@@ -19,12 +19,12 @@ void Title::updateScene() {
         next(Scene::GamePlay);
     }
 
-    mSprite->rotate(20.f);
-    mSprite->translate(Vector2(1.5f, 1.f));
+    //mSprite->rotate(20.f);
+    //mSprite->translate(Vector2(1.5f, 1.f));
 
-    mPos.y++;
-    auto s = mSprite->draw();
-    s->setPosition(mPos);
+    //mPos.y++;
+    //auto s = mSprite->draw();
+    //s->setPosition(mPos);
 }
 
 void Title::drawScene() const {

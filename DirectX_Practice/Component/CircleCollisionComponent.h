@@ -15,9 +15,12 @@ public:
     virtual void start() override;
     virtual void update() override;
     std::shared_ptr<Circle> getCircle() const;
+    void enabled();
+    void disabled();
+    bool getEnable() const;
 
 private:
     std::shared_ptr<Circle> mCircle;
     Sprite* mSprite;
+    bool mEnable;
 };
-

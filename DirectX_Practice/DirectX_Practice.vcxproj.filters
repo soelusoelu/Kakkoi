@@ -122,6 +122,9 @@
     <ClCompile Include="Component\EnemyBullet2Component.cpp">
       <Filter>Component</Filter>
     </ClCompile>
+    <ClCompile Include="UI\PlayerHP.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utility\Input.h">
@@ -247,6 +250,9 @@
     </ClInclude>
     <ClInclude Include="Component\EnemyBullet2Component.h">
       <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\PlayerHP.h">
+      <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -5,7 +5,6 @@
 #include "../Component/CircleCollisionComponent.h"
 #include "../Utility/Collision.h"
 #include <algorithm>
-#include <memory>
 
 Physics::Physics() = default;
 Physics::~Physics() = default;
@@ -17,16 +16,26 @@ void Physics::sweepAndPrune() {
     });
 
     for (size_t i = 0; i < mCircles.size(); i++) {
+        auto a = mCircles[i];
+        if (!a->getEnable()) {
+            continue;
+        }
+        auto ac = a->getCircle();
         //mCircles[i]の中心+半径を取得
-        auto a = mCircles[i]->getCircle();
-        float max = a->mCenter.x + a->mRadius;
+        float max = ac->mCenter.x + ac->mRadius;
         for (size_t j = i + 1; j < mCircles.size(); j++) {
+            auto b = mCircles[j];
+            if (!b->getEnable()) {
+                continue;
+            }
+            auto bc = b->getCircle();
             //もしmCircles[j]の中心-半径が、mCircles[i]の中心+半径を超えていたら、
             //mCircles[i]と交差する可能性があるボックスは存在しない
-            auto b = mCircles[j]->getCircle();
-            if (b->mCenter.x - b->mRadius > max) {
+            if (bc->mCenter.x - bc->mRadius > max) {
                 break;
-            } else if (intersect(*a, *b)) {
+            } else if (intersect(*ac, *bc)) {
+                a->getOwner()->takeDamage(b->getOwner());
+                b->getOwner()->takeDamage(a->getOwner());
             }
         }
     }
