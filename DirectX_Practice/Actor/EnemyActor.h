@@ -4,6 +4,7 @@
 
 class CircleCollisionComponent;
 class EnemyMoveComponent;
+class HitPointComponent;
 class SpriteComponent;
 class PlayerActor;
 
@@ -13,13 +14,11 @@ public:
     ~EnemyActor();
     virtual void updateActor() override;
     virtual void drawActor() const override;
-    virtual void attack(int* hp) override;
-    const int hp() const;
 
 private:
     CircleCollisionComponent* mCircle;
     EnemyMoveComponent* mEnemyMove;
+    HitPointComponent* mHP;
     SpriteComponent* mSprite;
-    int mHp;
 };
 

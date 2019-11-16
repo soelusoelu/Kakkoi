@@ -3,6 +3,7 @@
 #include "Actor.h"
 
 class CircleCollisionComponent;
+class HitPointComponent;
 class PlayerMoveComponent;
 class SpriteComponent;
 
@@ -12,13 +13,11 @@ public:
     ~PlayerActor();
     virtual void updateActor() override;
     virtual void drawActor() const override;
-    virtual void attack(int* hp) override;
-    int hp() const;
 
 private:
     CircleCollisionComponent* mCircle;
+    HitPointComponent* mHP;
     PlayerMoveComponent* mPlayerMove;
     SpriteComponent* mSprite;
-    int mHp;
 };
 

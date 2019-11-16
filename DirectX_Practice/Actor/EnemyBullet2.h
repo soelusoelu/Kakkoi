@@ -13,11 +13,9 @@ public:
     ~EnemyBullet2();
     virtual void updateActor() override;
     virtual void drawActor() const override;
-    virtual void attack(int* hp) override;
 
 private:
     CircleCollisionComponent* mCircle;
     EnemyBullet2Component* mEnemyBullet;
     SpriteComponent* mSprite;
-    int mDamagePoint;
 };

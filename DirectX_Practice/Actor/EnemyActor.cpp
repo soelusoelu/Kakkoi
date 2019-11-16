@@ -1,15 +1,16 @@
 #include "EnemyActor.h"
 #include "PlayerActor.h"
 #include "../Component/CircleCollisionComponent.h"
+#include "../Component/HitPointComponent.h"
 #include "../Component/EnemyMoveComponent.h"
 #include "../Component/SpriteComponent.h"
 
 EnemyActor::EnemyActor(PlayerActor* player, const char* tag) :
     Actor(tag),
     mCircle(new CircleCollisionComponent(this)),
+    mHP(new HitPointComponent(this, 500)),
     mEnemyMove(new EnemyMoveComponent(this, player)),
-    mSprite(new SpriteComponent(this, "cute_cat_illust_3737.png", Vector2(830.f, 800.f), 0.6f)),
-    mHp(500) {
+    mSprite(new SpriteComponent(this, "cute_cat_illust_3737.png", Vector2(830.f, 800.f), 0.6f)) {
 }
 
 EnemyActor::~EnemyActor() = default;
@@ -21,16 +22,9 @@ void EnemyActor::updateActor() {
             return;
         }
 
-        c->getOwner()->attack(&mHp);
+        mHP->takeDamage(10);
     }
 }
 
 void EnemyActor::drawActor() const {
-}
-
-void EnemyActor::attack(int* hp) {
-}
-
-const int EnemyActor::hp() const {
-    return mHp;
 }

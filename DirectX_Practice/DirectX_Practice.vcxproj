@@ -141,6 +141,7 @@
     <ClCompile Include="Component\EnemyBullet1Component.cpp" />
     <ClCompile Include="Component\EnemyBullet2Component.cpp" />
     <ClCompile Include="Component\EnemyMoveComponent.cpp" />
+    <ClCompile Include="Component\HitPointComponent.cpp" />
     <ClCompile Include="Component\PlayerMoveComponent.cpp" />
     <ClCompile Include="Component\SpriteComponent.cpp" />
     <ClCompile Include="Device\CSVReader.cpp" />
@@ -185,6 +186,7 @@
     <ClInclude Include="Component\EnemyBullet1Component.h" />
     <ClInclude Include="Component\EnemyBullet2Component.h" />
     <ClInclude Include="Component\EnemyMoveComponent.h" />
+    <ClInclude Include="Component\HitPointComponent.h" />
     <ClInclude Include="Component\PlayerMoveComponent.h" />
     <ClInclude Include="Component\SpriteComponent.h" />
     <ClInclude Include="Device\CSVReader.h" />

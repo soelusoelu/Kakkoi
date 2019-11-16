@@ -125,6 +125,9 @@
     <ClCompile Include="UI\PlayerHP.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="Component\HitPointComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utility\Input.h">
@@ -253,6 +256,9 @@
     </ClInclude>
     <ClInclude Include="UI\PlayerHP.h">
       <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\HitPointComponent.h">
+      <Filter>Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
