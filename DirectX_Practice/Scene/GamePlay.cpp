@@ -17,8 +17,8 @@ GamePlay::GamePlay() :
     mActorManager(std::make_shared<ActorManager>()),
     mState(GameState::Play) {
     auto p = new PlayerActor();
-    new EnemyActor(p);
-    mUIManager->add(new PlayerHP(p));
+    auto e = new EnemyActor(p);
+    mUIManager->add(new PlayerHP(p, e));
 }
 
 GamePlay::~GamePlay() {

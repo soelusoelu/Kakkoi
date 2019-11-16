@@ -31,7 +31,6 @@ public:
     static void destroy(std::shared_ptr<Actor> actor);
 
     //HP操作
-    virtual void takeDamage(Actor* other) = 0;
     virtual void attack(int* hp) = 0;
 
     //ゲッター、セッター

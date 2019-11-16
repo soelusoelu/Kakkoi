@@ -20,9 +20,6 @@ void EnemyBullet2::updateActor() {
 void EnemyBullet2::drawActor() const {
 }
 
-void EnemyBullet2::takeDamage(Actor * other) {
-}
-
 void EnemyBullet2::attack(int* hp) {
     *hp -= mDamagePoint;
 }

@@ -42,7 +42,8 @@ std::shared_ptr<SoundInfo> Renderer::getSound(const std::string& fileName) {
     return soundInfo;
 }
 
-void Renderer::drawNumber(int number, Vector2 position, bool isRightAlignment) {
+//現状重い
+void Renderer::drawNumber(int number, const Vector2& position, bool isRightAlignment) {
     // マイナスの場合は0
     number = Math::Max<int>(number, 0);
 
@@ -66,7 +67,7 @@ void Renderer::drawNumber(int number, Vector2 position, bool isRightAlignment) {
         // 数字のテクスチャが数字1つにつき幅32高さ64
         // 文字と文字を引き算し、整数値を取得している
         float num = (n - '0') * widthChar;
-        num /= sprite->getSize().x;
+        num /= widthOfTexture;
         auto a = num + widthRate;
         sprite->setUV(num, 0, a, 1);
         sprite->draw();

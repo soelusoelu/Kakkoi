@@ -3,6 +3,7 @@
 #include "Component.h"
 #include "../Utility/Collision.h"
 #include "../Utility/Math.h"
+#include <list>
 #include <memory>
 
 class Actor;
@@ -18,9 +19,15 @@ public:
     void enabled();
     void disabled();
     bool getEnable() const;
+    void addHitCircle(CircleCollisionComponent* hit);
+    std::list<CircleCollisionComponent*> onCollisionEnter();
+    std::list<CircleCollisionComponent*> onCollisionStay();
+    std::list<CircleCollisionComponent*> onCollisionExit();
 
 private:
     std::shared_ptr<Circle> mCircle;
     Sprite* mSprite;
     bool mEnable;
+    std::list<CircleCollisionComponent*> mPreviousCircles;
+    std::list<CircleCollisionComponent*> mCurrentCircles;
 };

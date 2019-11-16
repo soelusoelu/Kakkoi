@@ -16,23 +16,23 @@ PlayerActor::PlayerActor(const char* tag) :
 PlayerActor::~PlayerActor() = default;
 
 void PlayerActor::updateActor() {
+    auto col = mCircle->onCollisionEnter();
+    for (auto&& c : col) {
+        if (c->getOwner()->getTag() != "EnemyBullet") {
+            continue;
+        }
+
+        c->getOwner()->attack(&mHp);
+        mHp = Math::Max(mHp, 0);
+    }
 }
 
 void PlayerActor::drawActor() const {
 }
 
-void PlayerActor::takeDamage(Actor * other) {
-    if (other->getTag() != "EnemyBullet") {
-        return;
-    }
-
-    other->attack(&mHp);
-    mHp = Math::Max(mHp, 0);
-}
-
 void PlayerActor::attack(int* hp) {
 }
 
-const int PlayerActor::hp() const {
+int PlayerActor::hp() const {
     return mHp;
 }

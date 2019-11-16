@@ -4,10 +4,11 @@
 #include "../Component/SpriteComponent.h"
 #include "../Device/Physics.h"
 #include "../UI/Sprite.h"
+#include <algorithm>
 #include <cassert>
 
 CircleCollisionComponent::CircleCollisionComponent(Actor* onwer) :
-    Component(onwer),
+    Component(onwer, 1000),
     mCircle(nullptr),
     mSprite(nullptr),
     mEnable(true) {
@@ -33,6 +34,10 @@ void CircleCollisionComponent::update() {
         mSprite->getPosition() + mSprite->getPivot(),
         mSprite->getSize().x * mSprite->getScale().x - mSprite->getPivot().x
     );
+
+    mPreviousCircles.resize(mCurrentCircles.size());
+    std::copy(mCurrentCircles.begin(), mCurrentCircles.end(), mPreviousCircles.begin());
+    mCurrentCircles.clear();
 }
 
 std::shared_ptr<Circle> CircleCollisionComponent::getCircle() const {
@@ -49,4 +54,44 @@ void CircleCollisionComponent::disabled() {
 
 bool CircleCollisionComponent::getEnable() const {
     return mEnable;
+}
+
+void CircleCollisionComponent::addHitCircle(CircleCollisionComponent* hit) {
+    mCurrentCircles.emplace_back(hit);
+}
+
+std::list<CircleCollisionComponent*> CircleCollisionComponent::onCollisionEnter() {
+    std::list<CircleCollisionComponent*> temp;
+    for (auto&& c : mCurrentCircles) {
+        auto itr = std::find(mPreviousCircles.begin(), mPreviousCircles.end(), c);
+        if (itr == mPreviousCircles.end()) {
+            temp.emplace_back(c);
+        }
+    }
+
+    return temp;
+}
+
+std::list<CircleCollisionComponent*> CircleCollisionComponent::onCollisionStay() {
+    std::list<CircleCollisionComponent*> temp;
+    for (auto&& c : mCurrentCircles) {
+        auto itr = std::find(mPreviousCircles.begin(), mPreviousCircles.end(), c);
+        if (itr != mPreviousCircles.end()) {
+            temp.emplace_back(c);
+        }
+    }
+
+    return temp;
+}
+
+std::list<CircleCollisionComponent*> CircleCollisionComponent::onCollisionExit() {
+    std::list<CircleCollisionComponent*> temp;
+    for (auto&& c : mPreviousCircles) {
+        auto itr = std::find(mCurrentCircles.begin(), mCurrentCircles.end(), c);
+        if (itr == mCurrentCircles.end()) {
+            temp.emplace_back(c);
+        }
+    }
+
+    return temp;
 }

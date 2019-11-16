@@ -15,7 +15,7 @@ public:
     static std::shared_ptr<Shader> getShader(ShaderType type);
     static std::shared_ptr<Texture> getTexture(const std::string& fileName);
     static std::shared_ptr<SoundInfo> getSound(const std::string& fileName);
-    static void drawNumber(int number, Vector2 position, bool isRightAlignment = false);
+    static void drawNumber(int number, const Vector2& position, bool isRightAlignment = false);
 
     static void clear();
 

@@ -3,7 +3,6 @@
 #include "../Component/CircleCollisionComponent.h"
 #include "../Component/EnemyMoveComponent.h"
 #include "../Component/SpriteComponent.h"
-#include <cassert>
 
 EnemyActor::EnemyActor(PlayerActor* player, const char* tag) :
     Actor(tag),
@@ -16,18 +15,22 @@ EnemyActor::EnemyActor(PlayerActor* player, const char* tag) :
 EnemyActor::~EnemyActor() = default;
 
 void EnemyActor::updateActor() {
+    auto col = mCircle->onCollisionEnter();
+    for (auto&& c : col) {
+        if (c->getOwner()->getTag() != "PlayerAttack") {
+            return;
+        }
+
+        c->getOwner()->attack(&mHp);
+    }
 }
 
 void EnemyActor::drawActor() const {
 }
 
-void EnemyActor::takeDamage(Actor * other) {
-    if (other->getTag() != "PlayerAttack") {
-        return;
-    }
-
-    other->attack(&mHp);
+void EnemyActor::attack(int* hp) {
 }
 
-void EnemyActor::attack(int* hp) {
+const int EnemyActor::hp() const {
+    return mHp;
 }

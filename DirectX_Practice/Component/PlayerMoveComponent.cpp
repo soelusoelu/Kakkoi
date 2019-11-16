@@ -32,20 +32,6 @@ void PlayerMoveComponent::update() {
     jumpUpdate();
     fall();
     posClamp();
-
-    //mEffect->rotate(8.f);
-    //static bool is = true;
-    //if (is) {
-    //    mEffect->setScale(mEffect->getScale().x - 0.01f, true);
-    //    if (mEffect->getScale().x <= 0.2f) {
-    //        is = false;
-    //    }
-    //} else {
-    //    mEffect->setScale(mEffect->getScale().x + 0.03f, true);
-    //    if (mEffect->getScale().x >= 0.5f) {
-    //        is = true;
-    //    }
-    //}
 }
 
 void PlayerMoveComponent::move() {

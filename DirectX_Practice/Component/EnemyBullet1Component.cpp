@@ -57,7 +57,7 @@ void EnemyBullet1Component::move() {
 void EnemyBullet1Component::destroy() {
     auto lengthX = Math::abs(mSprite->getPosition().x);
     auto lengthY = Math::abs(mSprite->getPosition().y);
-    if (lengthX > Game::WINDOW_WIDTH || lengthY > Game::WINDOW_HEIGHT) {
+    if (lengthX > Game::WINDOW_WIDTH + 100 || lengthY > Game::WINDOW_HEIGHT + 100) {
         Actor::destroy(mOwner);
     }
 }

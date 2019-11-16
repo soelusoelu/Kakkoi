@@ -34,8 +34,8 @@ void Physics::sweepAndPrune() {
             if (bc->mCenter.x - bc->mRadius > max) {
                 break;
             } else if (intersect(*ac, *bc)) {
-                a->getOwner()->takeDamage(b->getOwner());
-                b->getOwner()->takeDamage(a->getOwner());
+                a->addHitCircle(b);
+                b->addHitCircle(a);
             }
         }
     }
