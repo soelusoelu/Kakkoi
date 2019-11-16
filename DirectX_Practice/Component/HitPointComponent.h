@@ -4,7 +4,6 @@
 #include <memory>
 
 class Actor;
-class CircleCollisionComponent;
 
 class HitPointComponent : public Component {
 public:
@@ -19,6 +18,5 @@ public:
 private:
     int mHP;
     const int DEFAULT_HP;
-    std::weak_ptr<CircleCollisionComponent> mCircle;
 };
 

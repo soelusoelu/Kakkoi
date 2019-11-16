@@ -1,6 +1,7 @@
 ﻿#include "PlayerMoveComponent.h"
 #include "../Actor/Actor.h"
 #include "../Actor/ComponentManagementOfActor.h"
+#include "../Actor/PlayerAttack.h"
 #include "../UI/Sprite.h"
 #include "../Component/SpriteComponent.h"
 #include "../System/Game.h"
@@ -14,11 +15,14 @@ PlayerMoveComponent::PlayerMoveComponent(Actor* owner, int updateOrder) :
     FALL_SPEED(1.f),
     mCurrentJumpPower(0.f),
     mX(0.f),
-    mState(PlayerState::OnGround) {
+    mCurrentAttackTime(0),
+    NEXT_ATTACK_TIME(15),
+    mCanAttack(true),
+    mState(PlayerState::OnGround),
+    mDir(Direction::Right) {
 }
 
-PlayerMoveComponent::~PlayerMoveComponent() {
-}
+PlayerMoveComponent::~PlayerMoveComponent() = default;
 
 void PlayerMoveComponent::start() {
     mSprite = mOwner->getComponentManager()->getComponent<SpriteComponent>()->getSprite();
@@ -32,12 +36,20 @@ void PlayerMoveComponent::update() {
     jumpUpdate();
     fall();
     posClamp();
+    canAttack();
+    attack();
 }
 
 void PlayerMoveComponent::move() {
     int horizontal = Input::horizontal();
     if (!Math::nearZero(horizontal)) {
         mSprite->translate(Vector2(horizontal, 0.f) * MOVE_SPEED);
+
+        if (horizontal < 0) {
+            mDir = Direction::Left;
+        } else if (horizontal > 0) {
+            mDir = Direction::Right;
+        }
     }
 }
 
@@ -85,4 +97,33 @@ void PlayerMoveComponent::posClamp() {
     pos.y = Math::clamp<float>(pos.y, 0.f, Game::WINDOW_HEIGHT - size.y);
 
     mSprite->setPosition(pos);
+}
+
+void PlayerMoveComponent::canAttack() {
+    if (mCanAttack) {
+        return;
+    }
+
+    mCurrentAttackTime++;
+    if (mCurrentAttackTime >= NEXT_ATTACK_TIME) {
+        mCurrentAttackTime = 0;
+        mCanAttack = true;
+    }
+}
+
+void PlayerMoveComponent::attack() {
+    if (!Input::getKeyDown(KeyCode::Z)) {
+        return;
+    }
+    if (!mCanAttack) {
+        return;
+    }
+    Vector2 pos = mSprite->getPosition();
+    if (mDir == Direction::Left) {
+        pos += Vector2(-96.f, -32.f);
+    } else {
+        pos += Vector2(64.f, -32.f);
+    }
+    new PlayerAttack(pos);
+    mCanAttack = false;
 }

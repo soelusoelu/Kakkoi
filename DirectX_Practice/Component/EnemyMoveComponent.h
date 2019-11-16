@@ -20,6 +20,8 @@ public:
     ~EnemyMoveComponent();
     virtual void start() override;
     virtual void update() override;
+
+private:
     void attackToPlayer();
     void circleShot();
 

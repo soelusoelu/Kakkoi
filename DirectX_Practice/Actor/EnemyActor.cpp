@@ -1,6 +1,8 @@
 #include "EnemyActor.h"
 #include "PlayerActor.h"
+#include "ComponentManagementOfActor.h"
 #include "../Component/CircleCollisionComponent.h"
+#include "../Component/DamageComponent.h"
 #include "../Component/HitPointComponent.h"
 #include "../Component/EnemyMoveComponent.h"
 #include "../Component/SpriteComponent.h"
@@ -22,7 +24,8 @@ void EnemyActor::updateActor() {
             return;
         }
 
-        mHP->takeDamage(10);
+        auto damage = c->getOwner()->getComponentManager()->getComponent<DamageComponent>();
+        mHP->takeDamage(damage->damage());
     }
 }
 

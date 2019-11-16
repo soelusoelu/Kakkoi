@@ -26,6 +26,7 @@ void EnemyBullet2Component::start() {
 
 void EnemyBullet2Component::update() {
     mSprite->translate(mVelocity * BULLET_SPEED);
+    destroy();
 }
 
 void EnemyBullet2Component::destroy() {

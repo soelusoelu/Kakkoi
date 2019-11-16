@@ -1,5 +1,8 @@
 #include "PlayerActor.h"
+#include "../Actor/Actor.h"
+#include "../Actor/ComponentManagementOfActor.h"
 #include "../Component/CircleCollisionComponent.h"
+#include "../Component/DamageComponent.h"
 #include "../Component/HitPointComponent.h"
 #include "../Component/PlayerMoveComponent.h"
 #include "../Component/SpriteComponent.h"
@@ -22,8 +25,8 @@ void PlayerActor::updateActor() {
         if (c->getOwner()->getTag() != "EnemyBullet") {
             continue;
         }
-
-        mHP->takeDamage(10);
+        auto damage = c->getOwner()->getComponentManager()->getComponent<DamageComponent>();
+        mHP->takeDamage(damage->damage());
     }
 }
 

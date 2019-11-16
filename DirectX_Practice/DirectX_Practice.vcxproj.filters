@@ -128,6 +128,15 @@
     <ClCompile Include="Component\HitPointComponent.cpp">
       <Filter>Component</Filter>
     </ClCompile>
+    <ClCompile Include="Component\DamageComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor\PlayerAttack.cpp">
+      <Filter>Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\PlayerAttackComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utility\Input.h">
@@ -258,6 +267,15 @@
       <Filter>UI</Filter>
     </ClInclude>
     <ClInclude Include="Component\HitPointComponent.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\DamageComponent.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor\PlayerAttack.h">
+      <Filter>Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\PlayerAttackComponent.h">
       <Filter>Component</Filter>
     </ClInclude>
   </ItemGroup>

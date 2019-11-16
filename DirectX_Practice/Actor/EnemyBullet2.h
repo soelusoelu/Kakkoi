@@ -3,6 +3,7 @@
 #include "Actor.h"
 
 class CircleCollisionComponent;
+class DamageComponent;
 class EnemyBullet2Component;
 class Sprite;
 class SpriteComponent;
@@ -16,6 +17,7 @@ public:
 
 private:
     CircleCollisionComponent* mCircle;
+    DamageComponent* mDamage;
     EnemyBullet2Component* mEnemyBullet;
     SpriteComponent* mSprite;
 };

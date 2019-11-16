@@ -17,7 +17,7 @@ EnemyMoveComponent::~EnemyMoveComponent() = default;
 
 void EnemyMoveComponent::start() {
     mMySprite = mOwner->getComponentManager()->getComponent<SpriteComponent>()->getSprite();
-    mMySprite->setScale(0.25f);
+    mMySprite->setScale(0.05f);
 }
 
 void EnemyMoveComponent::update() {

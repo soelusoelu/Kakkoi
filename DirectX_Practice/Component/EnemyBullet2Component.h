@@ -12,6 +12,8 @@ public:
     ~EnemyBullet2Component();
     virtual void start() override;
     virtual void update() override;
+
+private:
     void destroy();
 
 private:

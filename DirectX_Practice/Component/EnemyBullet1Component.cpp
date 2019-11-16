@@ -11,7 +11,6 @@ EnemyBullet1Component::EnemyBullet1Component(Actor* onwer, Sprite* playerSprite)
     mPlayerSprite(playerSprite),
     mE2P(Vector2::zero),
     BULLET_SPEED(4.f),
-    COMPLEMENT_VALUE(0.2f),
     MAX_SCALE(0.5f),
     MIN_SCALE(0.2f),
     ROTATE_SPEED(8.f),
@@ -24,9 +23,7 @@ void EnemyBullet1Component::start() {
     mSprite = mOwner->getComponentManager()->getComponent<SpriteComponent>()->getSprite();
     mSprite->setScale(MAX_SCALE);
 
-    auto p = mPlayerSprite->getPosition();
-    auto e = mSprite->getPosition();
-    mE2P = p - e;
+    mE2P = mPlayerSprite->getPosition() - mSprite->getPosition();
     mE2P.Normalize();
 }
 
