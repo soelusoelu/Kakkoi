@@ -3,7 +3,7 @@
 #include "../Utility/IManager.h"
 #include "../Utility/Singleton.h"
 #include <memory>
-#include <unordered_set>
+#include <list>
 
 class Actor;
 class PlayerActor;
@@ -26,8 +26,8 @@ private:
     ActorManager& operator=(const ActorManager&) = delete;
 
 private:
-    static std::unordered_set<std::shared_ptr<Actor>> mActors;
-    static std::unordered_set<std::shared_ptr<Actor>> mPendingActors;
+    static std::list<std::shared_ptr<Actor>> mActors;
+    static std::list<std::shared_ptr<Actor>> mPendingActors;
     static bool mUpdatingActors;
 };
 

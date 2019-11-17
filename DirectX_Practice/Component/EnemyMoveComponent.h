@@ -4,10 +4,11 @@
 #include <memory>
 
 class Actor;
-class PlayerActor;
-class Sprite;
 class EnemyBullet1;
 class EnemyBullet2;
+class PlayerActor;
+class Sprite;
+class Time;
 
 enum class BossHpState {
     Max_HP,
@@ -28,5 +29,7 @@ private:
 private:
     Sprite* mMySprite;
     Sprite* mPlayerSprite;
+    std::unique_ptr<Time> mATPTimer;
+    std::unique_ptr<Time> mCircleTimer;
 };
 

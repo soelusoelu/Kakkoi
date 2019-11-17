@@ -24,7 +24,8 @@ void CircleCollisionComponent::start() {
 
     mCircle = std::make_shared<Circle>(
         mSprite->getPosition() + mSprite->getPivot(),
-        mSprite->getSize().x * mSprite->getScale().x - mSprite->getPivot().x);
+        mSprite->getSize().x * mSprite->getScale().x - mSprite->getPivot().x
+        );
 
     Physics::add(this);
 }

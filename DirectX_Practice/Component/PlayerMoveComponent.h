@@ -1,19 +1,21 @@
 ﻿#pragma once
 
 #include "Component.h"
-
-class Actor;
-class Sprite;
+#include <memory>
 
 enum class PlayerState {
     OnGround,
-    JumpNow
+    Jump
 };
 
 enum class Direction {
     Right,
     Left
 };
+
+class Actor;
+class Sprite;
+class Time;
 
 class PlayerMoveComponent : public Component {
 public:
@@ -27,6 +29,7 @@ private:
     void jump();
     void jumpUpdate();
     void fall();
+    void avoidance();
     void posClamp();
     void canAttack();
     void attack();
@@ -37,8 +40,8 @@ private:
     const float FALL_SPEED;
     float mCurrentJumpPower;
     float mX; //ジャンプ二次関数用
-    int mCurrentAttackTime;
-    const int NEXT_ATTACK_TIME;
+    const int AVOIDANCE_LENGTH;
+    std::unique_ptr<Time> mAttackTimer;
     bool mCanAttack;
     PlayerState mState;
     Direction mDir;

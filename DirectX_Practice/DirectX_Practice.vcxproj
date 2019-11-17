@@ -130,6 +130,7 @@
   <ItemGroup>
     <ClCompile Include="Actor\Actor.cpp" />
     <ClCompile Include="Actor\ActorManager.cpp" />
+    <ClCompile Include="Actor\AvoidancePlayerActor.cpp" />
     <ClCompile Include="Actor\ComponentManagementOfActor.cpp" />
     <ClCompile Include="Actor\EnemyActor.cpp" />
     <ClCompile Include="Actor\EnemyBullet1.cpp" />
@@ -153,6 +154,7 @@
     <ClCompile Include="Device\Random.cpp" />
     <ClCompile Include="Device\Renderer.cpp" />
     <ClCompile Include="Device\Sound.cpp" />
+    <ClCompile Include="Device\Time.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Scene\GamePlay.cpp" />
     <ClCompile Include="Scene\SceneBase.cpp" />
@@ -178,6 +180,7 @@
   <ItemGroup>
     <ClInclude Include="Actor\Actor.h" />
     <ClInclude Include="Actor\ActorManager.h" />
+    <ClInclude Include="Actor\AvoidancePlayerActor.h" />
     <ClInclude Include="Actor\ComponentManagementOfActor.h" />
     <ClInclude Include="Actor\EnemyActor.h" />
     <ClInclude Include="Actor\EnemyBullet1.h" />
@@ -201,6 +204,7 @@
     <ClInclude Include="Device\Random.h" />
     <ClInclude Include="Device\Renderer.h" />
     <ClInclude Include="Device\Sound.h" />
+    <ClInclude Include="Device\Time.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Scene\GamePlay.h" />
     <ClInclude Include="Scene\SceneBase.h" />

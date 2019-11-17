@@ -1,7 +1,9 @@
 ﻿#include "PlayerMoveComponent.h"
 #include "../Actor/Actor.h"
+#include "../Actor/AvoidancePlayerActor.h"
 #include "../Actor/ComponentManagementOfActor.h"
 #include "../Actor/PlayerAttack.h"
+#include "../Device/Time.h"
 #include "../UI/Sprite.h"
 #include "../Component/SpriteComponent.h"
 #include "../System/Game.h"
@@ -15,8 +17,8 @@ PlayerMoveComponent::PlayerMoveComponent(Actor* owner, int updateOrder) :
     FALL_SPEED(1.f),
     mCurrentJumpPower(0.f),
     mX(0.f),
-    mCurrentAttackTime(0),
-    NEXT_ATTACK_TIME(15),
+    AVOIDANCE_LENGTH(150),
+    mAttackTimer(std::make_unique<Time>(0.25f)),
     mCanAttack(true),
     mState(PlayerState::OnGround),
     mDir(Direction::Right) {
@@ -35,6 +37,7 @@ void PlayerMoveComponent::update() {
     jump();
     jumpUpdate();
     fall();
+    avoidance();
     posClamp();
     canAttack();
     attack();
@@ -62,13 +65,13 @@ void PlayerMoveComponent::jump() {
     }
 
     //スペースを押していて、地面に立っていたら↓
-    mState = PlayerState::JumpNow;
+    mState = PlayerState::Jump;
     mCurrentJumpPower = 0.f;
     mX = 0.f;
 }
 
 void PlayerMoveComponent::jumpUpdate() {
-    if (mState != PlayerState::JumpNow) { //ジャンプ中以外無視
+    if (mState != PlayerState::Jump) { //ジャンプ中以外無視
         return;
     }
 
@@ -90,6 +93,23 @@ void PlayerMoveComponent::fall() {
     }
 }
 
+void PlayerMoveComponent::avoidance() {
+    if (!Input::getKeyDown(KeyCode::X)) {
+        return;
+    }
+
+    auto pos = mSprite->getPosition();
+    auto l = mDir == Direction::Left ? -AVOIDANCE_LENGTH : AVOIDANCE_LENGTH;
+    mSprite->translate(Vector2(l, 0.f));
+
+    if (l < 0) {
+        pos.x -= AVOIDANCE_LENGTH / 2.f;
+    }
+    auto scale = mSprite->getScale();
+    scale.x = AVOIDANCE_LENGTH / mSprite->getSize().x;
+    new AvoidancePlayerActor(pos, mSprite->fileName(), mSprite->getSize(), scale);
+}
+
 void PlayerMoveComponent::posClamp() {
     auto pos = mSprite->getPosition();
     auto size = mSprite->getSize() * mSprite->getScale();
@@ -104,9 +124,9 @@ void PlayerMoveComponent::canAttack() {
         return;
     }
 
-    mCurrentAttackTime++;
-    if (mCurrentAttackTime >= NEXT_ATTACK_TIME) {
-        mCurrentAttackTime = 0;
+    mAttackTimer->update();
+    if (mAttackTimer->isTime()) {
+        mAttackTimer->reset();
         mCanAttack = true;
     }
 }

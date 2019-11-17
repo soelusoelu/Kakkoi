@@ -1,6 +1,8 @@
 ﻿#include "ActorManager.h"
 #include "Actor.h"
 #include "PlayerActor.h"
+#include <algorithm>
+#include <iterator>
 
 ActorManager::ActorManager() = default;
 
@@ -14,9 +16,7 @@ void ActorManager::update() {
     mUpdatingActors = false;
 
 
-    for (auto&& pending : mPendingActors) {
-        mActors.emplace(pending);
-    }
+    std::copy(mPendingActors.begin(), mPendingActors.end(), std::back_inserter(mActors));
     mPendingActors.clear();
 
     remove();
@@ -30,9 +30,9 @@ void ActorManager::draw() const {
 
 void ActorManager::add(Actor* add) {
     if (mUpdatingActors) {
-        mPendingActors.emplace(add);
+        mPendingActors.emplace_back(add);
     } else {
-        mActors.emplace(add);
+        mActors.emplace_back(add);
     }
 }
 
@@ -64,6 +64,6 @@ std::shared_ptr<PlayerActor> ActorManager::getPlayer() const {
     return p;
 }
 
-std::unordered_set<std::shared_ptr<Actor>> ActorManager::mActors;
-std::unordered_set<std::shared_ptr<Actor>> ActorManager::mPendingActors;
+std::list<std::shared_ptr<Actor>> ActorManager::mActors;
+std::list<std::shared_ptr<Actor>> ActorManager::mPendingActors;
 bool ActorManager::mUpdatingActors = false;
