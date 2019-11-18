@@ -29,7 +29,7 @@ PlayerMoveComponent::~PlayerMoveComponent() = default;
 void PlayerMoveComponent::start() {
     mSprite = mOwner->getComponentManager()->getComponent<SpriteComponent>()->getSprite();
     mSprite->setScale(0.1f);
-    mSprite->setPosition(Vector2(Game::WINDOW_WIDTH / 2.f, Game::WINDOW_HEIGHT - (mSprite->getSize().y * mSprite->getScale().y)));
+    mSprite->setPosition(Vector2(Game::WINDOW_WIDTH / 2.f, Game::WINDOW_HEIGHT - (mSprite->getTextureSize().y * mSprite->getScale().y)));
 }
 
 void PlayerMoveComponent::update() {
@@ -48,11 +48,7 @@ void PlayerMoveComponent::move() {
     if (!Math::nearZero(horizontal)) {
         mSprite->translate(Vector2(horizontal, 0.f) * MOVE_SPEED);
 
-        if (horizontal < 0) {
-            mDir = Direction::Left;
-        } else if (horizontal > 0) {
-            mDir = Direction::Right;
-        }
+        mDir = horizontal < 0 ? Direction::Left : Direction::Right;
     }
 }
 
@@ -86,7 +82,7 @@ void PlayerMoveComponent::fall() {
     //重力は常にかける
     mSprite->translate(Vector2(0.f, FALL_SPEED));
 
-    auto sizeY = mSprite->getSize().y * mSprite->getScale().y;
+    auto sizeY = mSprite->getScreenTextureSize().y;
     auto posY = mSprite->getPosition().y;
     if (posY + sizeY + 5.f > Game::WINDOW_HEIGHT) { //無理やり
         mState = PlayerState::OnGround;
@@ -103,16 +99,16 @@ void PlayerMoveComponent::avoidance() {
     mSprite->translate(Vector2(l, 0.f));
 
     if (l < 0) {
-        pos.x -= AVOIDANCE_LENGTH / 2.f;
+        pos.x -= AVOIDANCE_LENGTH - mSprite->getScreenTextureSize().x;
     }
     auto scale = mSprite->getScale();
-    scale.x = AVOIDANCE_LENGTH / mSprite->getSize().x;
-    new AvoidancePlayerActor(pos, mSprite->fileName(), mSprite->getSize(), scale);
+    scale.x = AVOIDANCE_LENGTH / mSprite->getTextureSize().x;
+    new AvoidancePlayerActor(pos, mSprite->fileName(), mSprite->getTextureSize(), scale);
 }
 
 void PlayerMoveComponent::posClamp() {
     auto pos = mSprite->getPosition();
-    auto size = mSprite->getSize() * mSprite->getScale();
+    auto size = mSprite->getScreenTextureSize();
     pos.x = Math::clamp<float>(pos.x, 0.f, Game::WINDOW_WIDTH - size.x);
     pos.y = Math::clamp<float>(pos.y, 0.f, Game::WINDOW_HEIGHT - size.y);
 

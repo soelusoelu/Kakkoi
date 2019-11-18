@@ -26,5 +26,6 @@ private:
     const float MIN_SCALE;
     const float ROTATE_SPEED;
     const float SCALING_SPEED;
+    int mScaleCounter;
 };
 

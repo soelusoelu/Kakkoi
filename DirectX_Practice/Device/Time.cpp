@@ -2,7 +2,7 @@
 
 Time::Time(float sec) :
     mCurrentTime(0),
-    mLimitTime(sec * 60.f),
+    mLimitTime(sec * 60.f + 0.5f),
     mIsOverLimit(false) {
 }
 

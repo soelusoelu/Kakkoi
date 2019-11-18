@@ -48,7 +48,9 @@ public:
     void setPivot(const Vector2& pivot);
     const Vector2 getPivot() const;
     //テクスチャサイズの取得(getterのみ)
-    const Vector2 getSize() const;
+    const Vector2 getTextureSize() const;
+    //スクリーン表示上のサイズの取得
+    const Vector2 getScreenTextureSize() const;
     //状態管理
     static void destroy(Sprite* sprite);
     static void destroy(std::shared_ptr<Sprite> sprite);
@@ -72,7 +74,7 @@ public:
 
 private:
     const Vector2 DEFAULT_SIZE;
-    Vector2 mSize;
+    Vector2 mCurrentSize;
     Vector3 mPosition;
     Quaternion mRotation;
     Vector2 mScale;

@@ -1,8 +1,10 @@
 #pragma once
 
 #include "Component.h"
+#include <memory>
 
 class Actor;
+class Time;
 
 class PlayerAttackComponent : public Component {
 public:
@@ -11,7 +13,6 @@ public:
     virtual void update() override;
 
 private:
-    int mCurrentTime;
-    int DESTROY_TIME;
+    std::unique_ptr<Time> mTimer;
 };
 

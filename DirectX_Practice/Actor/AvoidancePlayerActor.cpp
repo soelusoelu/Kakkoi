@@ -11,7 +11,7 @@ AvoidancePlayerActor::AvoidancePlayerActor(const Vector2& position, const std::s
     mDestroyTimer(std::make_unique<Time>(0.25f)) {
     auto s = mSprite->getSprite();
     //s->setAlpha(0.5f);
-    s->setScale(scale, true);
+    s->setScale(scale);
     s->setPosition(position);
 }
 

@@ -14,14 +14,14 @@ EnemyBullet1Component::EnemyBullet1Component(Actor* onwer, Sprite* playerSprite)
     MAX_SCALE(0.5f),
     MIN_SCALE(0.2f),
     ROTATE_SPEED(8.f),
-    SCALING_SPEED(0.03f) {
+    SCALING_SPEED(0.03f),
+    mScaleCounter(0) {
 }
 
 EnemyBullet1Component::~EnemyBullet1Component() = default;
 
 void EnemyBullet1Component::start() {
     mSprite = mOwner->getComponentManager()->getComponent<SpriteComponent>()->getSprite();
-    mSprite->setScale(MAX_SCALE);
 
     mE2P = mPlayerSprite->getPosition() - mSprite->getPosition();
     mE2P.Normalize();
@@ -37,17 +37,10 @@ void EnemyBullet1Component::move() {
 
     mSprite->rotate(ROTATE_SPEED);
 
-    static bool is = true;
-    if (is) {
-        mSprite->setScale(mSprite->getScale().x - SCALING_SPEED, true);
-        if (mSprite->getScale().x <= MIN_SCALE) {
-            is = false;
-        }
-    } else {
-        mSprite->setScale(mSprite->getScale().x + SCALING_SPEED, true);
-        if (mSprite->getScale().x >= MAX_SCALE) {
-            is = true;
-        }
+    mScaleCounter += SCALING_SPEED * 100;
+    mSprite->setScale(Math::sin(mScaleCounter * Math::deg2Rad) * MAX_SCALE, true);
+    if (mScaleCounter >= 180 - MIN_SCALE * 100) {
+        mScaleCounter = MIN_SCALE * 100;
     }
 }
 

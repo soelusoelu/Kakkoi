@@ -6,13 +6,13 @@
 
 Sprite::Sprite(const std::string& fileName, const Vector2& size, float z) :
     DEFAULT_SIZE(size),
-    mSize(size),
+    mCurrentSize(size),
     mPosition(Vector2::zero, z),
     mRotation(Quaternion::identity),
     mScale(Vector2::one),
     mColor(ColorPalette::white, 1.f),
     mUV(0.f, 0.f, 1.f, 1.f),
-    mPivot(mSize / 2.f),
+    mPivot(mCurrentSize / 2.f),
     mWorld(Matrix4::identity),
     mState(SpriteState::Active),
     mTexture(Renderer::getTexture(fileName)),
@@ -25,8 +25,8 @@ Sprite::Sprite(const std::string& fileName, const Vector2& size, float z) :
 Sprite::~Sprite() = default;
 
 Sprite::Sprite(const Sprite & sprite) :
-    DEFAULT_SIZE(DEFAULT_SIZE),
-    mSize(sprite.getSize()),
+    DEFAULT_SIZE(sprite.DEFAULT_SIZE),
+    mCurrentSize(sprite.mCurrentSize),
     mPosition(Vector3(sprite.getPosition(), sprite.getDepth())),
     mRotation(sprite.getRotation()),
     mScale(sprite.getScale()),
@@ -114,7 +114,7 @@ void Sprite::setScale(const Vector2 & scale, bool isCenterShift) {
     mScale = scale;
 
     //ピボット修正
-    mPivot = mSize / 2.f;
+    mPivot = mCurrentSize / 2.f;
     mPivot.x *= mScale.x;
     mPivot.y *= mScale.y;
 
@@ -130,7 +130,7 @@ void Sprite::setScale(float scale, bool isCenterShift) {
     mScale.y = scale;
 
     //ピボット修正
-    mPivot = mSize / 2.f;
+    mPivot = mCurrentSize / 2.f;
     mPivot.x *= mScale.x;
     mPivot.y *= mScale.y;
 
@@ -176,11 +176,11 @@ void Sprite::setUV(float l, float t, float r, float b) {
     mUV.w = b;
 
     //サイズ修正
-    mSize.x = DEFAULT_SIZE.x * (r - l);
-    mSize.y = DEFAULT_SIZE.y * (b - t);
+    mCurrentSize.x = DEFAULT_SIZE.x * (r - l);
+    mCurrentSize.y = DEFAULT_SIZE.y * (b - t);
 
     //ピボット修正
-    mPivot = mSize / 2.f;
+    mPivot = mCurrentSize / 2.f;
     mPivot.x *= mScale.x;
     mPivot.y *= mScale.y;
 
@@ -200,8 +200,12 @@ const Vector2 Sprite::getPivot() const {
     return mPivot;
 }
 
-const Vector2 Sprite::getSize() const {
-    return mSize;
+const Vector2 Sprite::getTextureSize() const {
+    return DEFAULT_SIZE;
+}
+
+const Vector2 Sprite::getScreenTextureSize() const {
+    return mCurrentSize * mScale;
 }
 
 void Sprite::destroy(Sprite * sprite) {
@@ -245,17 +249,17 @@ void Sprite::updateWorld() {
     }
     mWorldUpdateFlag = false;
 
-    mWorld = Matrix4::createScale(mSize.x * mScale.x, mSize.y * mScale.y, 1.f);
+    //mWorld = Matrix4::createScale(mCurrentSize.x * mScale.x, mCurrentSize.y * mScale.y, 1.f);
+    mWorld = Matrix4::createScale(Vector3(getScreenTextureSize(), 1.f));
     mWorld *= Matrix4::createTranslation(Vector3(-mPivot, 0.f));
     mWorld *= Matrix4::createFromQuaternion(mRotation);
     mWorld *= Matrix4::createTranslation(mPosition + Vector3(mPivot, 0.f));
 }
 
 void Sprite::centerShift(const Vector2& nextScale) {
-    Vector2 shift;
-    Vector2 PreviosSize = mSize * mScale;
-    auto nextSize = mSize * nextScale;
-    shift = (PreviosSize - nextSize) / 2.f;
+    auto PreviosSize = getScreenTextureSize();
+    auto nextSize = mCurrentSize * nextScale;
+    auto shift = (PreviosSize - nextSize) / 2.f;
 
     translate(shift);
 }

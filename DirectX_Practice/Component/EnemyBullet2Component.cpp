@@ -21,7 +21,7 @@ EnemyBullet2Component::~EnemyBullet2Component() = default;
 
 void EnemyBullet2Component::start() {
     mSprite = mOwner->getComponentManager()->getComponent<SpriteComponent>()->getSprite();
-    mSprite->setScale(0.1f, true);
+    mSprite->setScale(0.1f);
 }
 
 void EnemyBullet2Component::update() {
