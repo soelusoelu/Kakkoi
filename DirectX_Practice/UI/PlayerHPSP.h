@@ -6,15 +6,18 @@
 class PlayerActor;
 class EnemyActor;
 class HitPointComponent;
+class SPComponent;
 
-class PlayerHP : public UI {
+class PlayerHPSP : public UI {
 public:
-    PlayerHP(PlayerActor* player, EnemyActor* enemy);
-    ~PlayerHP();
+    PlayerHPSP(PlayerActor* player, EnemyActor* enemy);
+    ~PlayerHPSP();
     virtual void update() override;
 
 private:
     std::weak_ptr<HitPointComponent> mPlayerHP;
+    std::weak_ptr<SPComponent> mPlayerSP;
     std::weak_ptr<HitPointComponent> mEnemyHP;
-    int mPreviousHp;
+    int mPreviousHP;
+    int mPreviousSP;
 };

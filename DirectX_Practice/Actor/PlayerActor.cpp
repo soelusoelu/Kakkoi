@@ -6,6 +6,7 @@
 #include "../Component/DamageComponent.h"
 #include "../Component/HitPointComponent.h"
 #include "../Component/PlayerMoveComponent.h"
+#include "../Component/SPComponent.h"
 #include "../Component/SpriteComponent.h"
 #include "../UI/Sprite.h"
 #include "../Utility/Math.h"
@@ -15,6 +16,7 @@ PlayerActor::PlayerActor(const char* tag) :
     mCircle(new CircleCollisionComponent(this)),
     mHP(new HitPointComponent(this, 100)),
     mPlayerMove(new PlayerMoveComponent(this)),
+    mSP(new SPComponent(this, 100)),
     mSprite(new SpriteComponent(this, "kuppa.png", Vector2(548.f, 599.f), 0.5f)) {
 }
 

@@ -3,9 +3,10 @@
 #include "../Actor/AvoidancePlayerActor.h"
 #include "../Actor/ComponentManagementOfActor.h"
 #include "../Actor/PlayerAttack.h"
+#include "../Component/CircleCollisionComponent.h"
 #include "../Component/DamageComponent.h"
 #include "../Component/HitPointComponent.h"
-#include "../Component/CircleCollisionComponent.h"
+#include "../Component/SPComponent.h"
 #include "../Device/Time.h"
 #include "../UI/Sprite.h"
 #include "../Component/SpriteComponent.h"
@@ -18,6 +19,7 @@ PlayerMoveComponent::PlayerMoveComponent(Actor* owner, int updateOrder) :
     mSprite(nullptr),
     mCircle(nullptr),
     mHP(nullptr),
+    mSP(nullptr),
     MOVE_SPEED(2.f),
     FALL_SPEED(1.f),
     mCurrentJumpPower(0.f),
@@ -38,6 +40,8 @@ void PlayerMoveComponent::start() {
 
     mCircle = mOwner->getComponentManager()->getComponent<CircleCollisionComponent>();
     mHP = mOwner->getComponentManager()->getComponent<HitPointComponent>();
+    mSP = mOwner->getComponentManager()->getComponent<SPComponent>();
+    mSP->set(0);
 }
 
 void PlayerMoveComponent::update() {

@@ -5,6 +5,7 @@
 #include "../Component/DamageComponent.h"
 #include "../Component/HitPointComponent.h"
 #include "../Component/EnemyMoveComponent.h"
+#include "../Component/SPComponent.h"
 #include "../Component/SpriteComponent.h"
 
 EnemyActor::EnemyActor(PlayerActor* player, const char* tag) :
@@ -18,15 +19,6 @@ EnemyActor::EnemyActor(PlayerActor* player, const char* tag) :
 EnemyActor::~EnemyActor() = default;
 
 void EnemyActor::updateActor() {
-    auto col = mCircle->onCollisionEnter();
-    for (auto&& c : col) {
-        if (c->getOwner()->getTag() != "PlayerAttack") {
-            return;
-        }
-
-        auto damage = c->getOwner()->getComponentManager()->getComponent<DamageComponent>();
-        mHP->takeDamage(damage->damage());
-    }
 }
 
 void EnemyActor::drawActor() const {

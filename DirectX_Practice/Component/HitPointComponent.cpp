@@ -6,13 +6,10 @@
 HitPointComponent::HitPointComponent(Actor* onwer, int hp) :
     Component(onwer),
     mHP(hp),
-    DEFAULT_HP(hp) {
+    MAX_HP(hp) {
 }
 
 HitPointComponent::~HitPointComponent() = default;
-
-void HitPointComponent::start() {
-}
 
 void HitPointComponent::update() {
 }
@@ -24,6 +21,7 @@ void HitPointComponent::takeDamage(int damage) {
 
 void HitPointComponent::takeHeal(int heal) {
     mHP += heal;
+    mHP = Math::Min<int>(mHP, MAX_HP);
 }
 
 int HitPointComponent::hp() const {

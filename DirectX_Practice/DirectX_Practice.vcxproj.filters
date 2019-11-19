@@ -122,9 +122,6 @@
     <ClCompile Include="Component\EnemyBullet2Component.cpp">
       <Filter>Component</Filter>
     </ClCompile>
-    <ClCompile Include="UI\PlayerHP.cpp">
-      <Filter>UI</Filter>
-    </ClCompile>
     <ClCompile Include="Component\HitPointComponent.cpp">
       <Filter>Component</Filter>
     </ClCompile>
@@ -145,6 +142,12 @@
     </ClCompile>
     <ClCompile Include="Component\AvoidanceComponent.cpp">
       <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\SPComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\PlayerHPSP.cpp">
+      <Filter>UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -272,9 +275,6 @@
     <ClInclude Include="Component\EnemyBullet2Component.h">
       <Filter>Component</Filter>
     </ClInclude>
-    <ClInclude Include="UI\PlayerHP.h">
-      <Filter>UI</Filter>
-    </ClInclude>
     <ClInclude Include="Component\HitPointComponent.h">
       <Filter>Component</Filter>
     </ClInclude>
@@ -295,6 +295,12 @@
     </ClInclude>
     <ClInclude Include="Component\AvoidanceComponent.h">
       <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\SPComponent.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\PlayerHPSP.h">
+      <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

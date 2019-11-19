@@ -16,6 +16,7 @@ enum class Direction {
 class Actor;
 class CircleCollisionComponent;
 class HitPointComponent;
+class SPComponent;
 class Sprite;
 class Time;
 
@@ -41,6 +42,7 @@ private:
     Sprite* mSprite;
     std::shared_ptr<CircleCollisionComponent> mCircle;
     std::shared_ptr<HitPointComponent> mHP;
+    std::shared_ptr<SPComponent> mSP;
     const float MOVE_SPEED;
     const float FALL_SPEED;
     float mCurrentJumpPower;

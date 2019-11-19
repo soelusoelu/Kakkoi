@@ -4,8 +4,10 @@
 #include <memory>
 
 class Actor;
+class CircleCollisionComponent;
 class EnemyBullet1;
 class EnemyBullet2;
+class HitPointComponent;
 class PlayerActor;
 class Sprite;
 class Time;
@@ -25,10 +27,13 @@ public:
 private:
     void attackToPlayer();
     void circleShot();
+    void hit();
 
 private:
     Sprite* mMySprite;
     Sprite* mPlayerSprite;
+    std::shared_ptr<CircleCollisionComponent> mCircle;
+    std::shared_ptr<HitPointComponent> mHP;
     std::unique_ptr<Time> mATPTimer;
     std::unique_ptr<Time> mCircleTimer;
 };

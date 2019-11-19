@@ -5,6 +5,7 @@
 class CircleCollisionComponent;
 class HitPointComponent;
 class PlayerMoveComponent;
+class SPComponent;
 class SpriteComponent;
 
 class PlayerActor : public Actor {
@@ -18,6 +19,7 @@ private:
     CircleCollisionComponent* mCircle;
     HitPointComponent* mHP;
     PlayerMoveComponent* mPlayerMove;
+    SPComponent* mSP;
     SpriteComponent* mSprite;
 };
 

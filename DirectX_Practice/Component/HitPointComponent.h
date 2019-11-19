@@ -9,7 +9,6 @@ class HitPointComponent : public Component {
 public:
     HitPointComponent(Actor* onwer, int hp);
     ~HitPointComponent();
-    virtual void start() override;
     virtual void update() override;
     void takeDamage(int damage);
     void takeHeal(int heal);
@@ -17,6 +16,6 @@ public:
 
 private:
     int mHP;
-    const int DEFAULT_HP;
+    const int MAX_HP;
 };
 
