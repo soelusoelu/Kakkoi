@@ -196,7 +196,7 @@ void PlayerMoveComponent::specialAttack() {
     default: break;
     }
     new SpecialAttack(dynamic_cast<PlayerActor*>(mOwner), attackRatio);
-    mSP->use(100);
+    mSP->use(199);
 }
 
 void PlayerMoveComponent::hit() {

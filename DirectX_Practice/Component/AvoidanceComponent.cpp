@@ -35,7 +35,7 @@ void AvoidanceComponent::update() {
                 currentMaxSP = 100;
             } else if (100 <= sp && sp < 200) {
                 currentMaxSP = 200;
-            } else if (200 <= sp && sp < 300) {
+            } else if (200 <= sp && sp <= 300) {
                 currentMaxSP = 300;
             }
             spComp->heal(15);
