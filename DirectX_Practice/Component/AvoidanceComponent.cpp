@@ -11,7 +11,9 @@ AvoidanceComponent::AvoidanceComponent(Actor* onwer, PlayerActor* player) :
     Component(onwer),
     mCircle(nullptr),
     mDestroyTimer(std::make_unique<Time>(0.25f)),
-    mPlayer(player) {
+    mPlayer(player),
+    SP_HEAL_POINT(15),
+    mAlreadyHeal(false) {
 }
 
 AvoidanceComponent::~AvoidanceComponent() = default;
@@ -22,26 +24,25 @@ void AvoidanceComponent::start() {
 
 void AvoidanceComponent::update() {
     auto col = mCircle->onCollisionEnter();
-    //auto col = mCircle->onCollisionStay();
     for (auto&& c : col) {
         if (c->getOwner()->getTag() == "EnemyBullet") {
             AvoidancePlayerActor::mSuccessedAvoidance = true;
             AvoidancePlayerActor::mSlowTimer->reset();
 
+            if (mAlreadyHeal) {
+                break;
+            }
             auto spComp = mPlayer->getComponentManager()->getComponent<SPComponent>();
             auto sp = spComp->sp();
-            int currentMaxSP = 0;
-            if (sp < 100) {
-                currentMaxSP = 100;
-            } else if (100 <= sp && sp < 200) {
-                currentMaxSP = 200;
-            } else if (200 <= sp && sp <= 300) {
-                currentMaxSP = 300;
-            }
-            spComp->heal(15);
+
+            int gauge = sp / spComp->getOneGauge();
+            int currentMaxSP = gauge * spComp->getOneGauge() + spComp->getOneGauge();
+
+            spComp->heal(SP_HEAL_POINT);
             if (spComp->sp() > currentMaxSP) {
                 spComp->set(currentMaxSP);
             }
+            mAlreadyHeal = true;
         }
     }
 

@@ -77,19 +77,6 @@ void EnemyMoveComponent::hit() {
 
         auto damage = c->getOwner()->getComponentManager()->getComponent<DamageComponent>();
         mHP->takeDamage(damage->damage());
-
-        if (c->getOwner()->getTag() == "SpecialAttack") {
-            return;
-        }
-
-        auto spComp = mPlayer->getComponentManager()->getComponent<SPComponent>();
-        spComp->heal(5);
-        auto sp = spComp->sp();
-        if (100 < sp && sp <= 105) {
-            spComp->set(100);
-        } else if (200 < sp && sp <= 205) {
-            spComp->set(200);
-        }
     }
 }
 

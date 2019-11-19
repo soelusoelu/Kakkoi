@@ -3,6 +3,7 @@
 #include "Actor.h"
 #include "../Utility/Math.h"
 
+class PlayerActor;
 class CircleCollisionComponent;
 class DamageComponent;
 class PlayerAttackComponent;
@@ -10,7 +11,7 @@ class SpriteComponent;
 
 class PlayerAttack : public Actor {
 public:
-    PlayerAttack(const Vector2& pos, int damage, const char* tag = "PlayerAttack");
+    PlayerAttack(PlayerActor* player, const Vector2& pos, int damage, const char* tag = "PlayerAttack");
     ~PlayerAttack();
     virtual void updateActor() override;
     virtual void drawActor() const override;

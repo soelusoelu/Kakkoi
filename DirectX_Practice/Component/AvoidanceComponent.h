@@ -19,5 +19,6 @@ private:
     std::shared_ptr<CircleCollisionComponent> mCircle;
     std::unique_ptr<Time> mDestroyTimer;
     PlayerActor* mPlayer;
+    const int SP_HEAL_POINT;
+    bool mAlreadyHeal;
 };
-

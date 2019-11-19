@@ -15,6 +15,7 @@
 #include "../System/Game.h"
 #include "../Utility/Input.h"
 #include "../Utility/Math.h"
+#include <cassert>
 
 PlayerMoveComponent::PlayerMoveComponent(Actor* owner, int updateOrder) :
     Component(owner, updateOrder),
@@ -43,8 +44,6 @@ void PlayerMoveComponent::start() {
     mCircle = mOwner->getComponentManager()->getComponent<CircleCollisionComponent>();
     mHP = mOwner->getComponentManager()->getComponent<HitPointComponent>();
     mSP = mOwner->getComponentManager()->getComponent<SPComponent>();
-    mSP->set(0);
-    mSP->setMax(300);
 }
 
 void PlayerMoveComponent::update() {
@@ -166,15 +165,15 @@ void PlayerMoveComponent::attack() {
         pos += Vector2(64.f, -32.f);
     }
 
-    auto sp = mSP->sp() / 101;
-    int attackRatio = 0;
-    switch (sp) {
-    case 0: attackRatio = 100; break;
-    case 1: attackRatio = 120; break;
-    case 2: attackRatio = 135; break;
-    default: break;
+    auto spGauge = mSP->getCurrentGaugeCount();
+    int attackRate = 0;
+    switch (spGauge) {
+    case 0: attackRate = 100; break;
+    case 1: attackRate = 120; break;
+    case 2: attackRate = 135; break;
+    default: assert(false); break;
     }
-    new PlayerAttack(pos, attackRatio);
+    new PlayerAttack(dynamic_cast<PlayerActor*>(mOwner), pos, attackRate);
     mCanAttack = false;
 }
 
@@ -187,15 +186,15 @@ void PlayerMoveComponent::specialAttack() {
         return;
     }
 
-    auto spRaito = sp / 100;
-    int attackRatio = 0;
-    switch (spRaito) {
-    case 1: attackRatio = 100; break;
-    case 2: attackRatio = 150; break;
-    case 3: attackRatio = 200; break;
-    default: break;
+    auto spGauge = mSP->getCurrentGaugeCount();
+    int attackRate = 0;
+    switch (spGauge) {
+    case 0: attackRate = 100; break;
+    case 1: attackRate = 150; break;
+    case 2: attackRate = 200; break;
+    default: assert(false); break;
     }
-    new SpecialAttack(dynamic_cast<PlayerActor*>(mOwner), attackRatio);
+    new SpecialAttack(dynamic_cast<PlayerActor*>(mOwner), attackRate);
     mSP->use(199);
 }
 

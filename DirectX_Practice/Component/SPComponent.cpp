@@ -1,30 +1,28 @@
 #include "SPComponent.h"
 #include "../Utility/Math.h"
 
-SPComponent::SPComponent(Actor* onwer, int sp) :
+SPComponent::SPComponent(Actor* onwer) :
     Component(onwer),
-    mSP(sp),
-    MAX_SP(sp) {
+    mSP(0),
+    mCurrentGaugeCount(0),
+    ONE_GAUGE(100),
+    GAUGE_COUNT(3),
+    MAX_SP(ONE_GAUGE * GAUGE_COUNT) {
 }
 
 SPComponent::~SPComponent() = default;
 
 void SPComponent::update() {
+    mCurrentGaugeCount = mSP / (ONE_GAUGE + 1);
 }
 
 void SPComponent::set(int sp) {
     mSP = sp;
 }
 
-void SPComponent::setMax(int sp) {
-    MAX_SP = sp;
-}
-
 bool SPComponent::use(int sp) {
-    if (mSP - sp < 0) {
-        return false;
-    }
     mSP -= sp;
+    mSP = Math::Max(mSP, 0);
     return true;
 }
 
@@ -35,4 +33,16 @@ void SPComponent::heal(int sp) {
 
 int SPComponent::sp() const {
     return mSP;
+}
+
+const int SPComponent::maxSP() const {
+    return MAX_SP;
+}
+
+const int SPComponent::getOneGauge() const {
+    return ONE_GAUGE;
+}
+
+int SPComponent::getCurrentGaugeCount() const {
+    return mCurrentGaugeCount;
 }
