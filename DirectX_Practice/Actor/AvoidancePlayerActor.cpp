@@ -6,9 +6,9 @@
 #include "../Device/Time.h"
 #include "../UI/Sprite.h"
 
-AvoidancePlayerActor::AvoidancePlayerActor(const Vector2& position, const std::string& fileName, const Vector2& size, const Vector2& scale, const char* tag) :
+AvoidancePlayerActor::AvoidancePlayerActor(PlayerActor* player, const Vector2& position, const std::string& fileName, const Vector2& size, const Vector2& scale, const char* tag) :
     Actor(tag),
-    mAvoidance(new AvoidanceComponent(this)),
+    mAvoidance(new AvoidanceComponent(this, player)),
     mCircle(new CircleCollisionComponent(this)),
     mSprite(new SpriteComponent(this, fileName, size, 0.51f)) {
     auto s = mSprite->getSprite();

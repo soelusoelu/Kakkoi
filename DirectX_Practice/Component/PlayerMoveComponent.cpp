@@ -87,8 +87,8 @@ void PlayerMoveComponent::jumpUpdate() {
     //y = ax ^ 2 + bx + c
     //2次関数でジャンプ量調整
     mX += 0.1f;
-    mCurrentJumpPower = -Math::pow<float>(mX, 2) + mX + 16.f; //一番右の値がジャンプ量に直結
-    mSprite->translate(Vector2(0.f, -mCurrentJumpPower * AvoidancePlayerActor::slow()));
+    mCurrentJumpPower = -3 * Math::pow<float>(mX, 2) + mX + 16.f; //一番右の値がジャンプ量に直結
+    mSprite->translate(Vector2(0.f, -mCurrentJumpPower));
 }
 
 void PlayerMoveComponent::fall() {
@@ -109,14 +109,20 @@ void PlayerMoveComponent::avoidance() {
 
     auto pos = mSprite->getPosition();
     auto l = mDir == Direction::Left ? -AVOIDANCE_LENGTH : AVOIDANCE_LENGTH;
-    mSprite->translate(Vector2(l * AvoidancePlayerActor::slow(), 0.f));
+    mSprite->translate(Vector2(l/* * AvoidancePlayerActor::slow()*/, 0.f));
 
     if (l < 0) {
         pos.x -= AVOIDANCE_LENGTH - mSprite->getScreenTextureSize().x;
     }
     auto scale = mSprite->getScale();
     scale.x = AVOIDANCE_LENGTH / mSprite->getTextureSize().x;
-    new AvoidancePlayerActor(pos, mSprite->fileName(), mSprite->getTextureSize(), scale);
+    new AvoidancePlayerActor(
+        reinterpret_cast<PlayerActor*>(mOwner),
+        pos,
+        mSprite->fileName(),
+        mSprite->getTextureSize(),
+        scale
+    );
 
     mCircle->disabled();
 }

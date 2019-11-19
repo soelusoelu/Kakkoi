@@ -2,13 +2,16 @@
 #include "../Actor/Actor.h"
 #include "../Actor/AvoidancePlayerActor.h"
 #include "../Actor/ComponentManagementOfActor.h"
+#include "../Actor/PlayerActor.h"
 #include "../Component/CircleCollisionComponent.h"
+#include "../Component/SPComponent.h"
 #include "../Device/Time.h"
 
-AvoidanceComponent::AvoidanceComponent(Actor* onwer) :
+AvoidanceComponent::AvoidanceComponent(Actor* onwer, PlayerActor* player) :
     Component(onwer),
     mCircle(nullptr),
-    mDestroyTimer(std::make_unique<Time>(0.25f)) {
+    mDestroyTimer(std::make_unique<Time>(0.25f)),
+    mPlayer(player) {
 }
 
 AvoidanceComponent::~AvoidanceComponent() = default;
@@ -24,6 +27,7 @@ void AvoidanceComponent::update() {
         if (c->getOwner()->getTag() == "EnemyBullet") {
             AvoidancePlayerActor::mSuccessedAvoidance = true;
             AvoidancePlayerActor::mSlowTimer->reset();
+            mPlayer->getComponentManager()->getComponent<SPComponent>()->takeHeal(15);
         }
     }
 

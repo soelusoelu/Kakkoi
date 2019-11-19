@@ -5,11 +5,12 @@
 
 class Actor;
 class CircleCollisionComponent;
+class PlayerActor;
 class Time;
 
 class AvoidanceComponent : public Component {
 public:
-    AvoidanceComponent(Actor* onwer);
+    AvoidanceComponent(Actor* onwer, PlayerActor* player);
     ~AvoidanceComponent();
     virtual void start() override;
     virtual void update() override;
@@ -17,6 +18,6 @@ public:
 private:
     std::shared_ptr<CircleCollisionComponent> mCircle;
     std::unique_ptr<Time> mDestroyTimer;
-
+    PlayerActor* mPlayer;
 };
 

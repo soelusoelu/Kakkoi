@@ -30,6 +30,7 @@ private:
     void hit();
 
 private:
+    PlayerActor* mPlayer;
     Sprite* mMySprite;
     Sprite* mPlayerSprite;
     std::shared_ptr<CircleCollisionComponent> mCircle;

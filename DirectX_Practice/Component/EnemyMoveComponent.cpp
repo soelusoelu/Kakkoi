@@ -14,6 +14,7 @@
 
 EnemyMoveComponent::EnemyMoveComponent(Actor* onwer, PlayerActor* player) :
     Component(onwer),
+    mPlayer(player),
     mMySprite(nullptr),
     mPlayerSprite(player->getComponentManager()->getComponent<SpriteComponent>()->getSprite()),
     mATPTimer(std::make_unique<Time>(4.f)),
@@ -65,9 +66,8 @@ void EnemyMoveComponent::hit() {
             return;
         }
 
-        auto comp = c->getOwner()->getComponentManager();
-        auto damage = comp->getComponent<DamageComponent>();
+        auto damage = c->getOwner()->getComponentManager()->getComponent<DamageComponent>();
         mHP->takeDamage(damage->damage());
-        //comp->getComponent<SPComponent>()->takeHeal(5);
+        mPlayer->getComponentManager()->getComponent<SPComponent>()->takeHeal(5);
     }
 }
