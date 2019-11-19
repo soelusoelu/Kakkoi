@@ -69,7 +69,7 @@ void EnemyMoveComponent::hit() {
 
     auto col = mCircle->onCollisionStay();
     for (auto&& c : col) {
-        if (c->getOwner()->getTag() != "PlayerAttack") {
+        if (c->getOwner()->getTag() != "PlayerAttack" && c->getOwner()->getTag() != "SpecialAttack") {
             return;
         }
 
@@ -77,6 +77,10 @@ void EnemyMoveComponent::hit() {
 
         auto damage = c->getOwner()->getComponentManager()->getComponent<DamageComponent>();
         mHP->takeDamage(damage->damage());
+
+        if (c->getOwner()->getTag() == "SpecialAttack") {
+            return;
+        }
 
         auto spComp = mPlayer->getComponentManager()->getComponent<SPComponent>();
         spComp->heal(5);

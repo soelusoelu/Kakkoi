@@ -43,7 +43,7 @@ void PlayerMoveComponent::start() {
     mCircle = mOwner->getComponentManager()->getComponent<CircleCollisionComponent>();
     mHP = mOwner->getComponentManager()->getComponent<HitPointComponent>();
     mSP = mOwner->getComponentManager()->getComponent<SPComponent>();
-    mSP->set(100);
+    mSP->set(0);
     mSP->setMax(300);
 }
 
@@ -113,7 +113,7 @@ void PlayerMoveComponent::avoidance() {
 
     auto pos = mSprite->getPosition();
     auto l = mDir == Direction::Left ? -AVOIDANCE_LENGTH : AVOIDANCE_LENGTH;
-    mSprite->translate(Vector2(l/* * AvoidancePlayerActor::slow()*/, 0.f));
+    mSprite->translate(Vector2(l, 0.f));
 
     if (l < 0) {
         pos.x -= AVOIDANCE_LENGTH - mSprite->getScreenTextureSize().x;

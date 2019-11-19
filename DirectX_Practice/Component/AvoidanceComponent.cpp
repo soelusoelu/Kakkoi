@@ -27,7 +27,21 @@ void AvoidanceComponent::update() {
         if (c->getOwner()->getTag() == "EnemyBullet") {
             AvoidancePlayerActor::mSuccessedAvoidance = true;
             AvoidancePlayerActor::mSlowTimer->reset();
-            mPlayer->getComponentManager()->getComponent<SPComponent>()->heal(15);
+
+            auto spComp = mPlayer->getComponentManager()->getComponent<SPComponent>();
+            auto sp = spComp->sp();
+            int currentMaxSP = 0;
+            if (sp < 100) {
+                currentMaxSP = 100;
+            } else if (100 <= sp && sp < 200) {
+                currentMaxSP = 200;
+            } else if (200 <= sp && sp < 300) {
+                currentMaxSP = 300;
+            }
+            spComp->heal(15);
+            if (spComp->sp() > currentMaxSP) {
+                spComp->set(currentMaxSP);
+            }
         }
     }
 
