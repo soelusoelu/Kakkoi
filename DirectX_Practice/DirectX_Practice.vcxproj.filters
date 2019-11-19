@@ -143,6 +143,9 @@
     <ClCompile Include="Actor\AvoidancePlayerActor.cpp">
       <Filter>Actor</Filter>
     </ClCompile>
+    <ClCompile Include="Component\AvoidanceComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utility\Input.h">
@@ -289,6 +292,9 @@
     </ClInclude>
     <ClInclude Include="Actor\AvoidancePlayerActor.h">
       <Filter>Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\AvoidanceComponent.h">
+      <Filter>Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

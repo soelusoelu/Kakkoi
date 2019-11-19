@@ -1,6 +1,7 @@
 #include "PlayerActor.h"
 #include "../Actor/Actor.h"
 #include "../Actor/ComponentManagementOfActor.h"
+#include "../Actor/AvoidancePlayerActor.h"
 #include "../Component/CircleCollisionComponent.h"
 #include "../Component/DamageComponent.h"
 #include "../Component/HitPointComponent.h"
@@ -20,14 +21,6 @@ PlayerActor::PlayerActor(const char* tag) :
 PlayerActor::~PlayerActor() = default;
 
 void PlayerActor::updateActor() {
-    auto col = mCircle->onCollisionEnter();
-    for (auto&& c : col) {
-        if (c->getOwner()->getTag() != "EnemyBullet") {
-            continue;
-        }
-        auto damage = c->getOwner()->getComponentManager()->getComponent<DamageComponent>();
-        mHP->takeDamage(damage->damage());
-    }
 }
 
 void PlayerActor::drawActor() const {

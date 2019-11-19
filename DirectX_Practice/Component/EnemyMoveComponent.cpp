@@ -5,6 +5,7 @@
 #include "../Actor/EnemyBullet2.h"
 #include "../Actor/PlayerActor.h"
 #include "../Device/Time.h"
+#include "../System/Game.h"
 #include "../UI/Sprite.h"
 
 EnemyMoveComponent::EnemyMoveComponent(Actor* onwer, PlayerActor* player) :
@@ -20,6 +21,7 @@ EnemyMoveComponent::~EnemyMoveComponent() = default;
 void EnemyMoveComponent::start() {
     mMySprite = mOwner->getComponentManager()->getComponent<SpriteComponent>()->getSprite();
     mMySprite->setScale(0.05f);
+    mMySprite->setPosition(Vector2(Game::WINDOW_WIDTH / 2.f, Game::WINDOW_HEIGHT / 2.f));
 }
 
 void EnemyMoveComponent::update() {

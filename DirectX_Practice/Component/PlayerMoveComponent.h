@@ -14,6 +14,8 @@ enum class Direction {
 };
 
 class Actor;
+class CircleCollisionComponent;
+class HitPointComponent;
 class Sprite;
 class Time;
 
@@ -33,9 +35,12 @@ private:
     void posClamp();
     void canAttack();
     void attack();
+    void hit();
 
 private:
     Sprite* mSprite;
+    std::shared_ptr<CircleCollisionComponent> mCircle;
+    std::shared_ptr<HitPointComponent> mHP;
     const float MOVE_SPEED;
     const float FALL_SPEED;
     float mCurrentJumpPower;

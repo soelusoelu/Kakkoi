@@ -15,7 +15,6 @@ void ActorManager::update() {
     }
     mUpdatingActors = false;
 
-
     std::copy(mPendingActors.begin(), mPendingActors.end(), std::back_inserter(mActors));
     mPendingActors.clear();
 
@@ -28,7 +27,7 @@ void ActorManager::draw() const {
     }
 }
 
-void ActorManager::add(Actor* add) {
+void ActorManager::add(Actor * add) {
     if (mUpdatingActors) {
         mPendingActors.emplace_back(add);
     } else {

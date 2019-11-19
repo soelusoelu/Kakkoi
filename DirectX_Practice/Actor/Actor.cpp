@@ -16,8 +16,8 @@ void Actor::update() {
     if (mState == ActorState::Active) {
         computeWorldTransform();
 
-        updateActor();
         mComponentManager->update();
+        updateActor();
 
         computeWorldTransform();
     }

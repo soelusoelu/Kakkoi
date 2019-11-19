@@ -1,5 +1,6 @@
 #include "EnemyBullet2Component.h"
 #include "../Actor/Actor.h"
+#include "../Actor/AvoidancePlayerActor.h"
 #include "../Actor/ComponentManagementOfActor.h"
 #include "../Component/SpriteComponent.h"
 #include "../System/Game.h"
@@ -25,7 +26,7 @@ void EnemyBullet2Component::start() {
 }
 
 void EnemyBullet2Component::update() {
-    mSprite->translate(mVelocity * BULLET_SPEED);
+    mSprite->translate(mVelocity * BULLET_SPEED * AvoidancePlayerActor::slow());
     destroy();
 }
 

@@ -3,6 +3,9 @@
 #include "../Actor/AvoidancePlayerActor.h"
 #include "../Actor/ComponentManagementOfActor.h"
 #include "../Actor/PlayerAttack.h"
+#include "../Component/DamageComponent.h"
+#include "../Component/HitPointComponent.h"
+#include "../Component/CircleCollisionComponent.h"
 #include "../Device/Time.h"
 #include "../UI/Sprite.h"
 #include "../Component/SpriteComponent.h"
@@ -13,6 +16,8 @@
 PlayerMoveComponent::PlayerMoveComponent(Actor* owner, int updateOrder) :
     Component(owner, updateOrder),
     mSprite(nullptr),
+    mCircle(nullptr),
+    mHP(nullptr),
     MOVE_SPEED(2.f),
     FALL_SPEED(1.f),
     mCurrentJumpPower(0.f),
@@ -30,6 +35,9 @@ void PlayerMoveComponent::start() {
     mSprite = mOwner->getComponentManager()->getComponent<SpriteComponent>()->getSprite();
     mSprite->setScale(0.1f);
     mSprite->setPosition(Vector2(Game::WINDOW_WIDTH / 2.f, Game::WINDOW_HEIGHT - (mSprite->getTextureSize().y * mSprite->getScale().y)));
+
+    mCircle = mOwner->getComponentManager()->getComponent<CircleCollisionComponent>();
+    mHP = mOwner->getComponentManager()->getComponent<HitPointComponent>();
 }
 
 void PlayerMoveComponent::update() {
@@ -41,12 +49,13 @@ void PlayerMoveComponent::update() {
     posClamp();
     canAttack();
     attack();
+    hit();
 }
 
 void PlayerMoveComponent::move() {
     int horizontal = Input::horizontal();
     if (!Math::nearZero(horizontal)) {
-        mSprite->translate(Vector2(horizontal, 0.f) * MOVE_SPEED);
+        mSprite->translate(Vector2(horizontal, 0.f) * MOVE_SPEED * AvoidancePlayerActor::slow());
 
         mDir = horizontal < 0 ? Direction::Left : Direction::Right;
     }
@@ -75,12 +84,12 @@ void PlayerMoveComponent::jumpUpdate() {
     //2次関数でジャンプ量調整
     mX += 0.1f;
     mCurrentJumpPower = -Math::pow<float>(mX, 2) + mX + 16.f; //一番右の値がジャンプ量に直結
-    mSprite->translate(Vector2(0.f, -mCurrentJumpPower));
+    mSprite->translate(Vector2(0.f, -mCurrentJumpPower * AvoidancePlayerActor::slow()));
 }
 
 void PlayerMoveComponent::fall() {
     //重力は常にかける
-    mSprite->translate(Vector2(0.f, FALL_SPEED));
+    mSprite->translate(Vector2(0.f, FALL_SPEED * AvoidancePlayerActor::slow()));
 
     auto sizeY = mSprite->getScreenTextureSize().y;
     auto posY = mSprite->getPosition().y;
@@ -96,7 +105,7 @@ void PlayerMoveComponent::avoidance() {
 
     auto pos = mSprite->getPosition();
     auto l = mDir == Direction::Left ? -AVOIDANCE_LENGTH : AVOIDANCE_LENGTH;
-    mSprite->translate(Vector2(l, 0.f));
+    mSprite->translate(Vector2(l * AvoidancePlayerActor::slow(), 0.f));
 
     if (l < 0) {
         pos.x -= AVOIDANCE_LENGTH - mSprite->getScreenTextureSize().x;
@@ -104,6 +113,8 @@ void PlayerMoveComponent::avoidance() {
     auto scale = mSprite->getScale();
     scale.x = AVOIDANCE_LENGTH / mSprite->getTextureSize().x;
     new AvoidancePlayerActor(pos, mSprite->fileName(), mSprite->getTextureSize(), scale);
+
+    mCircle->disabled();
 }
 
 void PlayerMoveComponent::posClamp() {
@@ -142,4 +153,24 @@ void PlayerMoveComponent::attack() {
     }
     new PlayerAttack(pos);
     mCanAttack = false;
+}
+
+void PlayerMoveComponent::hit() {
+    if (!mCircle->getEnable()) {
+        mCircle->enabled();
+        return;
+    }
+
+    auto col = mCircle->onCollisionEnter();
+    for (auto&& c : col) {
+        if (c->getOwner()->getTag() != "EnemyBullet") {
+            continue;
+        }
+        if (AvoidancePlayerActor::mSuccessedAvoidance) {
+            continue;
+        }
+
+        auto damage = c->getOwner()->getComponentManager()->getComponent<DamageComponent>();
+        mHP->takeDamage(damage->damage());
+    }
 }

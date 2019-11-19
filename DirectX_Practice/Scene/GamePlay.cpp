@@ -1,5 +1,6 @@
 ﻿#include "GamePlay.h"
 #include "../Actor/ActorManager.h"
+#include "../Actor/AvoidancePlayerActor.h"
 #include "../Actor/EnemyActor.h"
 #include "../Actor/PlayerActor.h"
 #include "../Camera/Camera.h"
@@ -30,6 +31,7 @@ GamePlay::~GamePlay() {
 void GamePlay::updateScene() {
     if (mState == GameState::Play) {
         mActorManager->update();
+        AvoidancePlayerActor::slowTime();
 
         Physics::sweepAndPrune();
 

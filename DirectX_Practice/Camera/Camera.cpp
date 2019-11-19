@@ -4,7 +4,7 @@
 
 Camera::Camera() :
     mCameraPosition(Vector3::zero),
-    mLookAt(Vector3::zero),
+    mLookAt(Vector3::forward),
     mUp(Vector3::up),
     mPlayerPosition(mCameraPosition),
     mView(Matrix4::identity),
@@ -22,6 +22,7 @@ Camera::Camera() :
 Camera::~Camera() = default;
 
 void Camera::update() {
+    mCameraPosition.z += 0.01f;
     mView = Matrix4::createLookAt(mCameraPosition, mLookAt, mUp);
 }
 

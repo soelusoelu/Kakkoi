@@ -1,5 +1,6 @@
 #include "EnemyBullet1Component.h"
 #include "../Actor/Actor.h"
+#include "../Actor/AvoidancePlayerActor.h"
 #include "../Actor/ComponentManagementOfActor.h"
 #include "../Component/SpriteComponent.h"
 #include "../System/Game.h"
@@ -33,11 +34,11 @@ void EnemyBullet1Component::update() {
 }
 
 void EnemyBullet1Component::move() {
-    mSprite->translate(mE2P * BULLET_SPEED);
+    mSprite->translate(mE2P * BULLET_SPEED * AvoidancePlayerActor::slow());
 
-    mSprite->rotate(ROTATE_SPEED);
+    mSprite->rotate(ROTATE_SPEED * AvoidancePlayerActor::slow());
 
-    mScaleCounter += SCALING_SPEED * 100;
+    mScaleCounter += SCALING_SPEED * 100 * AvoidancePlayerActor::slow();
     mSprite->setScale(Math::sin(mScaleCounter * Math::deg2Rad) * MAX_SCALE, true);
     if (mScaleCounter >= 180 - MIN_SCALE * 100) {
         mScaleCounter = MIN_SCALE * 100;

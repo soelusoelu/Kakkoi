@@ -5,6 +5,7 @@
 #include <string>
 #include <memory>
 
+class AvoidanceComponent;
 class CircleCollisionComponent;
 class SpriteComponent;
 class Time;
@@ -15,9 +16,16 @@ public:
     ~AvoidancePlayerActor();
     virtual void updateActor() override;
     virtual void drawActor() const override;
+    static float slow();
+    static void slowTime();
+
+public:
+    static bool mSuccessedAvoidance;
+    static std::unique_ptr<Time> mSlowTimer;
 
 private:
+    AvoidanceComponent* mAvoidance;
     CircleCollisionComponent* mCircle;
     SpriteComponent* mSprite;
-    std::unique_ptr<Time> mDestroyTimer;
+    static float mSlowRatio;
 };
