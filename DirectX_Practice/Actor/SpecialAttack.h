@@ -3,21 +3,23 @@
 #include "Actor.h"
 #include "../Utility/Math.h"
 
+class PlayerActor;
 class CircleCollisionComponent;
 class DamageComponent;
-class PlayerAttackComponent;
+class SpecialAttackComponent;
 class SpriteComponent;
 
-class PlayerAttack : public Actor {
+class SpecialAttack : public Actor {
 public:
-    PlayerAttack(const Vector2& pos, int damage, const char* tag = "PlayerAttack");
-    ~PlayerAttack();
+    SpecialAttack(PlayerActor* player, int damage, const char* tag = "PlayerAttack");
+    ~SpecialAttack();
     virtual void updateActor() override;
     virtual void drawActor() const override;
 
 private:
     CircleCollisionComponent* mCircle;
     DamageComponent* mDamage;
-    PlayerAttackComponent* mAttack;
+    SpecialAttackComponent* mSpecialAttack;
     SpriteComponent* mSprite;
 };
+

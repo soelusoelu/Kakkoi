@@ -8,7 +8,7 @@
 EnemyBullet2::EnemyBullet2(Sprite* playerSprite, float rotation, const char* tag) :
     Actor(tag),
     mCircle(new CircleCollisionComponent(this)),
-    mDamage(new DamageComponent(this, 5)),
+    mDamage(new DamageComponent(this, 500)),
     mEnemyBullet(new EnemyBullet2Component(this, playerSprite, rotation)),
     mSprite(new SpriteComponent(this, "effect.jpg", Vector2(400.f, 400.f), 0.2f)) {
 }

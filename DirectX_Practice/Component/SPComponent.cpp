@@ -16,6 +16,10 @@ void SPComponent::set(int sp) {
     mSP = sp;
 }
 
+void SPComponent::setMax(int sp) {
+    MAX_SP = sp;
+}
+
 bool SPComponent::use(int sp) {
     if (mSP - sp < 0) {
         return false;
@@ -24,7 +28,7 @@ bool SPComponent::use(int sp) {
     return true;
 }
 
-void SPComponent::takeHeal(int sp) {
+void SPComponent::heal(int sp) {
     mSP += sp;
     mSP = Math::Min<int>(mSP, MAX_SP);
 }

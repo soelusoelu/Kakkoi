@@ -18,7 +18,9 @@ EnemyMoveComponent::EnemyMoveComponent(Actor* onwer, PlayerActor* player) :
     mMySprite(nullptr),
     mPlayerSprite(player->getComponentManager()->getComponent<SpriteComponent>()->getSprite()),
     mATPTimer(std::make_unique<Time>(4.f)),
-    mCircleTimer(std::make_unique<Time>(3.f)) {
+    mCircleTimer(std::make_unique<Time>(3.f)),
+    mInvincibleTimer(std::make_unique<Time>(0.2f)),
+    mIsInvincible(false) {
 }
 
 EnemyMoveComponent::~EnemyMoveComponent() = default;
@@ -60,14 +62,37 @@ void EnemyMoveComponent::circleShot() {
 }
 
 void EnemyMoveComponent::hit() {
-    auto col = mCircle->onCollisionEnter();
+    if (mIsInvincible) {
+        invincible();
+        return;
+    }
+
+    auto col = mCircle->onCollisionStay();
     for (auto&& c : col) {
         if (c->getOwner()->getTag() != "PlayerAttack") {
             return;
         }
 
+        mIsInvincible = true;
+
         auto damage = c->getOwner()->getComponentManager()->getComponent<DamageComponent>();
         mHP->takeDamage(damage->damage());
-        mPlayer->getComponentManager()->getComponent<SPComponent>()->takeHeal(5);
+
+        auto spComp = mPlayer->getComponentManager()->getComponent<SPComponent>();
+        spComp->heal(5);
+        auto sp = spComp->sp();
+        if (100 < sp && sp <= 105) {
+            spComp->set(100);
+        } else if (200 < sp && sp <= 205) {
+            spComp->set(200);
+        }
+    }
+}
+
+void EnemyMoveComponent::invincible() {
+    mInvincibleTimer->update();
+    if (mInvincibleTimer->isTime()) {
+        mInvincibleTimer->reset();
+        mIsInvincible = false;
     }
 }

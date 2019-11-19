@@ -137,6 +137,7 @@
     <ClCompile Include="Actor\EnemyBullet2.cpp" />
     <ClCompile Include="Actor\PlayerActor.cpp" />
     <ClCompile Include="Actor\PlayerAttack.cpp" />
+    <ClCompile Include="Actor\SpecialAttack.cpp" />
     <ClCompile Include="Camera\Camera.cpp" />
     <ClCompile Include="Component\AvoidanceComponent.cpp" />
     <ClCompile Include="Component\CircleCollisionComponent.cpp" />
@@ -149,6 +150,7 @@
     <ClCompile Include="Component\PlayerAttackComponent.cpp" />
     <ClCompile Include="Component\PlayerMoveComponent.cpp" />
     <ClCompile Include="Component\SPComponent.cpp" />
+    <ClCompile Include="Component\SpecialAttackComponent.cpp" />
     <ClCompile Include="Component\SpriteComponent.cpp" />
     <ClCompile Include="Device\CSVReader.cpp" />
     <ClCompile Include="Device\IDManager.cpp" />
@@ -189,6 +191,7 @@
     <ClInclude Include="Actor\EnemyBullet2.h" />
     <ClInclude Include="Actor\PlayerActor.h" />
     <ClInclude Include="Actor\PlayerAttack.h" />
+    <ClInclude Include="Actor\SpecialAttack.h" />
     <ClInclude Include="Camera\Camera.h" />
     <ClInclude Include="Component\AvoidanceComponent.h" />
     <ClInclude Include="Component\CircleCollisionComponent.h" />
@@ -201,6 +204,7 @@
     <ClInclude Include="Component\PlayerAttackComponent.h" />
     <ClInclude Include="Component\PlayerMoveComponent.h" />
     <ClInclude Include="Component\SPComponent.h" />
+    <ClInclude Include="Component\SpecialAttackComponent.h" />
     <ClInclude Include="Component\SpriteComponent.h" />
     <ClInclude Include="Device\CSVReader.h" />
     <ClInclude Include="Device\IDManager.h" />

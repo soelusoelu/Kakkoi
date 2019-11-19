@@ -5,10 +5,10 @@
 #include "../Component/SpriteComponent.h"
 #include "../UI/Sprite.h"
 
-PlayerAttack::PlayerAttack(const Vector2& pos, const char* tag) :
+PlayerAttack::PlayerAttack(const Vector2& pos, int damage, const char* tag) :
     Actor(tag),
     mCircle(new CircleCollisionComponent(this)),
-    mDamage(new DamageComponent(this, 10)),
+    mDamage(new DamageComponent(this, damage)),
     mAttack(new PlayerAttackComponent(this)),
     mSprite(new SpriteComponent(this, "sowrdEffect.png", Vector2(192.f, 192.f), 0.3f)) {
     auto sprite = mSprite->getSprite();

@@ -10,8 +10,9 @@ public:
     ~SPComponent();
     virtual void update() override;
     void set(int sp);
+    void setMax(int sp);
     bool use(int sp);
-    void takeHeal(int sp);
+    void heal(int sp);
     int sp() const;
 
 private:

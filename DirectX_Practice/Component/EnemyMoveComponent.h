@@ -28,6 +28,7 @@ private:
     void attackToPlayer();
     void circleShot();
     void hit();
+    void invincible();
 
 private:
     PlayerActor* mPlayer;
@@ -37,5 +38,7 @@ private:
     std::shared_ptr<HitPointComponent> mHP;
     std::unique_ptr<Time> mATPTimer;
     std::unique_ptr<Time> mCircleTimer;
+    std::unique_ptr<Time> mInvincibleTimer;
+    bool mIsInvincible;
 };
 

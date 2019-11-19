@@ -2,7 +2,9 @@
 #include "../Actor/Actor.h"
 #include "../Actor/AvoidancePlayerActor.h"
 #include "../Actor/ComponentManagementOfActor.h"
+#include "../Actor/PlayerActor.h"
 #include "../Actor/PlayerAttack.h"
+#include "../Actor/SpecialAttack.h"
 #include "../Component/CircleCollisionComponent.h"
 #include "../Component/DamageComponent.h"
 #include "../Component/HitPointComponent.h"
@@ -41,7 +43,8 @@ void PlayerMoveComponent::start() {
     mCircle = mOwner->getComponentManager()->getComponent<CircleCollisionComponent>();
     mHP = mOwner->getComponentManager()->getComponent<HitPointComponent>();
     mSP = mOwner->getComponentManager()->getComponent<SPComponent>();
-    mSP->set(0);
+    mSP->set(100);
+    mSP->setMax(300);
 }
 
 void PlayerMoveComponent::update() {
@@ -53,6 +56,7 @@ void PlayerMoveComponent::update() {
     posClamp();
     canAttack();
     attack();
+    specialAttack();
     hit();
 }
 
@@ -117,7 +121,7 @@ void PlayerMoveComponent::avoidance() {
     auto scale = mSprite->getScale();
     scale.x = AVOIDANCE_LENGTH / mSprite->getTextureSize().x;
     new AvoidancePlayerActor(
-        reinterpret_cast<PlayerActor*>(mOwner),
+        dynamic_cast<PlayerActor*>(mOwner),
         pos,
         mSprite->fileName(),
         mSprite->getTextureSize(),
@@ -161,8 +165,38 @@ void PlayerMoveComponent::attack() {
     } else {
         pos += Vector2(64.f, -32.f);
     }
-    new PlayerAttack(pos);
+
+    auto sp = mSP->sp() / 101;
+    int attackRatio = 0;
+    switch (sp) {
+    case 0: attackRatio = 100; break;
+    case 1: attackRatio = 120; break;
+    case 2: attackRatio = 135; break;
+    default: break;
+    }
+    new PlayerAttack(pos, attackRatio);
     mCanAttack = false;
+}
+
+void PlayerMoveComponent::specialAttack() {
+    if (!Input::getKeyDown(KeyCode::Q)) {
+        return;
+    }
+    auto sp = mSP->sp();
+    if (sp != 100 && sp != 200 && sp != 300) {
+        return;
+    }
+
+    auto spRaito = sp / 100;
+    int attackRatio = 0;
+    switch (spRaito) {
+    case 1: attackRatio = 100; break;
+    case 2: attackRatio = 150; break;
+    case 3: attackRatio = 200; break;
+    default: break;
+    }
+    new SpecialAttack(dynamic_cast<PlayerActor*>(mOwner), attackRatio);
+    mSP->use(100);
 }
 
 void PlayerMoveComponent::hit() {

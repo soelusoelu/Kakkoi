@@ -36,6 +36,7 @@ private:
     void posClamp();
     void canAttack();
     void attack();
+    void specialAttack();
     void hit();
 
 private:

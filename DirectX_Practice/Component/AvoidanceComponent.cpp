@@ -27,7 +27,7 @@ void AvoidanceComponent::update() {
         if (c->getOwner()->getTag() == "EnemyBullet") {
             AvoidancePlayerActor::mSuccessedAvoidance = true;
             AvoidancePlayerActor::mSlowTimer->reset();
-            mPlayer->getComponentManager()->getComponent<SPComponent>()->takeHeal(15);
+            mPlayer->getComponentManager()->getComponent<SPComponent>()->heal(15);
         }
     }
 
