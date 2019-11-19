@@ -17,7 +17,7 @@ EnemyMoveComponent::EnemyMoveComponent(Actor* onwer, PlayerActor* player) :
     mMySprite(nullptr),
     mPlayerSprite(player->getComponentManager()->getComponent<SpriteComponent>()->getSprite()),
     mATPTimer(std::make_unique<Time>(4.f)),
-    mCircleTimer(std::make_unique<Time>(3.f)) {
+    mCircleTimer(std::make_unique<Time>(3.f)) {  
 }
 
 EnemyMoveComponent::~EnemyMoveComponent() = default;
