@@ -13,7 +13,7 @@ SPComponent::SPComponent(Actor* onwer) :
 SPComponent::~SPComponent() = default;
 
 void SPComponent::update() {
-    mCurrentGaugeCount = mSP / (ONE_GAUGE + 1);
+    mCurrentGaugeCount = mSP / ONE_GAUGE;
 }
 
 void SPComponent::set(int sp) {
@@ -45,4 +45,9 @@ const int SPComponent::getOneGauge() const {
 
 int SPComponent::getCurrentGaugeCount() const {
     return mCurrentGaugeCount;
+}
+
+int SPComponent::computeGaugeCount(int sp) {
+    sp = Math::Max(sp, 0);
+    return sp / ONE_GAUGE;
 }

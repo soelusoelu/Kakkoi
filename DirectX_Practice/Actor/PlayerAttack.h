@@ -11,7 +11,7 @@ class SpriteComponent;
 
 class PlayerAttack : public Actor {
 public:
-    PlayerAttack(PlayerActor* player, const Vector2& pos, int damage, const char* tag = "PlayerAttack");
+    PlayerAttack(PlayerActor* player, const Vector2& pos, const char* tag = "PlayerAttack");
     ~PlayerAttack();
     virtual void updateActor() override;
     virtual void drawActor() const override;

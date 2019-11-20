@@ -11,8 +11,7 @@ SpecialAttackComponent::SpecialAttackComponent(Actor* onwer, PlayerActor* player
     mSprite(nullptr),
     mPlayer(player->getComponentManager()->getComponent<SpriteComponent>()->getSprite()),
     ROTATE_SPEED(30.f),
-    mDestroyTimer(std::make_unique<Time>(1.f))
-{
+    mDestroyTimer(std::make_unique<Time>(1.f)) {
 }
 
 SpecialAttackComponent::~SpecialAttackComponent() = default;

@@ -9,6 +9,8 @@ public:
     virtual void update() override;
     int damage() const;
     void setDamage(int set);
+    void setDamageOfPlayerAttack(int spGauge);
+    void setDamageOfPlayerSpecialAttack(int spGauge);
 
 private:
     int mDamage;

@@ -16,6 +16,7 @@ public:
     const int maxSP() const;
     const int getOneGauge() const;
     int getCurrentGaugeCount() const;
+    int computeGaugeCount(int sp);
 
 private:
     int mSP;

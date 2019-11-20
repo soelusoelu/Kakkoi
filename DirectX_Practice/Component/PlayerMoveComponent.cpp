@@ -15,7 +15,6 @@
 #include "../System/Game.h"
 #include "../Utility/Input.h"
 #include "../Utility/Math.h"
-#include <cassert>
 
 PlayerMoveComponent::PlayerMoveComponent(Actor* owner, int updateOrder) :
     Component(owner, updateOrder),
@@ -165,15 +164,7 @@ void PlayerMoveComponent::attack() {
         pos += Vector2(64.f, -32.f);
     }
 
-    auto spGauge = mSP->getCurrentGaugeCount();
-    int attackRate = 0;
-    switch (spGauge) {
-    case 0: attackRate = 100; break;
-    case 1: attackRate = 120; break;
-    case 2: attackRate = 135; break;
-    default: assert(false); break;
-    }
-    new PlayerAttack(dynamic_cast<PlayerActor*>(mOwner), pos, attackRate);
+    new PlayerAttack(dynamic_cast<PlayerActor*>(mOwner), pos);
     mCanAttack = false;
 }
 
@@ -182,20 +173,12 @@ void PlayerMoveComponent::specialAttack() {
         return;
     }
     auto sp = mSP->sp();
-    if (sp != 100 && sp != 200 && sp != 300) {
+    if (sp == 0 || sp % mSP->getOneGauge() != 0) {
         return;
     }
 
-    auto spGauge = mSP->getCurrentGaugeCount();
-    int attackRate = 0;
-    switch (spGauge) {
-    case 0: attackRate = 100; break;
-    case 1: attackRate = 150; break;
-    case 2: attackRate = 200; break;
-    default: assert(false); break;
-    }
-    new SpecialAttack(dynamic_cast<PlayerActor*>(mOwner), attackRate);
-    mSP->use(199);
+    new SpecialAttack(dynamic_cast<PlayerActor*>(mOwner));
+    mSP->use(mSP->getOneGauge() * 2 - 1);
 }
 
 void PlayerMoveComponent::hit() {

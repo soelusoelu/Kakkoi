@@ -33,7 +33,7 @@ void PlayerAttackComponent::update() {
 
         auto spComp = mPlayer->getComponentManager()->getComponent<SPComponent>();
         auto sp = spComp->sp();
-        auto gauge = sp / spComp->getOneGauge();
+        auto gauge = spComp->getCurrentGaugeCount();
         const int oneGauge = spComp->getOneGauge();
         if (sp > 0 && sp % oneGauge == 0) {
             return;
