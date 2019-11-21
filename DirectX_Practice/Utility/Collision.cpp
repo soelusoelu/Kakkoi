@@ -147,7 +147,7 @@ bool Sphere::contains(const Vector3& point) const {
 
 bool intersect(const Circle& a, const Circle& b) {
     Vector2 dist = a.mCenter - b.mCenter;
-    float distSq = dist.LengthSq();
+    float distSq = dist.lengthSq();
     float sumRadius = a.mRadius + b.mRadius;
     return distSq <= (sumRadius * sumRadius);
 }

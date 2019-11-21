@@ -48,8 +48,8 @@ namespace Math {
     }
 
     template <typename T>
-    T clamp(const T& value, const T& lower, const T& upper) {
-        return Min(upper, Max(lower, value));
+    T clamp(const T& value, const T& min, const T& max) {
+        return Min(max, Max(min, value));
     }
 
     template <typename T>
@@ -121,12 +121,12 @@ public:
         , y(inY) {
     }
 
-    const float* GetAsFloatPtr() const {
+    const float* getAsFloatPtr() const {
         return reinterpret_cast<const float*>(&x);
     }
 
     // Set both components in one line
-    void Set(float inX, float inY) {
+    void set(float inX, float inY) {
         x = inX;
         y = inY;
     }
@@ -187,46 +187,68 @@ public:
     }
 
     // Length squared of vector
-    float LengthSq() const {
+    float lengthSq() const {
         return (x * x + y * y);
     }
 
     // Length of vector
-    float Length() const {
-        return (Math::sqrt(LengthSq()));
+    float length() const {
+        return (Math::sqrt(lengthSq()));
     }
 
-    // Normalize this vector
-    void Normalize() {
-        float length = Length();
-        x /= length;
-        y /= length;
+    static float distance(const Vector2& a, const Vector2& b) {
+        float dx = a.x - b.x;
+        float dy = a.x - b.y;
+        return Math::sqrt(dx * dx + dy * dy);
     }
 
-    // Normalize the provided vector
-    static Vector2 Normalize(const Vector2& vec) {
-        Vector2 temp = vec;
-        temp.Normalize();
+    void clamp(const Vector2& min, const Vector2& max) {
+        x = Math::clamp<float>(x, min.x, max.x);
+        y = Math::clamp<float>(y, min.y, max.y);
+    }
+
+    static Vector2 clamp(const Vector2& value, const Vector2& min, const Vector2& max) {
+        Vector2 temp = value;
+        temp.x = Math::clamp<float>(temp.x, min.x, max.x);
+        temp.y = Math::clamp<float>(temp.y, min.y, max.y);
         return temp;
     }
 
+    // Normalize this vector
+    void normalize() {
+        float len = length();
+        x /= len;
+        y /= len;
+    }
+
+    // Normalize the provided vector
+    static Vector2 normalize(const Vector2& vec) {
+        Vector2 temp = vec;
+        temp.normalize();
+        return temp;
+    }
+
+    float dot(const Vector2& vec) {
+        return (x * vec.x + y * vec.y);
+    }
+
     // Dot product between two vectors (a dot b)
-    static float Dot(const Vector2& a, const Vector2& b) {
+    static float dot(const Vector2& a, const Vector2& b) {
         return (a.x * b.x + a.y * b.y);
     }
 
     // Lerp from A to B by f
-    static Vector2 Lerp(const Vector2& a, const Vector2& b, float f) {
+    static Vector2 lerp(const Vector2& a, const Vector2& b, float f) {
         return Vector2(a + f * (b - a));
     }
 
     // Reflect V about (normalized) N
-    static Vector2 Reflect(const Vector2& v, const Vector2& n) {
-        return v - 2.0f * Vector2::Dot(v, n) * n;
+    static Vector2 reflect(const Vector2& v, const Vector2& n) {
+        return v - 2.0f * Vector2::dot(v, n) * n;
     }
 
     // Transform vector by matrix
-    static Vector2 Transform(const Vector2& vec, const class Matrix3& mat, float w = 1.0f);
+    static Vector2 transform(const Vector2& vec, const class Matrix3& mat, float w = 1.0f);
 
     static const Vector2 zero;
     static const Vector2 right;
@@ -350,11 +372,29 @@ public:
         return (Math::sqrt(lengthSq()));
     }
 
-    float distance(const Vector3& a, const Vector3& b) {
+    static float distance(const Vector3& a, const Vector3& b) {
         float dx = a.x - b.x;
         float dy = a.x - b.y;
         float dz = a.z - b.z;
         return Math::sqrt(dx * dx + dy * dy + dz + dz);
+    }
+
+    D3DXVECTOR3 toD3DXVECTOR3() {
+        return D3DXVECTOR3(x, y, z);
+    }
+
+    void clamp(const Vector3& min, const Vector3& max) {
+        x = Math::clamp<float>(x, min.x, max.x);
+        y = Math::clamp<float>(y, min.y, max.y);
+        z = Math::clamp<float>(z, min.z, max.z);
+    }
+
+    static Vector3 clamp(const Vector3& value, const Vector3& min, const Vector3& max) {
+        Vector3 temp = value;
+        temp.x = Math::clamp<float>(temp.x, min.x, max.x);
+        temp.y = Math::clamp<float>(temp.y, min.y, max.y);
+        temp.z = Math::clamp<float>(temp.z, min.z, max.z);
+        return temp;
     }
 
     // Normalize this vector
@@ -365,10 +405,6 @@ public:
         z /= len;
     }
 
-    D3DXVECTOR3 toD3DXVECTOR3() {
-        return D3DXVECTOR3(x, y, z);
-    }
-
     // Normalize the provided vector
     static Vector3 normalize(const Vector3& vec) {
         Vector3 temp = vec;
@@ -376,9 +412,21 @@ public:
         return temp;
     }
 
+    float dot(const Vector3& vec) {
+        return (x * vec.x + y * vec.y + z * vec.z);
+    }
+
     // Dot product between two vectors (a dot b)
     static float dot(const Vector3& a, const Vector3& b) {
         return (a.x * b.x + a.y * b.y + a.z * b.z);
+    }
+
+    Vector3 cross(const Vector3& vec) {
+        return Vector3(
+            y * vec.z - z * vec.y,
+            z * vec.x - x * vec.z,
+            x * vec.y - y * vec.x
+        );
     }
 
     // Cross product between two vectors (a cross b)

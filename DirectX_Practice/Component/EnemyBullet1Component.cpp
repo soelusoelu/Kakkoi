@@ -25,7 +25,7 @@ void EnemyBullet1Component::start() {
     mSprite = mOwner->getComponentManager()->getComponent<SpriteComponent>()->getSprite();
 
     mE2P = mPlayerSprite->getPosition() - mSprite->getPosition();
-    mE2P.Normalize();
+    mE2P.normalize();
 }
 
 void EnemyBullet1Component::update() {
