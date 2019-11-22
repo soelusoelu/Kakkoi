@@ -29,6 +29,10 @@ float AvoidancePlayerActor::slow() {
     return mSuccessedAvoidance ? mSlowRatio : 1.f;
 }
 
+float AvoidancePlayerActor::slowOfPlayer() {
+    return mSuccessedAvoidance ? mSlowRatioOfPlayer : 1.f;
+}
+
 void AvoidancePlayerActor::slowTime() {
     mSlowTimer->update();
     if (mSlowTimer->isTime()) {
@@ -39,4 +43,5 @@ void AvoidancePlayerActor::slowTime() {
 
 bool AvoidancePlayerActor::mSuccessedAvoidance = false;
 float AvoidancePlayerActor::mSlowRatio = 0.2f;
+float AvoidancePlayerActor::mSlowRatioOfPlayer = 0.5f;
 std::unique_ptr<Time> AvoidancePlayerActor::mSlowTimer = std::make_unique<Time>(0.5f);

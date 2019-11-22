@@ -61,7 +61,7 @@ void PlayerMoveComponent::update() {
 void PlayerMoveComponent::move() {
     int horizontal = Input::horizontal();
     if (!Math::nearZero(horizontal)) {
-        mSprite->translate(Vector2(horizontal, 0.f) * MOVE_SPEED * AvoidancePlayerActor::slow());
+        mSprite->translate(Vector2(horizontal, 0.f) * MOVE_SPEED * AvoidancePlayerActor::slowOfPlayer());
 
         mDir = horizontal < 0 ? Direction::Left : Direction::Right;
     }
@@ -95,7 +95,7 @@ void PlayerMoveComponent::jumpUpdate() {
 
 void PlayerMoveComponent::fall() {
     //重力は常にかける
-    mSprite->translate(Vector2(0.f, FALL_SPEED * AvoidancePlayerActor::slow()));
+    mSprite->translate(Vector2(0.f, FALL_SPEED * AvoidancePlayerActor::slowOfPlayer()));
 
     auto sizeY = mSprite->getScreenTextureSize().y;
     auto posY = mSprite->getPosition().y;

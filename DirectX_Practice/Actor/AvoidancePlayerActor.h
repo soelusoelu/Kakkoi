@@ -18,6 +18,7 @@ public:
     virtual void updateActor() override;
     virtual void drawActor() const override;
     static float slow();
+    static float slowOfPlayer();
     static void slowTime();
 
 public:
@@ -29,4 +30,5 @@ private:
     CircleCollisionComponent* mCircle;
     SpriteComponent* mSprite;
     static float mSlowRatio;
+    static float mSlowRatioOfPlayer;
 };
