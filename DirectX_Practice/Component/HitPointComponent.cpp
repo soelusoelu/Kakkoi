@@ -27,3 +27,7 @@ void HitPointComponent::takeHeal(int heal) {
 int HitPointComponent::hp() const {
     return mHP;
 }
+
+float HitPointComponent::hpRate() const {
+    return static_cast<float>(mHP) / static_cast<float>(MAX_HP);
+}

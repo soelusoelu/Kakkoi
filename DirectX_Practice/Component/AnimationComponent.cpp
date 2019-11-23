@@ -13,6 +13,7 @@ AnimationComponent::AnimationComponent(Actor* owner, float changeTimerSec, const
     mWidthCount(0),
     mHeightCount(0),
     mCurrentIndex(0),
+    mPreviousVerticalIndex(0),
     mVerticalIndex(0) {
 }
 
@@ -26,16 +27,17 @@ void AnimationComponent::start() {
 
 void AnimationComponent::update() {
     mChangeTimer->update();
-    if (mChangeTimer->isTime()) {
+    if ((mChangeTimer->isTime()) || (mPreviousVerticalIndex != mVerticalIndex)) {
         mChangeTimer->reset();
         change();
     }
+
+    mPreviousVerticalIndex = mVerticalIndex;
 }
 
 void AnimationComponent::change() {
     mCurrentIndex = (mCurrentIndex + mWidthCount + 1) % mWidthCount;
 
-    auto size = mSprite->getTextureSize();
     auto l = static_cast<float>(mCurrentIndex) / static_cast<float>(mWidthCount);
     auto t = static_cast<float>(mVerticalIndex) / static_cast<float>(mHeightCount);
     mSprite->setUV(
@@ -48,5 +50,4 @@ void AnimationComponent::change() {
 
 void AnimationComponent::set(int verticalIndex) {
     mVerticalIndex = verticalIndex;
-    mChangeTimer->setOverLimit();
 }

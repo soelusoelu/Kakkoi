@@ -41,6 +41,7 @@ private:
     void attack();
     void specialAttack();
     void hit();
+    void dead();
 
 private:
     Sprite* mSprite;

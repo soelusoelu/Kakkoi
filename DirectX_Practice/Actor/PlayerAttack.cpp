@@ -18,7 +18,7 @@ PlayerAttack::PlayerAttack(PlayerActor* player, const Vector2& pos, const char* 
     auto sp = spComp->sp();
     mDamage->setDamageOfPlayerAttack(spComp->computeGaugeCount(sp - 1));
     auto sprite = mSprite->getSprite();
-    sprite->setScale(0.5f);
+    //sprite->setScale(0.5f);
     sprite->setPosition(pos);
 }
 

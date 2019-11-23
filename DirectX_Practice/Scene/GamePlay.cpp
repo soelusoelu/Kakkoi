@@ -38,6 +38,9 @@ void GamePlay::updateScene() {
         if (Input::getKeyDown(KeyCode::Escape)) {
             mUIManager->add(new Pause(shared_from_this()));
         }
+        if (!mActorManager->getActor<EnemyActor>()) {
+            next(Scene::Title);
+        }
     }
 }
 

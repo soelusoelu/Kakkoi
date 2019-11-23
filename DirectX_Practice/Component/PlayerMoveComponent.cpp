@@ -27,7 +27,7 @@ PlayerMoveComponent::PlayerMoveComponent(Actor* owner, int updateOrder) :
     FALL_SPEED(9.8f),
     mCurrentJumpPower(0.f),
     mX(0.f),
-    AVOIDANCE_LENGTH(150),
+    AVOIDANCE_LENGTH(200),
     mAttackTimer(std::make_unique<Time>(0.25f)),
     mCanAttack(true),
     mState(PlayerState::OnGround),
@@ -41,8 +41,8 @@ PlayerMoveComponent::~PlayerMoveComponent() = default;
 
 void PlayerMoveComponent::start() {
     mSprite = mOwner->getComponentManager()->getComponent<SpriteComponent>()->getSprite();
-    //mSprite->setScale(0.1f);
     mSprite->setPosition(Vector2(Game::WINDOW_WIDTH / 2.f, Game::WINDOW_HEIGHT - (mSprite->getTextureSize().y * mSprite->getScale().y)));
+    mSprite->setUV(0.f, 0.f, 0.25f, 0.5f);
 
     mAnim = mOwner->getComponentManager()->getComponent<AnimationComponent>();
     mCircle = mOwner->getComponentManager()->getComponent<CircleCollisionComponent>();
@@ -62,6 +62,7 @@ void PlayerMoveComponent::update() {
     attack();
     specialAttack();
     hit();
+    dead();
 }
 
 void PlayerMoveComponent::move() {
@@ -96,14 +97,14 @@ void PlayerMoveComponent::jumpUpdate() {
 
     //y = ax ^ 2 + bx + c
     //2次関数でジャンプ量調整
-    mX += 0.1f;
+    mX += 0.1f * -AvoidancePlayerActor::slowOfPlayer();
     mCurrentJumpPower = -3 * Math::pow<float>(mX, 2) + mX + 28.f; //一番右の値がジャンプ量に直結
     mSprite->translate(Vector2(0.f, -mCurrentJumpPower));
 }
 
 void PlayerMoveComponent::fall() {
     //重力は常にかける
-    mSprite->translate(Vector2(0.f, FALL_SPEED * AvoidancePlayerActor::slowOfPlayer()));
+    mSprite->translate(Vector2(0.f, FALL_SPEED /** AvoidancePlayerActor::slowOfPlayer()*/));
 
     auto sizeY = mSprite->getScreenTextureSize().y;
     auto posY = mSprite->getPosition().y;
@@ -119,6 +120,9 @@ void PlayerMoveComponent::avoidance() {
     if (mRunningAvoidance) {
         return;
     }
+    if (AvoidancePlayerActor::mSuccessedAvoidance) {
+        return;
+    }
 
     mRunningAvoidance = true;
 
@@ -126,7 +130,7 @@ void PlayerMoveComponent::avoidance() {
     auto l = mDir == Direction::Left ? -AVOIDANCE_LENGTH : AVOIDANCE_LENGTH;
     mAfterPosition = mSprite->getPosition();
     mAfterPosition.x += l;
-    mAfterPosition.x = Math::clamp<float>(mAfterPosition.x, 0.f, Game::WINDOW_WIDTH - mSprite->getScreenTextureSize().x);
+    mAfterPosition.x = Math::clamp<float>(mAfterPosition.x, 0.5f, Game::WINDOW_WIDTH - mSprite->getScreenTextureSize().x + 0.5f);
     mNormalDir = mAfterPosition - mSprite->getPosition();
     mNormalDir.normalize();
 
@@ -134,14 +138,9 @@ void PlayerMoveComponent::avoidance() {
         avoidancePos.x -= AVOIDANCE_LENGTH - mSprite->getScreenTextureSize().x;
     }
     auto scale = mSprite->getScale();
-    scale.x = AVOIDANCE_LENGTH / mSprite->getTextureSize().x;
-    new AvoidancePlayerActor(
-        dynamic_cast<PlayerActor*>(mOwner),
-        avoidancePos,
-        mSprite->fileName(),
-        mSprite->getTextureSize(),
-        scale
-    );
+    scale.x = AVOIDANCE_LENGTH / mSprite->getScreenTextureSize().x;
+
+    new AvoidancePlayerActor(dynamic_cast<PlayerActor*>(mOwner), avoidancePos, scale);
 
     mCircle->disabled();
 }
@@ -188,11 +187,7 @@ void PlayerMoveComponent::attack() {
         return;
     }
     Vector2 pos = mSprite->getPosition();
-    if (mDir == Direction::Left) {
-        pos += Vector2(-96.f, -32.f);
-    } else {
-        pos += Vector2(64.f, -32.f);
-    }
+    pos += mDir == Direction::Left ? Vector2(-144.f, -48.f) : Vector2(96.f, -48.f);
 
     new PlayerAttack(dynamic_cast<PlayerActor*>(mOwner), pos);
     mCanAttack = false;
@@ -228,5 +223,11 @@ void PlayerMoveComponent::hit() {
 
         auto damage = c->getOwner()->getComponentManager()->getComponent<DamageComponent>();
         mHP->takeDamage(damage->damage());
+    }
+}
+
+void PlayerMoveComponent::dead() {
+    if (mHP->hp() <= 0) {
+        Actor::destroy(mOwner, 0.1f);
     }
 }

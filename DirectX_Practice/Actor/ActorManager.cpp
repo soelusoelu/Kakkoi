@@ -15,8 +15,7 @@ void ActorManager::update() {
     }
     mUpdatingActors = false;
 
-    std::copy(mPendingActors.begin(), mPendingActors.end(), std::back_inserter(mActors));
-    mPendingActors.clear();
+    fromPendingToMain();
 
     remove();
 }
@@ -61,6 +60,14 @@ std::shared_ptr<PlayerActor> ActorManager::getPlayer() const {
     }
     //最後まで見つからなければnullptrを返す
     return p;
+}
+
+void ActorManager::fromPendingToMain() {
+    if (mPendingActors.empty()) {
+        return;
+    }
+    std::copy(mPendingActors.begin(), mPendingActors.end(), std::back_inserter(mActors));
+    mPendingActors.clear();
 }
 
 std::list<std::shared_ptr<Actor>> ActorManager::mActors;

@@ -108,7 +108,7 @@ HRESULT Direct3D11::init(const HWND& hWnd) {
 
 void Direct3D11::clear() {
     //画面クリア（実際は単色で画面を塗りつぶす処理）
-    float ClearColor[4] = { 0,0,1,1 };// クリア色作成　RGBAの順
+    float ClearColor[4] = { 1,1,1,1 };// クリア色作成　RGBAの順
     mDeviceContext->ClearRenderTargetView(mRenderTargetView, ClearColor);//画面クリア
     mDeviceContext->ClearDepthStencilView(mDepthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);//深度バッファクリア
 }

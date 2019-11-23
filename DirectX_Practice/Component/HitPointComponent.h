@@ -13,6 +13,7 @@ public:
     void takeDamage(int damage);
     void takeHeal(int heal);
     int hp() const;
+    float hpRate() const;
 
 private:
     int mHP;

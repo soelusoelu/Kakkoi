@@ -38,6 +38,7 @@ void EnemyMoveComponent::update() {
     attackToPlayer();
     circleShot();
     hit();
+    dead();
 }
 
 void EnemyMoveComponent::attackToPlayer() {
@@ -85,5 +86,11 @@ void EnemyMoveComponent::invincible() {
     if (mInvincibleTimer->isTime()) {
         mInvincibleTimer->reset();
         mIsInvincible = false;
+    }
+}
+
+void EnemyMoveComponent::dead() {
+    if (mHP->hp() <= 0) {
+        Actor::destroy(mOwner, 0.1f);
     }
 }

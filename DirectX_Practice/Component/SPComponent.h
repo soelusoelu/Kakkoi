@@ -17,6 +17,7 @@ public:
     const int getOneGauge() const;
     int getCurrentGaugeCount() const;
     int computeGaugeCount(int sp);
+    float spRate() const;
 
 private:
     int mSP;

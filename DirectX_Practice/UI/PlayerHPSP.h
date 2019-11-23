@@ -7,6 +7,7 @@ class PlayerActor;
 class EnemyActor;
 class HitPointComponent;
 class SPComponent;
+class Sprite;
 
 class PlayerHPSP : public UI {
 public:
@@ -18,6 +19,6 @@ private:
     std::weak_ptr<HitPointComponent> mPlayerHP;
     std::weak_ptr<SPComponent> mPlayerSP;
     std::weak_ptr<HitPointComponent> mEnemyHP;
-    int mPreviousHP;
-    int mPreviousSP;
+    Sprite* mHpGauge;
+    Sprite* mSpGauge;
 };

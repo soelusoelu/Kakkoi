@@ -26,6 +26,7 @@ private:
     int mWidthCount;
     int mHeightCount;
     int mCurrentIndex;
+    int mPreviousVerticalIndex;
     int mVerticalIndex;
 };
 

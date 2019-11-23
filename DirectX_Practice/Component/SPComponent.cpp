@@ -51,3 +51,7 @@ int SPComponent::computeGaugeCount(int sp) {
     sp = Math::Max(sp, 0);
     return sp / ONE_GAUGE;
 }
+
+float SPComponent::spRate() const {
+    return static_cast<float>(mSP) / static_cast<float>(ONE_GAUGE);
+}

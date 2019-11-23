@@ -9,6 +9,7 @@ enum class ActorState {
 };
 
 class ComponentManagementOfActor;
+class Time;
 
 class Actor {
 public:
@@ -28,6 +29,8 @@ public:
     //アクター削除
     static void destroy(Actor* actor);
     static void destroy(std::shared_ptr<Actor> actor);
+    static void destroy(Actor* actor, float sec);
+    static void destroy(std::shared_ptr<Actor> actor, float sec);
 
     //ゲッター、セッター
     std::shared_ptr<ComponentManagementOfActor> getComponentManager() const;
@@ -35,7 +38,11 @@ public:
     const char* getTag() const;
 
 private:
+    void destroyTimer();
+
+private:
     std::shared_ptr<ComponentManagementOfActor> mComponentManager;
+    std::unique_ptr<Time> mDestroyTimer;
     ActorState mState;
     const char* mTag;
 };

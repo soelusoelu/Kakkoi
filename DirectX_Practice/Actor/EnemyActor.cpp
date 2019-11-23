@@ -11,7 +11,7 @@
 EnemyActor::EnemyActor(PlayerActor* player, const char* tag) :
     Actor(tag),
     mCircle(new CircleCollisionComponent(this)),
-    mHP(new HitPointComponent(this, 5000)),
+    mHP(new HitPointComponent(this, 3000)),
     mEnemyMove(new EnemyMoveComponent(this, player)),
     mSprite(new SpriteComponent(this, "cute_cat_illust_3737.png", Vector2(830.f, 800.f), 0.6f)) {
 }

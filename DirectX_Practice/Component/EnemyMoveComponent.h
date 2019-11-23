@@ -29,6 +29,7 @@ private:
     void circleShot();
     void hit();
     void invincible();
+    void dead();
 
 private:
     PlayerActor* mPlayer;

@@ -6,11 +6,11 @@
 #include "../Device/Time.h"
 #include "../UI/Sprite.h"
 
-AvoidancePlayerActor::AvoidancePlayerActor(PlayerActor* player, const Vector2& position, const std::string& fileName, const Vector2& size, const Vector2& scale, const char* tag) :
+AvoidancePlayerActor::AvoidancePlayerActor(PlayerActor* player, const Vector2& position, const Vector2& scale, const char* tag) :
     Actor(tag),
     mAvoidance(new AvoidanceComponent(this, player)),
     mCircle(new CircleCollisionComponent(this)),
-    mSprite(new SpriteComponent(this, fileName, size, 0.51f)) {
+    mSprite(new SpriteComponent(this, "player_128.png", Vector2(128.f, 128.f), 0.51f)) {
     auto s = mSprite->getSprite();
     s->setAlpha(0.f);
     s->setScale(scale);
@@ -44,4 +44,4 @@ void AvoidancePlayerActor::slowTime() {
 bool AvoidancePlayerActor::mSuccessedAvoidance = false;
 float AvoidancePlayerActor::mSlowRatio = 0.2f;
 float AvoidancePlayerActor::mSlowRatioOfPlayer = 0.5f;
-std::unique_ptr<Time> AvoidancePlayerActor::mSlowTimer = std::make_unique<Time>(0.5f);
+std::unique_ptr<Time> AvoidancePlayerActor::mSlowTimer = std::make_unique<Time>(0.7f);
