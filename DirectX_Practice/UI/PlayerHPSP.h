@@ -20,5 +20,7 @@ private:
     std::weak_ptr<SPComponent> mPlayerSP;
     std::weak_ptr<HitPointComponent> mEnemyHP;
     Sprite* mHpGauge;
-    Sprite* mSpGauge;
+    Sprite* mSpGauge1;
+    Sprite* mSpGauge2;
+    Sprite* mSpGauge3;
 };

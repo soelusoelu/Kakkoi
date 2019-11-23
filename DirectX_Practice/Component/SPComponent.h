@@ -16,6 +16,7 @@ public:
     const int maxSP() const;
     const int getOneGauge() const;
     int getCurrentGaugeCount() const;
+    int getMaxGaugeCount() const;
     int computeGaugeCount(int sp);
     float spRate() const;
 
@@ -23,7 +24,6 @@ private:
     int mSP;
     int mCurrentGaugeCount;
     const int ONE_GAUGE;
-    const int GAUGE_COUNT;
+    const int MAX_GAUGE_COUNT;
     const int MAX_SP;
 };
-

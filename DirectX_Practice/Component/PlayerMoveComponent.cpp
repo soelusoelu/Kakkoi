@@ -114,7 +114,7 @@ void PlayerMoveComponent::fall() {
 }
 
 void PlayerMoveComponent::avoidance() {
-    if (!Input::getKeyDown(KeyCode::X)) {
+    if (!Input::getKeyDown(KeyCode::LeftControl)) {
         return;
     }
     if (mRunningAvoidance) {
@@ -153,7 +153,7 @@ void PlayerMoveComponent::avoidanceUpdate() {
     auto oneFrameLength = AVOIDANCE_LENGTH / 10.f;
     mSprite->translate(mNormalDir * oneFrameLength);
 
-    if ((mSprite->getPosition() - mAfterPosition).length() < oneFrameLength + 1) {
+    if (Math::abs(mSprite->getPosition().x - mAfterPosition.x) < oneFrameLength + 1) {
         mRunningAvoidance = false;
     }
 }

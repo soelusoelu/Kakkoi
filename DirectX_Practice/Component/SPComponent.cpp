@@ -6,8 +6,8 @@ SPComponent::SPComponent(Actor* onwer) :
     mSP(0),
     mCurrentGaugeCount(0),
     ONE_GAUGE(100),
-    GAUGE_COUNT(3),
-    MAX_SP(ONE_GAUGE * GAUGE_COUNT) {
+    MAX_GAUGE_COUNT(3),
+    MAX_SP(ONE_GAUGE * MAX_GAUGE_COUNT) {
 }
 
 SPComponent::~SPComponent() = default;
@@ -45,6 +45,10 @@ const int SPComponent::getOneGauge() const {
 
 int SPComponent::getCurrentGaugeCount() const {
     return mCurrentGaugeCount;
+}
+
+int SPComponent::getMaxGaugeCount() const {
+    return MAX_GAUGE_COUNT;
 }
 
 int SPComponent::computeGaugeCount(int sp) {

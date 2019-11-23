@@ -27,8 +27,7 @@ EnemyMoveComponent::~EnemyMoveComponent() = default;
 
 void EnemyMoveComponent::start() {
     mMySprite = mOwner->getComponentManager()->getComponent<SpriteComponent>()->getSprite();
-    mMySprite->setScale(0.05f);
-    mMySprite->setPosition(Vector2(Game::WINDOW_WIDTH / 2.f, Game::WINDOW_HEIGHT / 1.5f));
+    mMySprite->setPosition(Vector2(Game::WINDOW_WIDTH / 2.f - mMySprite->getScreenTextureSize().x, Game::WINDOW_HEIGHT / 2.f + -mMySprite->getScreenTextureSize().y));
 
     mCircle = mOwner->getComponentManager()->getComponent<CircleCollisionComponent>();
     mHP = mOwner->getComponentManager()->getComponent<HitPointComponent>();
