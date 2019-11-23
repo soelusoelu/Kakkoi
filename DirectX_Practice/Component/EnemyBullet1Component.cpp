@@ -12,9 +12,9 @@ EnemyBullet1Component::EnemyBullet1Component(Actor* onwer, Sprite* playerSprite)
     mPlayerSprite(playerSprite),
     mE2P(Vector2::zero),
     BULLET_SPEED(4.f),
-    MAX_SCALE(0.5f),
-    MIN_SCALE(0.2f),
-    ROTATE_SPEED(8.f),
+    MAX_SCALE(2.5f),
+    MIN_SCALE(1.5f),
+    ROTATE_SPEED(13.f),
     SCALING_SPEED(0.03f),
     mScaleCounter(0) {
 }
@@ -40,8 +40,8 @@ void EnemyBullet1Component::move() {
 
     mScaleCounter += SCALING_SPEED * 100 * AvoidancePlayerActor::slow();
     mSprite->setScale(Math::sin(mScaleCounter * Math::deg2Rad) * MAX_SCALE, true);
-    if (mScaleCounter >= 180 - MIN_SCALE * 100) {
-        mScaleCounter = MIN_SCALE * 100;
+    if (mScaleCounter >= 165) {
+        mScaleCounter = 15;
     }
 }
 

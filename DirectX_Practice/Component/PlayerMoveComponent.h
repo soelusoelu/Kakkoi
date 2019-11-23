@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "Component.h"
+#include "../Utility/Math.h"
 #include <memory>
 
 enum class PlayerState {
@@ -9,11 +10,12 @@ enum class PlayerState {
 };
 
 enum class Direction {
-    Right,
-    Left
+    Right = 0,
+    Left = 1
 };
 
 class Actor;
+class AnimationComponent;
 class CircleCollisionComponent;
 class HitPointComponent;
 class SPComponent;
@@ -33,6 +35,7 @@ private:
     void jumpUpdate();
     void fall();
     void avoidance();
+    void avoidanceUpdate();
     void posClamp();
     void canAttack();
     void attack();
@@ -41,6 +44,7 @@ private:
 
 private:
     Sprite* mSprite;
+    std::shared_ptr< AnimationComponent> mAnim;
     std::shared_ptr<CircleCollisionComponent> mCircle;
     std::shared_ptr<HitPointComponent> mHP;
     std::shared_ptr<SPComponent> mSP;
@@ -53,4 +57,7 @@ private:
     bool mCanAttack;
     PlayerState mState;
     Direction mDir;
+    bool mRunningAvoidance;
+    Vector2 mAfterPosition;
+    Vector2 mNormalDir;
 };

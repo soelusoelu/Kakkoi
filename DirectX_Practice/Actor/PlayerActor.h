@@ -2,6 +2,7 @@
 
 #include "Actor.h"
 
+class AnimationComponent;
 class CircleCollisionComponent;
 class HitPointComponent;
 class PlayerMoveComponent;
@@ -16,6 +17,7 @@ public:
     virtual void drawActor() const override;
 
 private:
+    AnimationComponent* mAnimation;
     CircleCollisionComponent* mCircle;
     HitPointComponent* mHP;
     PlayerMoveComponent* mPlayerMove;

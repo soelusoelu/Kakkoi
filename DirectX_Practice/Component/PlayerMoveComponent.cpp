@@ -5,41 +5,46 @@
 #include "../Actor/PlayerActor.h"
 #include "../Actor/PlayerAttack.h"
 #include "../Actor/SpecialAttack.h"
+#include "../Component/AnimationComponent.h"
 #include "../Component/CircleCollisionComponent.h"
 #include "../Component/DamageComponent.h"
 #include "../Component/HitPointComponent.h"
 #include "../Component/SPComponent.h"
-#include "../Device/Time.h"
-#include "../UI/Sprite.h"
 #include "../Component/SpriteComponent.h"
+#include "../Device/Time.h"
 #include "../System/Game.h"
+#include "../UI/Sprite.h"
 #include "../Utility/Input.h"
-#include "../Utility/Math.h"
 
 PlayerMoveComponent::PlayerMoveComponent(Actor* owner, int updateOrder) :
     Component(owner, updateOrder),
+    mAnim(nullptr),
     mSprite(nullptr),
     mCircle(nullptr),
     mHP(nullptr),
     mSP(nullptr),
-    MOVE_SPEED(2.f),
-    FALL_SPEED(1.f),
+    MOVE_SPEED(4.f),
+    FALL_SPEED(9.8f),
     mCurrentJumpPower(0.f),
     mX(0.f),
     AVOIDANCE_LENGTH(150),
     mAttackTimer(std::make_unique<Time>(0.25f)),
     mCanAttack(true),
     mState(PlayerState::OnGround),
-    mDir(Direction::Right) {
+    mDir(Direction::Right),
+    mRunningAvoidance(false),
+    mAfterPosition(Vector2::zero),
+    mNormalDir(Vector2::zero) {
 }
 
 PlayerMoveComponent::~PlayerMoveComponent() = default;
 
 void PlayerMoveComponent::start() {
     mSprite = mOwner->getComponentManager()->getComponent<SpriteComponent>()->getSprite();
-    mSprite->setScale(0.1f);
+    //mSprite->setScale(0.1f);
     mSprite->setPosition(Vector2(Game::WINDOW_WIDTH / 2.f, Game::WINDOW_HEIGHT - (mSprite->getTextureSize().y * mSprite->getScale().y)));
 
+    mAnim = mOwner->getComponentManager()->getComponent<AnimationComponent>();
     mCircle = mOwner->getComponentManager()->getComponent<CircleCollisionComponent>();
     mHP = mOwner->getComponentManager()->getComponent<HitPointComponent>();
     mSP = mOwner->getComponentManager()->getComponent<SPComponent>();
@@ -51,6 +56,7 @@ void PlayerMoveComponent::update() {
     jumpUpdate();
     fall();
     avoidance();
+    avoidanceUpdate();
     posClamp();
     canAttack();
     attack();
@@ -64,6 +70,8 @@ void PlayerMoveComponent::move() {
         mSprite->translate(Vector2(horizontal, 0.f) * MOVE_SPEED * AvoidancePlayerActor::slowOfPlayer());
 
         mDir = horizontal < 0 ? Direction::Left : Direction::Right;
+
+        mAnim->set(static_cast<int>(mDir));
     }
 }
 
@@ -89,7 +97,7 @@ void PlayerMoveComponent::jumpUpdate() {
     //y = ax ^ 2 + bx + c
     //2次関数でジャンプ量調整
     mX += 0.1f;
-    mCurrentJumpPower = -3 * Math::pow<float>(mX, 2) + mX + 16.f; //一番右の値がジャンプ量に直結
+    mCurrentJumpPower = -3 * Math::pow<float>(mX, 2) + mX + 28.f; //一番右の値がジャンプ量に直結
     mSprite->translate(Vector2(0.f, -mCurrentJumpPower));
 }
 
@@ -108,25 +116,47 @@ void PlayerMoveComponent::avoidance() {
     if (!Input::getKeyDown(KeyCode::X)) {
         return;
     }
+    if (mRunningAvoidance) {
+        return;
+    }
 
-    auto pos = mSprite->getPosition();
+    mRunningAvoidance = true;
+
+    auto avoidancePos = mSprite->getPosition();
     auto l = mDir == Direction::Left ? -AVOIDANCE_LENGTH : AVOIDANCE_LENGTH;
-    mSprite->translate(Vector2(l, 0.f));
+    mAfterPosition = mSprite->getPosition();
+    mAfterPosition.x += l;
+    mAfterPosition.x = Math::clamp<float>(mAfterPosition.x, 0.f, Game::WINDOW_WIDTH - mSprite->getScreenTextureSize().x);
+    mNormalDir = mAfterPosition - mSprite->getPosition();
+    mNormalDir.normalize();
 
     if (l < 0) {
-        pos.x -= AVOIDANCE_LENGTH - mSprite->getScreenTextureSize().x;
+        avoidancePos.x -= AVOIDANCE_LENGTH - mSprite->getScreenTextureSize().x;
     }
     auto scale = mSprite->getScale();
     scale.x = AVOIDANCE_LENGTH / mSprite->getTextureSize().x;
     new AvoidancePlayerActor(
         dynamic_cast<PlayerActor*>(mOwner),
-        pos,
+        avoidancePos,
         mSprite->fileName(),
         mSprite->getTextureSize(),
         scale
     );
 
     mCircle->disabled();
+}
+
+void PlayerMoveComponent::avoidanceUpdate() {
+    if (!mRunningAvoidance) {
+        return;
+    }
+
+    auto oneFrameLength = AVOIDANCE_LENGTH / 10.f;
+    mSprite->translate(mNormalDir * oneFrameLength);
+
+    if ((mSprite->getPosition() - mAfterPosition).length() < oneFrameLength + 1) {
+        mRunningAvoidance = false;
+    }
 }
 
 void PlayerMoveComponent::posClamp() {

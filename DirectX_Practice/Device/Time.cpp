@@ -32,3 +32,7 @@ void Time::setLimitTime(float sec) {
 int Time::currentTimer() const {
     return mCurrentTime / 60;
 }
+
+void Time::setOverLimit() {
+    mIsOverLimit = true;
+}

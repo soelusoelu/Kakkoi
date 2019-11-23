@@ -139,6 +139,7 @@
     <ClCompile Include="Actor\PlayerAttack.cpp" />
     <ClCompile Include="Actor\SpecialAttack.cpp" />
     <ClCompile Include="Camera\Camera.cpp" />
+    <ClCompile Include="Component\AnimationComponent.cpp" />
     <ClCompile Include="Component\AvoidanceComponent.cpp" />
     <ClCompile Include="Component\CircleCollisionComponent.cpp" />
     <ClCompile Include="Component\Component.cpp" />
@@ -193,6 +194,7 @@
     <ClInclude Include="Actor\PlayerAttack.h" />
     <ClInclude Include="Actor\SpecialAttack.h" />
     <ClInclude Include="Camera\Camera.h" />
+    <ClInclude Include="Component\AnimationComponent.h" />
     <ClInclude Include="Component\AvoidanceComponent.h" />
     <ClInclude Include="Component\CircleCollisionComponent.h" />
     <ClInclude Include="Component\Component.h" />

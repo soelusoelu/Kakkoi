@@ -10,7 +10,7 @@ EnemyBullet1::EnemyBullet1(Sprite* playerSprite, const char* tag) :
     mCircle(new CircleCollisionComponent(this)),
     mDamage(new DamageComponent(this, 100)),
     mEnemyBullet(new EnemyBullet1Component(this, playerSprite)),
-    mSprite(new SpriteComponent(this, "effect.jpg", Vector2(400.f, 400.f), 0.2f)) {
+    mSprite(new SpriteComponent(this, "BigFire.png", Vector2(64.f, 64.f), 0.19f)) {
 }
 
 EnemyBullet1::~EnemyBullet1() = default;

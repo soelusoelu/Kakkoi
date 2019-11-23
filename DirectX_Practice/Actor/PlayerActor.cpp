@@ -2,6 +2,7 @@
 #include "../Actor/Actor.h"
 #include "../Actor/ComponentManagementOfActor.h"
 #include "../Actor/AvoidancePlayerActor.h"
+#include "../Component/AnimationComponent.h"
 #include "../Component/CircleCollisionComponent.h"
 #include "../Component/DamageComponent.h"
 #include "../Component/HitPointComponent.h"
@@ -13,11 +14,12 @@
 
 PlayerActor::PlayerActor(const char* tag) :
     Actor(tag),
+    mAnimation(new AnimationComponent(this, 0.25f, Vector2(128.f, 128.f))),
     mCircle(new CircleCollisionComponent(this)),
     mHP(new HitPointComponent(this, 1000)),
     mPlayerMove(new PlayerMoveComponent(this)),
     mSP(new SPComponent(this)),
-    mSprite(new SpriteComponent(this, "kuppa.png", Vector2(548.f, 599.f), 0.5f)) {
+    mSprite(new SpriteComponent(this, "player_anime.png", Vector2(512.f, 256.f), 0.5f)) {
 }
 
 PlayerActor::~PlayerActor() = default;

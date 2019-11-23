@@ -10,7 +10,7 @@
 AvoidanceComponent::AvoidanceComponent(Actor* onwer, PlayerActor* player) :
     Component(onwer),
     mCircle(nullptr),
-    mDestroyTimer(std::make_unique<Time>(0.25f)),
+    mDestroyTimer(std::make_unique<Time>(0.1f)),
     mPlayer(player),
     SP_HEAL_POINT(15),
     mAlreadyHeal(false) {

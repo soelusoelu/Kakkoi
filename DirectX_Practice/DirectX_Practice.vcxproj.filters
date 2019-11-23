@@ -155,6 +155,9 @@
     <ClCompile Include="Component\SpecialAttackComponent.cpp">
       <Filter>Component</Filter>
     </ClCompile>
+    <ClCompile Include="Component\AnimationComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utility\Input.h">
@@ -312,6 +315,9 @@
       <Filter>Actor</Filter>
     </ClInclude>
     <ClInclude Include="Component\SpecialAttackComponent.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\AnimationComponent.h">
       <Filter>Component</Filter>
     </ClInclude>
   </ItemGroup>
