@@ -158,6 +158,9 @@
     <ClCompile Include="Component\AnimationComponent.cpp">
       <Filter>Component</Filter>
     </ClCompile>
+    <ClCompile Include="Actor\EnemyBullet2Manager.cpp">
+      <Filter>Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utility\Input.h">
@@ -319,6 +322,9 @@
     </ClInclude>
     <ClInclude Include="Component\AnimationComponent.h">
       <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor\EnemyBullet2Manager.h">
+      <Filter>Actor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

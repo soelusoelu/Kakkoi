@@ -3,16 +3,19 @@
 #include "../Actor/AvoidancePlayerActor.h"
 #include "../Actor/ComponentManagementOfActor.h"
 #include "../Component/SpriteComponent.h"
+#include "../Device/Time.h"
 #include "../System/Game.h"
 #include "../UI/Sprite.h"
 
-EnemyBullet1Component::EnemyBullet1Component(Actor* onwer, Sprite* playerSprite) :
+EnemyBullet1Component::EnemyBullet1Component(Actor* onwer, Sprite* enemySprite, Sprite* playerSprite) :
     Component(onwer),
     mSprite(nullptr),
+    mEnemySprite(enemySprite),
     mPlayerSprite(playerSprite),
     mE2P(Vector2::zero),
-    BULLET_SPEED(4.f),
-    MAX_SCALE(2.5f),
+    mWaitingTimer(std::make_unique<Time>(2.5f)),
+    BULLET_SPEED(5.f),
+    MAX_SCALE(3.f),
     MIN_SCALE(1.5f),
     ROTATE_SPEED(13.f),
     SCALING_SPEED(0.03f),
@@ -23,6 +26,7 @@ EnemyBullet1Component::~EnemyBullet1Component() = default;
 
 void EnemyBullet1Component::start() {
     mSprite = mOwner->getComponentManager()->getComponent<SpriteComponent>()->getSprite();
+    mSprite->setPosition(mEnemySprite->getPosition());
 
     mE2P = mPlayerSprite->getPosition() - mSprite->getPosition();
     mE2P.normalize();
@@ -34,8 +38,6 @@ void EnemyBullet1Component::update() {
 }
 
 void EnemyBullet1Component::move() {
-    mSprite->translate(mE2P * BULLET_SPEED * AvoidancePlayerActor::slow());
-
     mSprite->rotate(ROTATE_SPEED * AvoidancePlayerActor::slow());
 
     mScaleCounter += SCALING_SPEED * 100 * AvoidancePlayerActor::slow();
@@ -43,6 +45,13 @@ void EnemyBullet1Component::move() {
     if (mScaleCounter >= 165) {
         mScaleCounter = 15;
     }
+
+    mWaitingTimer->update();
+    if (!mWaitingTimer->isTime()) {
+        return;
+    }
+
+    mSprite->translate(mE2P * BULLET_SPEED * AvoidancePlayerActor::slow());
 }
 
 void EnemyBullet1Component::destroy() {

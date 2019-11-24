@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Component.h"
+#include "../Utility/Math.h"
 #include <memory>
 
 class Actor;
@@ -25,6 +26,8 @@ public:
     virtual void update() override;
 
 private:
+    void choiceAttack();
+    void randomMove();
     void attackToPlayer();
     void circleShot();
     void hit();
@@ -37,9 +40,11 @@ private:
     Sprite* mPlayerSprite;
     std::shared_ptr<CircleCollisionComponent> mCircle;
     std::shared_ptr<HitPointComponent> mHP;
-    std::unique_ptr<Time> mATPTimer;
-    std::unique_ptr<Time> mCircleTimer;
     std::unique_ptr<Time> mInvincibleTimer;
     bool mIsInvincible;
+    std::unique_ptr<Time> mNextMoveTimer;
+    Vector2 mNextPos;
+    bool mIsEndMove;
+    bool mCompletedAttack;
 };
 

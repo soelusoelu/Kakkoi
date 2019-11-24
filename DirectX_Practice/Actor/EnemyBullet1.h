@@ -10,7 +10,7 @@ class SpriteComponent;
 
 class EnemyBullet1 : public Actor {
 public:
-    EnemyBullet1(Sprite* playerSprite, const char* tag = "EnemyBullet");
+    EnemyBullet1(Sprite* enemySprite, Sprite* playerSprite, bool* completedAttack, const char* tag = "EnemyBullet");
     ~EnemyBullet1();
     virtual void updateActor() override;
     virtual void drawActor() const override;
@@ -20,4 +20,5 @@ private:
     DamageComponent* mDamage;
     EnemyBullet1Component* mEnemyBullet;
     SpriteComponent* mSprite;
+    bool* mCompletedAttack;
 };

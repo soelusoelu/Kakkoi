@@ -2,13 +2,15 @@
 
 #include "Component.h"
 #include "../Utility/Math.h"
+#include <memory>
 
 class Actor;
 class Sprite;
+class Time;
 
 class EnemyBullet2Component : public Component {
 public:
-    EnemyBullet2Component(Actor* owner, Sprite* playerSprite, float rotation);
+    EnemyBullet2Component(Actor* owner, Sprite* enemySprite, float rotation);
     ~EnemyBullet2Component();
     virtual void start() override;
     virtual void update() override;
@@ -18,8 +20,9 @@ private:
 
 private:
     Sprite* mSprite;
-    Sprite* mPlayerSprite;
+    Sprite* mEnemySprite;
     Vector2 mVelocity;
+    std::unique_ptr<Time> mWaitingTimer;
     float ROTATION;
     float BULLET_SPEED;
 };

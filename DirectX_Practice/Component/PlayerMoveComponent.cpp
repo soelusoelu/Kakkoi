@@ -43,6 +43,7 @@ void PlayerMoveComponent::start() {
     mSprite = mOwner->getComponentManager()->getComponent<SpriteComponent>()->getSprite();
     mSprite->setPosition(Vector2(Game::WINDOW_WIDTH / 2.f, Game::WINDOW_HEIGHT - (mSprite->getTextureSize().y * mSprite->getScale().y)));
     mSprite->setUV(0.f, 0.f, 0.25f, 0.5f);
+    mSprite->setScale(0.75f);
 
     mAnim = mOwner->getComponentManager()->getComponent<AnimationComponent>();
     mCircle = mOwner->getComponentManager()->getComponent<CircleCollisionComponent>();
@@ -98,11 +99,17 @@ void PlayerMoveComponent::jumpUpdate() {
     //y = ax ^ 2 + bx + c
     //2次関数でジャンプ量調整
     mX += 0.1f * -AvoidancePlayerActor::slowOfPlayer();
+    if (mRunningAvoidance) {
+        return;
+    }
     mCurrentJumpPower = -3 * Math::pow<float>(mX, 2) + mX + 28.f; //一番右の値がジャンプ量に直結
     mSprite->translate(Vector2(0.f, -mCurrentJumpPower));
 }
 
 void PlayerMoveComponent::fall() {
+    if (mRunningAvoidance) {
+        return;
+    }
     //重力は常にかける
     mSprite->translate(Vector2(0.f, FALL_SPEED /** AvoidancePlayerActor::slowOfPlayer()*/));
 

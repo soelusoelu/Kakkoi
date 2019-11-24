@@ -135,6 +135,7 @@
     <ClCompile Include="Actor\EnemyActor.cpp" />
     <ClCompile Include="Actor\EnemyBullet1.cpp" />
     <ClCompile Include="Actor\EnemyBullet2.cpp" />
+    <ClCompile Include="Actor\EnemyBullet2Manager.cpp" />
     <ClCompile Include="Actor\PlayerActor.cpp" />
     <ClCompile Include="Actor\PlayerAttack.cpp" />
     <ClCompile Include="Actor\SpecialAttack.cpp" />
@@ -190,6 +191,7 @@
     <ClInclude Include="Actor\EnemyActor.h" />
     <ClInclude Include="Actor\EnemyBullet1.h" />
     <ClInclude Include="Actor\EnemyBullet2.h" />
+    <ClInclude Include="Actor\EnemyBullet2Manager.h" />
     <ClInclude Include="Actor\PlayerActor.h" />
     <ClInclude Include="Actor\PlayerAttack.h" />
     <ClInclude Include="Actor\SpecialAttack.h" />

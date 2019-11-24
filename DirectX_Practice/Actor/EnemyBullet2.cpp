@@ -5,11 +5,11 @@
 #include "../Component/SpriteComponent.h"
 #include "../UI/Sprite.h"
 
-EnemyBullet2::EnemyBullet2(Sprite* playerSprite, float rotation, const char* tag) :
+EnemyBullet2::EnemyBullet2(Sprite* enemySprite, float rotation, const char* tag) :
     Actor(tag),
     mCircle(new CircleCollisionComponent(this)),
     mDamage(new DamageComponent(this, 50)),
-    mEnemyBullet(new EnemyBullet2Component(this, playerSprite, rotation)),
+    mEnemyBullet(new EnemyBullet2Component(this, enemySprite, rotation)),
     mSprite(new SpriteComponent(this, "fire.png", Vector2(64.f, 64.f), 0.2f)) {
 }
 

@@ -197,9 +197,8 @@ public:
     }
 
     static float distance(const Vector2& a, const Vector2& b) {
-        float dx = a.x - b.x;
-        float dy = a.x - b.y;
-        return Math::sqrt(dx * dx + dy * dy);
+        auto dist = a - b;
+        return dist.length();
     }
 
     void clamp(const Vector2& min, const Vector2& max) {
@@ -373,10 +372,8 @@ public:
     }
 
     static float distance(const Vector3& a, const Vector3& b) {
-        float dx = a.x - b.x;
-        float dy = a.x - b.y;
-        float dz = a.z - b.z;
-        return Math::sqrt(dx * dx + dy * dy + dz + dz);
+        auto dist = a - b;
+        return dist.length();
     }
 
     D3DXVECTOR3 toD3DXVECTOR3() {
