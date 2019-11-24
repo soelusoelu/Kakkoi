@@ -2,14 +2,13 @@
 #include "EnemyBullet2.h"
 #include "../Device/Time.h"
 
-EnemyBullet2Manager::EnemyBullet2Manager(Sprite* enemySprite, bool* completedAttack, const char* tag) :
-    Actor(tag),
+EnemyBullet2Manager::EnemyBullet2Manager(Sprite* enemySprite, bool* completedAttack, int shotCount, float rate) :
+    Actor(),
     mCompletedAttack(completedAttack),
     mDestroyTimer(std::make_unique<Time>(2.f)) {
-    constexpr int shotCount = 8;
-    constexpr int rot = 360 / shotCount;
+    int rot = 360 / shotCount;
     for (int i = 0; i < shotCount; i++) {
-        new EnemyBullet2(enemySprite, i * rot);
+        new EnemyBullet2(enemySprite, i * rot, rate);
     }
 }
 

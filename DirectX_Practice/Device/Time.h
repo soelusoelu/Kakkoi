@@ -8,6 +8,7 @@ public:
     void reset();
     bool isTime() const;
     void setLimitTime(float sec);
+    int getLimitTime() const;
     int currentTimer() const;
 
 private:

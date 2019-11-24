@@ -13,9 +13,9 @@ class PlayerActor;
 class Sprite;
 class Time;
 
-enum class BossHpState {
-    Max_HP,
-    Harf_HP
+enum class Direction {
+    Left = 0,
+    Right = 1
 };
 
 class EnemyMoveComponent : public Component {
@@ -28,8 +28,8 @@ public:
 private:
     void choiceAttack();
     void randomMove();
-    void attackToPlayer();
-    void circleShot();
+    void attackToPlayer(int shotCount);
+    void circleShot(int shotCount);
     void hit();
     void invincible();
     void dead();
@@ -46,5 +46,9 @@ private:
     Vector2 mNextPos;
     bool mIsEndMove;
     bool mCompletedAttack;
+    Direction mDir;
+    float mMoveSpeed;
+    const float DANGEROUS_RATE;
+    const float DYING_RATE;
 };
 

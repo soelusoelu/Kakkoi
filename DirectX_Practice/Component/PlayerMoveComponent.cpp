@@ -98,7 +98,7 @@ void PlayerMoveComponent::jumpUpdate() {
 
     //y = ax ^ 2 + bx + c
     //2次関数でジャンプ量調整
-    mX += 0.1f * -AvoidancePlayerActor::slowOfPlayer();
+    mX += 0.1f/* * -AvoidancePlayerActor::slowOfPlayer()*/;
     if (mRunningAvoidance) {
         return;
     }
@@ -194,7 +194,7 @@ void PlayerMoveComponent::attack() {
         return;
     }
     Vector2 pos = mSprite->getPosition();
-    pos += mDir == Direction::Left ? Vector2(-144.f, -48.f) : Vector2(96.f, -48.f);
+    pos += mDir == Direction::Left ? Vector2(-144.f, -64.f) : Vector2(64.f, -64.f);
 
     new PlayerAttack(dynamic_cast<PlayerActor*>(mOwner), pos);
     mCanAttack = false;
@@ -235,6 +235,6 @@ void PlayerMoveComponent::hit() {
 
 void PlayerMoveComponent::dead() {
     if (mHP->hp() <= 0) {
-        Actor::destroy(mOwner, 0.1f);
+        Actor::destroy(mOwner);
     }
 }

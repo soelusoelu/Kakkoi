@@ -11,9 +11,9 @@
 EnemyActor::EnemyActor(PlayerActor* player, const char* tag) :
     Actor(tag),
     mCircle(new CircleCollisionComponent(this)),
-    mHP(new HitPointComponent(this, 3000)),
+    mHP(new HitPointComponent(this, 5000)),
     mEnemyMove(new EnemyMoveComponent(this, player)),
-    mSprite(new SpriteComponent(this, "boss_left.png", Vector2(256.f, 256.f), 0.6f)) {
+    mSprite(new SpriteComponent(this, "boss_anime.png", Vector2(512.f, 512.f), 0.6f)) {
 }
 
 EnemyActor::~EnemyActor() = default;

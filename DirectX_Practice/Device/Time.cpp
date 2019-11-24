@@ -26,7 +26,11 @@ bool Time::isTime() const {
 }
 
 void Time::setLimitTime(float sec) {
-    mLimitTime = sec * 60.f;
+    mLimitTime = sec * 60.f + 0.5f;
+}
+
+int Time::getLimitTime() const {
+    return mLimitTime;
 }
 
 int Time::currentTimer() const {

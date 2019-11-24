@@ -10,7 +10,7 @@ class Time;
 
 class EnemyBullet1Component : public Component {
 public:
-    EnemyBullet1Component(Actor* onwer, Sprite* enemySprite, Sprite* playerSprite);
+    EnemyBullet1Component(Actor* onwer, Sprite* enemySprite, Sprite* playerSprite, float rate);
     ~EnemyBullet1Component();
     virtual void start() override;
     virtual void update() override;

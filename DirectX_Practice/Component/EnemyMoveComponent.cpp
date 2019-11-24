@@ -1,7 +1,7 @@
 #include "EnemyMoveComponent.h"
 #include "SpriteComponent.h"
 #include "../Actor/ComponentManagementOfActor.h"
-#include "../Actor/EnemyBullet1.h"
+#include "../Actor/EnemyBullet1Manager.h"
 #include "../Actor/EnemyBullet2Manager.h"
 #include "../Actor/PlayerActor.h"
 #include "../Component/CircleCollisionComponent.h"
@@ -21,10 +21,14 @@ EnemyMoveComponent::EnemyMoveComponent(Actor* onwer, PlayerActor* player) :
     mPlayerSprite(player->getComponentManager()->getComponent<SpriteComponent>()->getSprite()),
     mInvincibleTimer(std::make_unique<Time>(0.2f)),
     mIsInvincible(false),
-    mNextMoveTimer(std::make_unique<Time>(5.f)),
+    mNextMoveTimer(std::make_unique<Time>(3.f)),
     mNextPos(Vector2::zero),
     mIsEndMove(false),
-    mCompletedAttack(true) {
+    mCompletedAttack(true),
+    mDir(Direction::Left),
+    mMoveSpeed(0.01f),
+    DANGEROUS_RATE(0.5f),
+    DYING_RATE(0.25f) {
 }
 
 EnemyMoveComponent::~EnemyMoveComponent() = default;
@@ -32,7 +36,8 @@ EnemyMoveComponent::~EnemyMoveComponent() = default;
 void EnemyMoveComponent::start() {
     mMySprite = mOwner->getComponentManager()->getComponent<SpriteComponent>()->getSprite();
     mMySprite->setScale(0.5f, true);
-    mMySprite->setPosition(Vector2(Game::WINDOW_WIDTH / 2.f - mMySprite->getScreenTextureSize().x, Game::WINDOW_HEIGHT / 2.f + -mMySprite->getScreenTextureSize().y));
+    mMySprite->setPosition(Vector2(Game::WINDOW_WIDTH / 2.f - mMySprite->getScreenTextureSize().x, Game::WINDOW_HEIGHT / 2.f - mMySprite->getScreenTextureSize().y));
+    mMySprite->setUV(0.f, 0.f, 0.5f, 0.5f);
 
     mCircle = mOwner->getComponentManager()->getComponent<CircleCollisionComponent>();
     mHP = mOwner->getComponentManager()->getComponent<HitPointComponent>();
@@ -56,10 +61,25 @@ void EnemyMoveComponent::choiceAttack() {
     if (!mIsEndMove) {
         return;
     }
-    if (Random::randomRange(0, 100) < 30) {
-        attackToPlayer();
+
+    if (mHP->hpRate() < DYING_RATE) {
+        if (Random::randomRange(0, 100) < 30) {
+            attackToPlayer(3);
+        } else {
+            circleShot(12);
+        }
     } else {
-        circleShot();
+        if (Random::randomRange(0, 100) < 30) {
+            attackToPlayer(1);
+        } else {
+            circleShot(8);
+        }
+    }
+
+    if (mDir == Direction::Left) {
+        mMySprite->setUV(0.5f, 0.f, 1.f, 0.5f);
+    } else {
+        mMySprite->setUV(0.5f, 0.5f, 1.f, 1.f);
     }
 }
 
@@ -67,27 +87,35 @@ void EnemyMoveComponent::randomMove() {
     if (mCompletedAttack) {
         mNextPos = Vector2(
             Random::randomRange(0.f, Game::WINDOW_WIDTH - mMySprite->getScreenTextureSize().x),
-            Random::randomRange(Game::WINDOW_HEIGHT / 2.f, Game::WINDOW_HEIGHT - mMySprite->getScreenTextureSize().y)
+            Random::randomRange(Game::WINDOW_HEIGHT / 2.f - mMySprite->getScreenTextureSize().y, Game::WINDOW_HEIGHT - mMySprite->getScreenTextureSize().y)
         );
         mCompletedAttack = false;
+        mIsEndMove = false;
     }
-    mMySprite->setPosition(Vector2::lerp(mMySprite->getPosition(), mNextPos, 0.016f));
-    auto dis = Vector2::distance(mMySprite->getPosition(), mNextPos);
-    if (Vector2::distance(mMySprite->getPosition(), mNextPos) < 4.f) {
+    mMySprite->setPosition(Vector2::lerp(mMySprite->getPosition(), mNextPos, mMoveSpeed));
+
+    auto dir = mPlayerSprite->getPosition().x - mMySprite->getPosition().x;
+    mDir = dir < 0 ? Direction::Left : Direction::Right;
+
+    if (!mIsEndMove) {
+        if (mDir == Direction::Left) {
+            mMySprite->setUV(0.f, 0.f, 0.5f, 0.5f);
+        } else {
+            mMySprite->setUV(0.f, 0.5f, 0.5f, 1.f);
+        }
+    }
+
+    if (Vector2::distance(mMySprite->getPosition(), mNextPos) < 3.f) {
         mIsEndMove = true;
     }
 }
 
-void EnemyMoveComponent::attackToPlayer() {
-    new EnemyBullet1(mMySprite, mPlayerSprite, &mCompletedAttack);
+void EnemyMoveComponent::attackToPlayer(int shotCount) {
+    new EnemyBullet1Manager(mMySprite, mPlayerSprite, &mCompletedAttack, shotCount, mHP->hpRate());
 }
 
-void EnemyMoveComponent::circleShot() {
-    constexpr int shotCount = 8;
-    constexpr int rot = 360 / shotCount;
-    for (int i = 0; i < shotCount; i++) {
-        new EnemyBullet2Manager(mMySprite, &mCompletedAttack);
-    }
+void EnemyMoveComponent::circleShot(int shotCount) {
+    new EnemyBullet2Manager(mMySprite, &mCompletedAttack, shotCount, mHP->hpRate());
 }
 
 void EnemyMoveComponent::hit() {
@@ -106,6 +134,17 @@ void EnemyMoveComponent::hit() {
 
         auto damage = c->getOwner()->getComponentManager()->getComponent<DamageComponent>();
         mHP->takeDamage(damage->damage());
+
+        if (mHP->hpRate() < DANGEROUS_RATE && mHP->hpRate() >= DYING_RATE) {
+            //mMySprite->setColor(1.f, 1.f, 0.f);
+            mNextMoveTimer->setLimitTime(2.5f);
+            mMoveSpeed = 0.05f;
+        }
+        if (mHP->hpRate() < DYING_RATE) {
+            //mMySprite->setColor(1.f, 0.f, 0.f);
+            //mNextMoveTimer->setLimitTime(2.f);
+            mMoveSpeed = 0.1f;
+        }
     }
 }
 
@@ -119,6 +158,6 @@ void EnemyMoveComponent::invincible() {
 
 void EnemyMoveComponent::dead() {
     if (mHP->hp() <= 0) {
-        Actor::destroy(mOwner, 0.1f);
+        Actor::destroy(mOwner);
     }
 }

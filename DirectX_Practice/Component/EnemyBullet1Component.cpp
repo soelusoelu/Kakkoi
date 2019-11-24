@@ -7,13 +7,13 @@
 #include "../System/Game.h"
 #include "../UI/Sprite.h"
 
-EnemyBullet1Component::EnemyBullet1Component(Actor* onwer, Sprite* enemySprite, Sprite* playerSprite) :
+EnemyBullet1Component::EnemyBullet1Component(Actor* onwer, Sprite* enemySprite, Sprite* playerSprite, float rate) :
     Component(onwer),
     mSprite(nullptr),
     mEnemySprite(enemySprite),
     mPlayerSprite(playerSprite),
     mE2P(Vector2::zero),
-    mWaitingTimer(std::make_unique<Time>(2.5f)),
+    mWaitingTimer(std::make_unique<Time>(2.5f * rate)),
     BULLET_SPEED(5.f),
     MAX_SCALE(3.f),
     MIN_SCALE(1.5f),

@@ -161,6 +161,9 @@
     <ClCompile Include="Actor\EnemyBullet2Manager.cpp">
       <Filter>Actor</Filter>
     </ClCompile>
+    <ClCompile Include="Actor\EnemyBullet1Manager.cpp">
+      <Filter>Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utility\Input.h">
@@ -324,6 +327,9 @@
       <Filter>Component</Filter>
     </ClInclude>
     <ClInclude Include="Actor\EnemyBullet2Manager.h">
+      <Filter>Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor\EnemyBullet1Manager.h">
       <Filter>Actor</Filter>
     </ClInclude>
   </ItemGroup>

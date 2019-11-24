@@ -7,12 +7,12 @@
 #include "../System/Game.h"
 #include "../UI/Sprite.h"
 
-EnemyBullet2Component::EnemyBullet2Component(Actor* owner, Sprite* enemySprite, float rotation) :
+EnemyBullet2Component::EnemyBullet2Component(Actor* owner, Sprite* enemySprite, float rotation, float rate) :
     Component(owner),
     mSprite(nullptr),
     mEnemySprite(enemySprite),
     mVelocity(Vector2::zero),
-    mWaitingTimer(std::make_unique<Time>(1.f)),
+    mWaitingTimer(std::make_unique<Time>(1.f * rate)),
     ROTATION(rotation),
     BULLET_SPEED(7.f) {
     auto x = Math::cos(ROTATION * Math::deg2Rad);
