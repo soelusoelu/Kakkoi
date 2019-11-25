@@ -7,6 +7,7 @@
 #include "../Device/Physics.h"
 #include "../Device/Renderer.h"
 #include "../Device/Sound.h"
+#include "../System/Game.h"
 #include "../UI/Pause.h"
 #include "../UI/PlayerHPSP.h"
 #include "../UI/Sprite.h"
@@ -18,11 +19,15 @@
 GamePlay::GamePlay() :
     SceneBase(),
     mActorManager(std::make_shared<ActorManager>()),
-    mState(GameState::Play) {
+    mState(GameState::Play),
+    mSlowBlack(new Sprite("slow.png", Vector2(1080.f, 720.f), 0.05f)),
+    mEnd(nullptr),
+    mFade(nullptr) {
     auto p = new PlayerActor();
     auto e = new EnemyActor(p);
     mUIManager->add(new PlayerHPSP(p, e));
     new Sprite("bossroom.png", Vector2(1080.f, 720.f), 0.99f);
+    mSlowBlack->setAlpha(0.f);
 }
 
 GamePlay::~GamePlay() {
@@ -34,14 +39,33 @@ GamePlay::~GamePlay() {
 void GamePlay::updateScene() {
     if (mState == GameState::Play) {
         mActorManager->update();
+
         AvoidancePlayerActor::slowTime();
+        auto alpha = AvoidancePlayerActor::mSuccessedAvoidance ? 1.f : 0.f;
+        mSlowBlack->setAlpha(alpha);
 
         Physics::sweepAndPrune();
 
         if (Input::getKeyDown(KeyCode::Escape)) {
             mUIManager->add(new Pause(shared_from_this()));
         }
-        if (!mActorManager->getActor<EnemyActor>() || !mActorManager->getPlayer()) {
+        if (isEndGame()) {
+            mFade = new Sprite("fade.png", Vector2(1.f, 1.f), 0.01f);
+            mFade->setScale(Vector2(Game::WINDOW_WIDTH, Game::WINDOW_HEIGHT));
+            mFade->setAlpha(0.f);
+            mState = GameState::Fade;
+        }
+    } else if (mState == GameState::Fade) {
+        mFade->setAlpha(mFade->getColor().w + 0.01f);
+        if (mFade->getColor().w >= 1.f) {
+            mState = GameState::Result;
+        }
+    } else if (mState == GameState::Result) {
+        mEnd->setAlpha(mEnd->getColor().w + 0.01f);
+        if (mEnd->getColor().w > 1.f) {
+            mEnd->setAlpha(1.f);
+        }
+        if (Input::getKeyDown(KeyCode::Space)) {
             next(Scene::Title);
         }
     }
@@ -57,4 +81,18 @@ GameState GamePlay::getState() const {
 
 void GamePlay::setState(GameState state) {
     mState = state;
+}
+
+bool GamePlay::isEndGame() {
+    if (!mActorManager->getActor<EnemyActor>()) {
+        mEnd = new Sprite("gameclear.png", Vector2(1080.f, 720.f), 0.001f);
+        mEnd->setAlpha(0.f);
+        return true;
+    }
+    if (!mActorManager->getPlayer()) {
+        mEnd = new Sprite("gameover.png", Vector2(1080.f, 720.f), 0.001f);
+        mEnd->setAlpha(0.f);
+        return true;
+    }
+    return false;
 }

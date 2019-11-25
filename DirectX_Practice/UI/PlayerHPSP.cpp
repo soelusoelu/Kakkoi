@@ -12,18 +12,15 @@ PlayerHPSP::PlayerHPSP(PlayerActor* player, EnemyActor* enemy) :
     mPlayerHP(player->getComponentManager()->getComponent<HitPointComponent>()),
     mPlayerSP(player->getComponentManager()->getComponent<SPComponent>()),
     mEnemyHP(enemy->getComponentManager()->getComponent<HitPointComponent>()),
-    mHpGauge(new Sprite("HP.png", Vector2(256.f, 8.f), 0.01f)),
-    mSpGauge1(new Sprite("SP1.png", Vector2(256.f, 8.f), 0.03f)),
-    mSpGauge2(new Sprite("SP2.png", Vector2(256.f, 8.f), 0.02f)),
-    mSpGauge3(new Sprite("SP3.png", Vector2(256.f, 8.f), 0.01f)) {
+    mHpGauge(new Sprite("HP.png", Vector2(256.f, 11.f), 0.1f)),
+    mSpGauge1(new Sprite("SPGauge1.png", Vector2(256.f, 11.f), 0.1f)),
+    mSpGauge2(new Sprite("SPGauge2.png", Vector2(256.f, 11.f), 0.1f)),
+    mSpGauge3(new Sprite("SPGauge3.png", Vector2(256.f, 11.f), 0.1f)) {
     mHpGauge->setPosition(Vector2(32.f, 16.f));
     auto spPos = Vector2(32.f, mHpGauge->getScreenTextureSize().y + 24.f);
     mSpGauge1->setPosition(spPos);
-    mSpGauge1->setColor(0.3f, 0.3f, 0.5f);
-    mSpGauge2->setPosition(spPos + Vector2(8.f, 8.f));
-    mSpGauge2->setColor(0.2f, 0.2f, 0.75f);
-    mSpGauge3->setPosition(spPos + Vector2(16.f, 16.f));
-    mSpGauge3->setColor(0.1f, 0.1f, 1.f);
+    mSpGauge2->setPosition(spPos + Vector2(8.f, 11.f));
+    mSpGauge3->setPosition(spPos + Vector2(16.f, 22.f));
 
     addSprite(mHpGauge);
     addSprite(mSpGauge1);
@@ -35,7 +32,7 @@ PlayerHPSP::~PlayerHPSP() = default;
 
 void PlayerHPSP::update() {
     if (auto hp = mPlayerHP.lock()) {
-        mHpGauge->setUV(0.f, 0.f, hp->hpRate(), 1.f);
+        mHpGauge->setScale(Vector2(hp->hpRate(), 1.f));
     }
 
     if (auto spComp = mPlayerSP.lock()) {
@@ -44,24 +41,24 @@ void PlayerHPSP::update() {
         auto one = spComp->getOneGauge();
         float rate = static_cast<float>(sp) / static_cast<float>(one);
         if (0 <= sp && sp <= one) {
-            mSpGauge1->setUV(0.f, 0.f, rate, 1.f);
+            mSpGauge1->setScale(Vector2(rate, 1.f));
             mSpGauge2->setAlpha(0.f);
             mSpGauge3->setAlpha(0.f);
         } else if (one < sp && sp <= one * 2) {
             sp -= one;
             rate = static_cast<float>(sp) / static_cast<float>(one);
-            mSpGauge1->setUV(0.f, 0.f, 1.f, 1.f);
+            mSpGauge1->setScale(1.f);
             mSpGauge2->setAlpha(1.f);
-            mSpGauge2->setUV(0.f, 0.f, rate, 1.f);
+            mSpGauge2->setScale(Vector2(rate, 1.f));
             mSpGauge3->setAlpha(0.f);
         } else if (one * 2 < sp) {
             sp -= one * 2;
             rate = static_cast<float>(sp) / static_cast<float>(one);
-            mSpGauge1->setUV(0.f, 0.f, 1.f, 1.f);
+            mSpGauge1->setScale(1.f);
             mSpGauge2->setAlpha(1.f);
-            mSpGauge2->setUV(0.f, 0.f, 1.f, 1.f);
+            mSpGauge2->setScale(1.f);
             mSpGauge3->setAlpha(1.f);
-            mSpGauge3->setUV(0.f, 0.f, rate, 1.f);
+            mSpGauge3->setScale(Vector2(rate, 1.f));
         }
     }
 

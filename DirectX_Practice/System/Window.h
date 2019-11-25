@@ -9,6 +9,6 @@ public:
     HWND gethWnd() const;
 
 private:
-    HWND mHwnd;
+    HWND mhWnd;
 };
 

@@ -29,6 +29,7 @@ EnemyMoveComponent::EnemyMoveComponent(Actor* onwer, PlayerActor* player) :
     mMoveSpeed(0.01f),
     DANGEROUS_RATE(0.5f),
     DYING_RATE(0.25f),
+    MAX_SCALE(0.75f),
     mIsFirstMoving(true),
     mIsFirstMoving2(false) {
 }
@@ -59,11 +60,11 @@ void EnemyMoveComponent::update() {
 
 void EnemyMoveComponent::firstMoving() {
     if (mIsFirstMoving) {
-        mMySprite->setScale(mMySprite->getScale().x + 0.0025f, true);
+        mMySprite->setScale(mMySprite->getScale().x + 0.005f, true);
         mMySprite->rotate(10.f);
 
-        if (mMySprite->getScale().x >= 0.5f) {
-            mMySprite->setScale(0.5f, true);
+        if (mMySprite->getScale().x >= MAX_SCALE) {
+            mMySprite->setScale(MAX_SCALE, true);
             mMySprite->setRotation(0.f);
             mMySprite->setUV(0.5f, 0.f, 1.f, 1.f);
 

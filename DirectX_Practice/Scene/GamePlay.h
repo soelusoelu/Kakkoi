@@ -1,11 +1,14 @@
 ﻿#pragma once
 
 #include "SceneBase.h"
+#include "../UI/Sprite.h"
 #include <memory>
 
 enum class GameState {
     Play,
     Paused,
+    Fade,
+    Result,
     Quit
 };
 
@@ -22,6 +25,12 @@ public:
     void setState(GameState state);
 
 private:
+    bool isEndGame();
+
+private:
     std::shared_ptr<ActorManager> mActorManager;
     GameState mState;
+    Sprite* mSlowBlack;
+    Sprite* mEnd;
+    Sprite* mFade;
 };

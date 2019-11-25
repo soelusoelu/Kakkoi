@@ -23,13 +23,13 @@ HRESULT Window::initWindow(HINSTANCE hInstance, INT iX, INT iY, INT iWidth, INT 
     wc.hIconSm = LoadIcon(NULL, IDI_APPLICATION);
     RegisterClassEx(&wc);
     //ウィンドウの作成
-    mHwnd = CreateWindow(WindowName, WindowName, WS_OVERLAPPEDWINDOW, 0, 0, iWidth, iHeight, 0, 0, hInstance, 0);
-    if (!mHwnd) {
+    mhWnd = CreateWindow(WindowName, WindowName, WS_OVERLAPPEDWINDOW, 0, 0, iWidth, iHeight, 0, 0, hInstance, 0);
+    if (!mhWnd) {
         return E_FAIL;
     }
     //ウインドウの表示
-    ShowWindow(mHwnd, SW_SHOW);
-    UpdateWindow(mHwnd);
+    ShowWindow(mhWnd, SW_SHOW);
+    UpdateWindow(mhWnd);
 
     return S_OK;
 }
@@ -51,5 +51,5 @@ LRESULT Window::msgProc(HWND hWnd, UINT iMsg, WPARAM wParam, LPARAM lParam) {
 }
 
 HWND Window::gethWnd() const {
-    return mHwnd;
+    return mhWnd;
 }

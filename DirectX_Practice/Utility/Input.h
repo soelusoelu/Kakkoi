@@ -67,27 +67,47 @@ enum class KeyCode {
 
     None = 512
 };
+enum class JoyCode {
+    A = 0,
+    B = 1,
+    X = 2,
+    Y = 3,
+    LeftButton = 4,
+    RightButton = 5,
+    ViewButton = 6,
+    MenuButton = 7,
+    LeftStickButton = 8,
+    RightStickButton = 9,
+};
 
 class Input {
 public:
-    static HRESULT init(HWND hwnd);
+    static HRESULT init(HWND hWnd);
     static void end();
     static void update();
     //キーが押された瞬間
     static bool getKeyDown(KeyCode key);
+    static bool getJoyStickDown(JoyCode joy);
     //キーが押され続けているか
     static bool getKey(KeyCode key);
+    static bool getJoy(JoyCode joy);
     //キーが離れた瞬間
     static bool getKeyUp(KeyCode key);
+    static bool getJoyUp(JoyCode joy);
     //縦横
     static int horizontal();
     static int vertical();
 
+public:
+    static LPDIRECTINPUT8 mDinput;
+    static LPDIRECTINPUTDEVICE8 mPadDevice;
+
 private:
     static BYTE mCurrentKeys[256];
     static BYTE mPreviousKeys[256];
+    static DIJOYSTATE2 mCurrentJoyState;
+    static DIJOYSTATE2 mPreviousJoyState;
 
-    static LPDIRECTINPUT8 mDinput;
     static LPDIRECTINPUTDEVICE8 mKeyDevice;
 };
 

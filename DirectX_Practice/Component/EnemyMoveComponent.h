@@ -51,6 +51,7 @@ private:
     float mMoveSpeed;
     const float DANGEROUS_RATE;
     const float DYING_RATE;
+    const float MAX_SCALE;
     bool mIsFirstMoving;
     bool mIsFirstMoving2;
 };
