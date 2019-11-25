@@ -20,7 +20,7 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, INT) {
     delete game;
 
     //メモリリーク検出関数
-    _CrtDumpMemoryLeaks();
+    //_CrtDumpMemoryLeaks();
 
     return 0;
 }

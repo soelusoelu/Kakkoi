@@ -60,6 +60,8 @@ void PlayerHPSP::update() {
             mSpGauge3->setAlpha(1.f);
             mSpGauge3->setScale(Vector2(rate, 1.f));
         }
+    } else {
+        mHpGauge->setAlpha(0.f);
     }
 
     //if (auto eHP = mEnemyHP.lock()) {
