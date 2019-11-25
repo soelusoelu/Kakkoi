@@ -30,6 +30,9 @@ void EnemyBullet1Component::start() {
 
     mE2P = mPlayerSprite->getPosition() - mSprite->getPosition();
     mE2P.normalize();
+
+    auto right = mE2P.x > 0 ? mSprite->getScreenTextureSize().x : 0.f;
+    mSprite->translate(Vector2(mE2P.x * 100.f + right, 0.f));
 }
 
 void EnemyBullet1Component::update() {

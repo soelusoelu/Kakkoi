@@ -9,9 +9,11 @@
 #include "../Device/Sound.h"
 #include "../UI/Pause.h"
 #include "../UI/PlayerHPSP.h"
+#include "../UI/Sprite.h"
 #include "../UI/SpriteManager.h"
 #include "../UI/UIManager.h"
 #include "../Utility/Input.h"
+#include "../Utility/Math.h"
 
 GamePlay::GamePlay() :
     SceneBase(),
@@ -20,6 +22,7 @@ GamePlay::GamePlay() :
     auto p = new PlayerActor();
     auto e = new EnemyActor(p);
     mUIManager->add(new PlayerHPSP(p, e));
+    new Sprite("bossroom.png", Vector2(1080.f, 720.f), 0.99f);
 }
 
 GamePlay::~GamePlay() {

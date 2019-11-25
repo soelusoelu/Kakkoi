@@ -58,6 +58,7 @@ public:
     //World行列の取得
     const Matrix4 getWorld() const;
     //テクスチャの取得
+    void setTexture(const std::string& fileName, const Vector2& size);
     const std::shared_ptr<Texture> texture() const;
     //ファイル名の取得
     const std::string& fileName() const;
@@ -73,7 +74,7 @@ public:
     static bool mZSortFlag;
 
 private:
-    const Vector2 DEFAULT_SIZE;
+    Vector2 mDefaultSize;
     Vector2 mCurrentSize;
     Vector3 mPosition;
     Quaternion mRotation;

@@ -13,12 +13,11 @@ PlayerAttack::PlayerAttack(PlayerActor* player, const Vector2& pos, const char* 
     mCircle(new CircleCollisionComponent(this)),
     mDamage(new DamageComponent(this, 0)),
     mAttack(new PlayerAttackComponent(this, player)),
-    mSprite(new SpriteComponent(this, "sowrdEffect.png", Vector2(192.f, 192.f), 0.3f)) {
+    mSprite(new SpriteComponent(this, "sowrdEffect3.png", Vector2(155.f, 155.f), 0.3f)) {
     auto spComp = player->getComponentManager()->getComponent<SPComponent>();
     auto sp = spComp->sp();
     mDamage->setDamageOfPlayerAttack(spComp->computeGaugeCount(sp - 1));
     auto sprite = mSprite->getSprite();
-    //sprite->setScale(0.5f);
     sprite->setPosition(pos);
 }
 

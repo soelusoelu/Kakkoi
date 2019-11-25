@@ -194,7 +194,7 @@ void PlayerMoveComponent::attack() {
         return;
     }
     Vector2 pos = mSprite->getPosition();
-    pos += mDir == Direction::Left ? Vector2(-144.f, -64.f) : Vector2(64.f, -64.f);
+    pos += mDir == Direction::Left ? Vector2(-144.f, -64.f) : Vector2(96.f, -64.f);
 
     new PlayerAttack(dynamic_cast<PlayerActor*>(mOwner), pos);
     mCanAttack = false;

@@ -5,7 +5,7 @@
 #include <cassert>
 
 Sprite::Sprite(const std::string& fileName, const Vector2& size, float z) :
-    DEFAULT_SIZE(size),
+    mDefaultSize(size),
     mCurrentSize(size),
     mPosition(Vector2::zero, z),
     mRotation(Quaternion::identity),
@@ -25,18 +25,18 @@ Sprite::Sprite(const std::string& fileName, const Vector2& size, float z) :
 Sprite::~Sprite() = default;
 
 Sprite::Sprite(const Sprite & sprite) :
-    DEFAULT_SIZE(sprite.DEFAULT_SIZE),
+    mDefaultSize(sprite.mDefaultSize),
     mCurrentSize(sprite.mCurrentSize),
-    mPosition(Vector3(sprite.getPosition(), sprite.getDepth())),
-    mRotation(sprite.getRotation()),
-    mScale(sprite.getScale()),
-    mColor(sprite.getColor()),
-    mUV(sprite.getUV()),
-    mPivot(sprite.getPivot()),
-    mWorld(sprite.getWorld()),
+    mPosition(sprite.mPosition),
+    mRotation(sprite.mRotation),
+    mScale(sprite.mScale),
+    mColor(sprite.mColor),
+    mUV(sprite.mUV),
+    mPivot(sprite.mPivot),
+    mWorld(sprite.mWorld),
     mState(SpriteState::Active),
-    mTexture(sprite.texture()),
-    mFileName(sprite.fileName()),
+    mTexture(sprite.mTexture),
+    mFileName(sprite.mFileName),
     mWorldUpdateFlag(true) {
 }
 
@@ -176,8 +176,8 @@ void Sprite::setUV(float l, float t, float r, float b) {
     mUV.w = b;
 
     //サイズ修正
-    mCurrentSize.x = DEFAULT_SIZE.x * (r - l);
-    mCurrentSize.y = DEFAULT_SIZE.y * (b - t);
+    mCurrentSize.x = mDefaultSize.x * (r - l);
+    mCurrentSize.y = mDefaultSize.y * (b - t);
 
     //ピボット修正
     mPivot = mCurrentSize / 2.f;
@@ -201,7 +201,7 @@ const Vector2 Sprite::getPivot() const {
 }
 
 const Vector2 Sprite::getTextureSize() const {
-    return DEFAULT_SIZE;
+    return mDefaultSize;
 }
 
 const Vector2 Sprite::getScreenTextureSize() const {
@@ -222,6 +222,14 @@ const SpriteState Sprite::getState() const {
 
 const Matrix4 Sprite::getWorld() const {
     return mWorld;
+}
+
+void Sprite::setTexture(const std::string & fileName, const Vector2 & size) {
+    mDefaultSize = size;
+    mCurrentSize = size;
+    mPivot = mCurrentSize / 2.f;
+    mTexture = Renderer::getTexture(fileName);
+    mFileName = fileName;
 }
 
 const std::shared_ptr<Texture> Sprite::texture() const {
@@ -256,7 +264,7 @@ void Sprite::updateWorld() {
     mWorld *= Matrix4::createTranslation(mPosition + Vector3(mPivot, 0.f));
 }
 
-void Sprite::centerShift(const Vector2& nextScale) {
+void Sprite::centerShift(const Vector2 & nextScale) {
     auto PreviosSize = getScreenTextureSize();
     auto nextSize = mCurrentSize * nextScale;
     auto shift = (PreviosSize - nextSize) / 2.f;

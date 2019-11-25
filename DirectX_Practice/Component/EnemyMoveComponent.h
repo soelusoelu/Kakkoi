@@ -14,8 +14,8 @@ class Sprite;
 class Time;
 
 enum class Direction {
-    Left = 0,
-    Right = 1
+    Left,
+    Right
 };
 
 class EnemyMoveComponent : public Component {
@@ -26,6 +26,7 @@ public:
     virtual void update() override;
 
 private:
+    void firstMoving();
     void choiceAttack();
     void randomMove();
     void attackToPlayer(int shotCount);
@@ -50,5 +51,7 @@ private:
     float mMoveSpeed;
     const float DANGEROUS_RATE;
     const float DYING_RATE;
+    bool mIsFirstMoving;
+    bool mIsFirstMoving2;
 };
 
