@@ -166,6 +166,7 @@
     <ClCompile Include="Scene\GamePlay.cpp" />
     <ClCompile Include="Scene\SceneBase.cpp" />
     <ClCompile Include="Scene\SceneManager.cpp" />
+    <ClCompile Include="Scene\Sousa.cpp" />
     <ClCompile Include="Scene\Title.cpp" />
     <ClCompile Include="Shader\Shader.cpp" />
     <ClCompile Include="System\Direct3D11.cpp" />
@@ -223,6 +224,7 @@
     <ClInclude Include="Scene\GamePlay.h" />
     <ClInclude Include="Scene\SceneBase.h" />
     <ClInclude Include="Scene\SceneManager.h" />
+    <ClInclude Include="Scene\Sousa.h" />
     <ClInclude Include="Scene\Title.h" />
     <ClInclude Include="Shader\Shader.h" />
     <ClInclude Include="System\Direct3D11.h" />

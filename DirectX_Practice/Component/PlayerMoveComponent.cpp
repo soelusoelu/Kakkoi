@@ -187,7 +187,7 @@ void PlayerMoveComponent::canAttack() {
 }
 
 void PlayerMoveComponent::attack() {
-    if (!Input::getKeyDown(KeyCode::Z)) {
+    if (!Input::getKeyDown(KeyCode::LeftShift)) {
         return;
     }
     if (!mCanAttack) {

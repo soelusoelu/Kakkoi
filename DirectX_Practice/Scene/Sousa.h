@@ -2,10 +2,11 @@
 
 #include "SceneBase.h"
 
-class Title : public SceneBase {
+class Sousa : public SceneBase {
 public:
-    Title();
-    ~Title();
+    Sousa();
+    ~Sousa();
     virtual void updateScene() override;
     virtual void drawScene() const override;
 };
+

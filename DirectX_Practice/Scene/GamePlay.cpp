@@ -26,7 +26,7 @@ GamePlay::GamePlay() :
     auto p = new PlayerActor();
     auto e = new EnemyActor(p);
     mUIManager->add(new PlayerHPSP(p, e));
-    new Sprite("bossroom.png", Vector2(1080.f, 720.f), 0.99f);
+    new Sprite("gameplay.png", Vector2(1080.f, 720.f), 0.99f);
     mSlowBlack->setAlpha(0.f);
 }
 

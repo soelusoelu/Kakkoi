@@ -4,6 +4,7 @@
 
 enum class Scene {
     Title,
+    Sousa,
     GamePlay,
 
     None

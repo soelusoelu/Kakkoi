@@ -5,15 +5,15 @@
 #include "../Utility/Math.h"
 
 Title::Title() :
-    SceneBase(),
-    mSprite(new Sprite("Title.png", Vector2(1080.f, 720.f), 0.1f)) {
+    SceneBase() {
+    new Sprite("Title.png", Vector2(1080.f, 720.f), 0.1f);
 }
 
 Title::~Title() = default;
 
 void Title::updateScene() {
     if (Input::getKeyDown(KeyCode::Space)) {
-        next(Scene::GamePlay);
+        next(Scene::Sousa);
     }
 }
 
