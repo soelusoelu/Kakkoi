@@ -140,6 +140,7 @@
     <ClCompile Include="Actor\PlayerActor.cpp" />
     <ClCompile Include="Actor\PlayerAttack.cpp" />
     <ClCompile Include="Actor\SpecialAttack.cpp" />
+    <ClCompile Include="Actor\TakeDamageEffectActor.cpp" />
     <ClCompile Include="Camera\Camera.cpp" />
     <ClCompile Include="Component\AnimationComponent.cpp" />
     <ClCompile Include="Component\AvoidanceComponent.cpp" />
@@ -198,6 +199,7 @@
     <ClInclude Include="Actor\PlayerActor.h" />
     <ClInclude Include="Actor\PlayerAttack.h" />
     <ClInclude Include="Actor\SpecialAttack.h" />
+    <ClInclude Include="Actor\TakeDamageEffectActor.h" />
     <ClInclude Include="Camera\Camera.h" />
     <ClInclude Include="Component\AnimationComponent.h" />
     <ClInclude Include="Component\AvoidanceComponent.h" />

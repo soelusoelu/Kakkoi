@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "SceneBase.h"
+#include "../Device/Sound.h"
 #include "../UI/Sprite.h"
 #include <memory>
 
@@ -33,4 +34,5 @@ private:
     Sprite* mSlowBlack;
     Sprite* mEnd;
     Sprite* mFade;
+    std::shared_ptr<SoundInfo> mSound;
 };

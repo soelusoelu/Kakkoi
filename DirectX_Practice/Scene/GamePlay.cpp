@@ -6,7 +6,6 @@
 #include "../Camera/Camera.h"
 #include "../Device/Physics.h"
 #include "../Device/Renderer.h"
-#include "../Device/Sound.h"
 #include "../System/Game.h"
 #include "../UI/Pause.h"
 #include "../UI/PlayerHPSP.h"
@@ -28,12 +27,16 @@ GamePlay::GamePlay() :
     mUIManager->add(new PlayerHPSP(p, e));
     new Sprite("gameplay.png", Vector2(1080.f, 720.f), 0.99f);
     mSlowBlack->setAlpha(0.f);
+
+    mSound = Renderer::getSound("gameplay.wav");
+    mSound->play(true);
 }
 
 GamePlay::~GamePlay() {
     mActorManager->clear();
     Renderer::clear();
     Physics::clear();
+    mSound->stop();
 }
 
 void GamePlay::updateScene() {
@@ -87,11 +90,19 @@ bool GamePlay::isEndGame() {
     if (!mActorManager->getActor<EnemyActor>()) {
         mEnd = new Sprite("gameclear.png", Vector2(1080.f, 720.f), 0.001f);
         mEnd->setAlpha(0.f);
+        mSound->stop();
+        mSound.reset();
+        mSound = Renderer::getSound("gameclear.wav");
+        mSound->play();
         return true;
     }
     if (!mActorManager->getPlayer()) {
         mEnd = new Sprite("gameover.png", Vector2(1080.f, 720.f), 0.001f);
         mEnd->setAlpha(0.f);
+        mSound->stop();
+        mSound.reset();
+        mSound = Renderer::getSound("gameover.wav");
+        mSound->play();
         return true;
     }
     return false;

@@ -70,6 +70,21 @@ void Sound::load(const std::string& fileName, std::shared_ptr<SoundInfo> soundIn
     soundInfo->mWavSize = wavSize;
 }
 
+void SoundInfo::play(bool isLoop) {
+    XAUDIO2_BUFFER buffer = { 0 };
+    buffer.pAudioData = mWavBuffer;
+    buffer.Flags = XAUDIO2_END_OF_STREAM;
+    buffer.AudioBytes = mWavSize;
+    if (isLoop) {
+        buffer.LoopCount = XAUDIO2_LOOP_INFINITE;
+    }
+    if (FAILED(mSourceVoice->SubmitSourceBuffer(&buffer))) {
+        MessageBox(0, L"ソースボイスにサブミット失敗", 0, MB_OK);
+        return;
+    }
+    mSourceVoice->Start(0, XAUDIO2_COMMIT_NOW);
+}
+
 void Sound::play(const std::string& fileName, bool isLoop) {
     auto soundInfo = Renderer::getSound(fileName);
     XAUDIO2_BUFFER buffer = { 0 };
@@ -86,8 +101,8 @@ void Sound::play(const std::string& fileName, bool isLoop) {
     soundInfo->mSourceVoice->Start(0, XAUDIO2_COMMIT_NOW);
 }
 
-void Sound::stop() {
-    //mSourceVoice->Stop(0, XAUDIO2_COMMIT_NOW);
+void SoundInfo::stop() {
+    mSourceVoice->Stop(0, XAUDIO2_COMMIT_NOW);
 }
 
 IXAudio2* Sound::mXAudio2 = nullptr;

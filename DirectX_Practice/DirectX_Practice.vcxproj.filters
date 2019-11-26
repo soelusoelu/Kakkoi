@@ -167,6 +167,9 @@
     <ClCompile Include="Scene\Sousa.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
+    <ClCompile Include="Actor\TakeDamageEffectActor.cpp">
+      <Filter>Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utility\Input.h">
@@ -337,6 +340,9 @@
     </ClInclude>
     <ClInclude Include="Scene\Sousa.h">
       <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor\TakeDamageEffectActor.h">
+      <Filter>Actor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

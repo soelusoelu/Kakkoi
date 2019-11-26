@@ -5,6 +5,7 @@
 #include "../Actor/PlayerActor.h"
 #include "../Component/CircleCollisionComponent.h"
 #include "../Component/SPComponent.h"
+#include "../Device/Sound.h"
 #include "../Device/Time.h"
 
 AvoidanceComponent::AvoidanceComponent(Actor* onwer, PlayerActor* player) :
@@ -43,6 +44,8 @@ void AvoidanceComponent::update() {
                 spComp->set(currentMaxSP);
             }
             mAlreadyHeal = true;
+
+            Sound::play("heartbeats.wav");
         }
     }
 

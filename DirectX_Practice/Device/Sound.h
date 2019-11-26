@@ -19,6 +19,8 @@ struct SoundInfo {
         mSourceVoice->DestroyVoice();
         SAFE_DELETE(mWavBuffer);
     }
+    void play(bool isLoop = false);
+    void stop();
 };
 
 class Sound {
@@ -29,7 +31,6 @@ public:
     static void end();
     static void load(const std::string& fileName, std::shared_ptr<SoundInfo> soundInfo);
     static void play(const std::string& fileName, bool isLoop = false);
-    void stop();
 
 private:
     static IXAudio2* mXAudio2;

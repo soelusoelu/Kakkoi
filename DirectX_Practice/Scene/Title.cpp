@@ -1,4 +1,5 @@
 #include "Title.h"
+#include "../Device/Renderer.h"
 #include "../UI/Sprite.h"
 #include "../UI/SpriteManager.h"
 #include "../Utility/Input.h"
@@ -7,9 +8,13 @@
 Title::Title() :
     SceneBase() {
     new Sprite("Title.png", Vector2(1080.f, 720.f), 0.1f);
+    mSound = Renderer::getSound("Title.wav");
+    mSound->play(true);
 }
 
-Title::~Title() = default;
+Title::~Title() {
+    mSound->stop();
+}
 
 void Title::updateScene() {
     if (Input::getKeyDown(KeyCode::Space)) {

@@ -3,6 +3,7 @@
 #include "../Actor/AvoidancePlayerActor.h"
 #include "../Actor/ComponentManagementOfActor.h"
 #include "../Component/SpriteComponent.h"
+#include "../Device/Sound.h"
 #include "../Device/Time.h"
 #include "../System/Game.h"
 #include "../UI/Sprite.h"
@@ -52,6 +53,11 @@ void EnemyBullet1Component::move() {
     mWaitingTimer->update();
     if (!mWaitingTimer->isTime()) {
         return;
+    }
+    static bool first = true;
+    if (first) {
+        first = false;
+        Sound::play("boss_attak2.wav");
     }
 
     mSprite->translate(mE2P * BULLET_SPEED * AvoidancePlayerActor::slow());

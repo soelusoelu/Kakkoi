@@ -9,6 +9,7 @@
 #include "../Component/HitPointComponent.h"
 #include "../Component/SPComponent.h"
 #include "../Device/Random.h"
+#include "../Device/Sound.h"
 #include "../Device/Time.h"
 #include "../System/Game.h"
 #include "../UI/Sprite.h"
@@ -186,16 +187,15 @@ void EnemyMoveComponent::hit() {
         auto damage = c->getOwner()->getComponentManager()->getComponent<DamageComponent>();
         mHP->takeDamage(damage->damage());
 
+        Sound::play("boss_damage.wav");
+
         mMySprite->setColor(1.f, 0.f, 0.f);
 
         if (mHP->hpRate() < DANGEROUS_RATE && mHP->hpRate() >= DYING_RATE) {
-            //mMySprite->setColor(1.f, 1.f, 0.f);
             mNextMoveTimer->setLimitTime(2.5f);
             mMoveSpeed = 0.05f;
         }
         if (mHP->hpRate() < DYING_RATE) {
-            //mMySprite->setColor(1.f, 0.f, 0.f);
-            //mNextMoveTimer->setLimitTime(2.f);
             mMoveSpeed = 0.1f;
         }
     }

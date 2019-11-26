@@ -5,12 +5,14 @@
 #include "../Actor/PlayerActor.h"
 #include "../Actor/PlayerAttack.h"
 #include "../Actor/SpecialAttack.h"
+#include "../Actor/TakeDamageEffectActor.h"
 #include "../Component/AnimationComponent.h"
 #include "../Component/CircleCollisionComponent.h"
 #include "../Component/DamageComponent.h"
 #include "../Component/HitPointComponent.h"
 #include "../Component/SPComponent.h"
 #include "../Component/SpriteComponent.h"
+#include "../Device/Sound.h"
 #include "../Device/Time.h"
 #include "../System/Game.h"
 #include "../UI/Sprite.h"
@@ -89,6 +91,8 @@ void PlayerMoveComponent::jump() {
     mState = PlayerState::Jump;
     mCurrentJumpPower = 0.f;
     mX = 0.f;
+
+    Sound::play("jump.wav");
 }
 
 void PlayerMoveComponent::jumpUpdate() {
@@ -187,7 +191,7 @@ void PlayerMoveComponent::canAttack() {
 }
 
 void PlayerMoveComponent::attack() {
-    if (!Input::getKeyDown(KeyCode::LeftShift)) {
+    if (!Input::getKeyDown(KeyCode::LeftShift) && !Input::getKeyDown(KeyCode::RightShift)) {
         return;
     }
     if (!mCanAttack) {
@@ -198,6 +202,8 @@ void PlayerMoveComponent::attack() {
 
     new PlayerAttack(dynamic_cast<PlayerActor*>(mOwner), pos);
     mCanAttack = false;
+
+    Sound::play("player_attak.wav");
 }
 
 void PlayerMoveComponent::specialAttack() {
@@ -230,6 +236,10 @@ void PlayerMoveComponent::hit() {
 
         auto damage = c->getOwner()->getComponentManager()->getComponent<DamageComponent>();
         mHP->takeDamage(damage->damage());
+
+        Sound::play("damage6.wav");
+
+        new TakeDamageEffectActor();
     }
 }
 
