@@ -14,5 +14,4 @@ public:
 
 private:
     Sprite* mSprite;
-    Vector2 mPos;
 };

@@ -46,9 +46,9 @@ void GamePlay::updateScene() {
 
         Physics::sweepAndPrune();
 
-        if (Input::getKeyDown(KeyCode::Escape)) {
-            mUIManager->add(new Pause(shared_from_this()));
-        }
+        //if (Input::getKeyDown(KeyCode::Escape)) {
+        //    mUIManager->add(new Pause(shared_from_this()));
+        //}
         if (isEndGame()) {
             mFade = new Sprite("fade.png", Vector2(1.f, 1.f), 0.01f);
             mFade->setScale(Vector2(Game::WINDOW_WIDTH, Game::WINDOW_HEIGHT));
