@@ -78,7 +78,7 @@ void PlayerMoveComponent::move() {
 }
 
 void PlayerMoveComponent::jump() {
-    if (!Input::getKeyDown(KeyCode::Space)) {
+    if (!Input::getKeyDown(KeyCode::W) && !Input::getKeyDown(KeyCode::UpArrow)) {
         return;
     }
     if (mState != PlayerState::OnGround) {
@@ -121,7 +121,7 @@ void PlayerMoveComponent::fall() {
 }
 
 void PlayerMoveComponent::avoidance() {
-    if (!Input::getKeyDown(KeyCode::LeftControl)) {
+    if (!Input::getKeyDown(KeyCode::Space)) {
         return;
     }
     if (mRunningAvoidance) {
