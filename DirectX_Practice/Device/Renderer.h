@@ -1,6 +1,5 @@
 ﻿#pragma once
 
-#include "../Device/Sound.h"
 #include "../Shader/Shader.h"
 #include "../Utility/Math.h"
 #include <memory>
@@ -9,6 +8,7 @@
 
 class Sprite;
 class Texture;
+struct SoundInfo;
 
 class Renderer {
 public:

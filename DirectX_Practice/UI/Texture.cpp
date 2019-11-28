@@ -70,10 +70,10 @@ void Texture::drawAll(std::list<std::shared_ptr<Sprite>>* sprites) {
         if (SUCCEEDED(Direct3D11::mDeviceContext->Map(mShader->mConstantBuffer0, 0, D3D11_MAP_WRITE_DISCARD, 0, &pData))) {
             TextureShaderConstantBuffer cb;
             //ワールド、カメラ、射影行列を渡す
-            Matrix4 m = sprite->getWorld();
-            m *= proj;
-            m.transpose();
-            cb.mWP = m;
+            cb.mWorld = sprite->getWorld();
+            cb.mWorld.transpose();
+            cb.mProjection = proj;
+            cb.mProjection.transpose();
             cb.mColor = sprite->getColor();
             cb.mUV = sprite->getUV();
             memcpy_s(pData.pData, pData.RowPitch, (void*)(&cb), sizeof(cb));

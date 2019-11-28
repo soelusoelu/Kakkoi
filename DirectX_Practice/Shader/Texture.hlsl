@@ -3,7 +3,8 @@ Texture2D g_texDecal : register(t0); //テクスチャーは レジスターt(n)
 SamplerState g_samLinear : register(s0); //サンプラーはレジスターs(n)
 
 cbuffer global {
-    matrix gWP; //ワールドから射影までの変換行列
+    matrix gWorld;
+    matrix gProjection;
     float4 gColor;
     float4 gUV;
 };
@@ -19,7 +20,8 @@ struct VS_OUTPUT {
 //
 VS_OUTPUT VS(float4 Pos : POSITION, float2 Tex : TEXCOORD) {
     VS_OUTPUT output = (VS_OUTPUT)0;
-    output.Pos = mul(Pos, gWP);
+    output.Pos = mul(Pos, gWorld);
+    output.Pos = mul(output.Pos, gProjection);
     output.Tex = Tex * float2(gUV.z - gUV.x, gUV.w - gUV.y) + float2(gUV.x, gUV.y);
 
     return output;

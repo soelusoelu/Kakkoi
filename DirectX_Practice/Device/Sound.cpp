@@ -30,8 +30,8 @@ HRESULT Sound::init() {
 }
 
 void Sound::end() {
-    SAFE_RELEASE(mXAudio2);
-    CoUninitialize();
+    //SAFE_RELEASE(mXAudio2);
+    //CoUninitialize();
 }
 
 void Sound::load(const std::string& fileName, std::shared_ptr<SoundInfo> soundInfo) {
